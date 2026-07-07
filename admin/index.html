@@ -1,11 +1,780 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>پنل ادمین | حسین سعادتی</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>پنل ادمین | حسین سعادتی</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Vazirmatn',sans-serif;background:#f0f4ff;direction:rtl;min-height:100vh}
+
+/* LOGIN */
+#login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(160deg,#0f1729 0%,#0d2145 100%)}
+.login-box{background:#fff;border-radius:20px;padding:2.5rem;width:100%;max-width:400px;box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+.login-logo{text-align:center;margin-bottom:2rem;font-size:1.4rem;font-weight:900;background:linear-gradient(135deg,#1a6cff,#5b4fff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.login-box h2{text-align:center;color:#1a1f36;font-size:1rem;margin-bottom:1.5rem;font-weight:500}
+.login-box input{width:100%;padding:0.9rem 1rem;border:1.5px solid rgba(26,108,255,0.2);border-radius:10px;font-family:'Vazirmatn',sans-serif;font-size:1rem;outline:none;transition:border-color 0.2s;margin-bottom:1rem;direction:ltr}
+.login-box input:focus{border-color:#1a6cff}
+.login-btn{width:100%;padding:0.9rem;background:linear-gradient(135deg,#1a6cff,#5b4fff);color:#fff;border:none;border-radius:10px;font-family:'Vazirmatn',sans-serif;font-size:1rem;font-weight:700;cursor:pointer}
+.login-error{color:#e53e3e;font-size:0.85rem;text-align:center;margin-top:0.5rem;display:none}
+
+/* LAYOUT */
+#admin-panel{display:none;min-height:100vh;flex-direction:column}
+.admin-nav{background:linear-gradient(135deg,#0f1729,#0d2145);padding:0.85rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.admin-nav-logo{color:#fff;font-size:1rem;font-weight:900}
+.admin-nav-logo span{color:#7ab8ff}
+.nav-actions{display:flex;gap:0.5rem;align-items:center}
+.logout-btn{background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);padding:0.35rem 0.9rem;border-radius:8px;cursor:pointer;font-family:'Vazirmatn',sans-serif;font-size:0.82rem}
+
+.admin-layout{display:flex;flex:1;min-height:calc(100vh - 52px)}
+
+/* SIDEBAR */
+.sidebar{width:220px;background:#fff;border-left:1px solid rgba(26,108,255,0.1);padding:1.5rem 0;flex-shrink:0;position:sticky;top:52px;height:calc(100vh - 52px);overflow-y:auto}
+.sidebar-section{margin-bottom:1.5rem}
+.sidebar-label{font-size:0.7rem;color:#6b7a99;font-weight:700;padding:0 1.25rem;margin-bottom:0.5rem;letter-spacing:0.08em;text-transform:uppercase}
+.sidebar-item{display:flex;align-items:center;gap:0.6rem;padding:0.6rem 1.25rem;color:#4a5568;font-size:0.88rem;cursor:pointer;transition:all 0.15s;border-right:3px solid transparent}
+.sidebar-item:hover{background:rgba(26,108,255,0.05);color:#1a6cff}
+.sidebar-item.active{background:rgba(26,108,255,0.08);color:#1a6cff;border-right-color:#1a6cff;font-weight:600}
+.sidebar-item .icon{font-size:1rem;width:20px;text-align:center}
+
+/* MAIN */
+.main-content{flex:1;padding:2rem;overflow-y:auto}
+.page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem}
+.page-title{font-size:1.3rem;font-weight:800;color:#1a1f36}
+.btn-primary{background:linear-gradient(135deg,#1a6cff,#5b4fff);color:#fff;border:none;padding:0.6rem 1.25rem;border-radius:10px;font-family:'Vazirmatn',sans-serif;font-size:0.88rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px}
+.btn-secondary{background:#fff;color:#4a5568;border:1.5px solid rgba(26,108,255,0.2);padding:0.6rem 1.25rem;border-radius:10px;font-family:'Vazirmatn',sans-serif;font-size:0.88rem;cursor:pointer}
+
+/* DASHBOARD CARDS */
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2rem}
+.stat-card{background:#fff;border-radius:14px;padding:1.25rem;border:1px solid rgba(26,108,255,0.08);box-shadow:0 2px 12px rgba(26,108,255,0.04)}
+.stat-number{font-size:2rem;font-weight:900;background:linear-gradient(135deg,#1a6cff,#5b4fff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat-label{font-size:0.82rem;color:#6b7a99;margin-top:4px}
+
+/* ARTICLES TABLE */
+.table-card{background:#fff;border-radius:14px;border:1px solid rgba(26,108,255,0.08);overflow:hidden;box-shadow:0 2px 12px rgba(26,108,255,0.04)}
+.table-head{display:grid;grid-template-columns:1fr 120px 120px 100px;padding:0.85rem 1.25rem;background:rgba(26,108,255,0.04);border-bottom:1px solid rgba(26,108,255,0.08);font-size:0.78rem;color:#6b7a99;font-weight:700}
+.table-row{display:grid;grid-template-columns:1fr 120px 120px 100px;padding:0.9rem 1.25rem;border-bottom:1px solid rgba(26,108,255,0.06);align-items:center;transition:background 0.15s}
+.table-row:hover{background:rgba(26,108,255,0.02)}
+.table-row:last-child{border-bottom:none}
+.art-title-cell{font-size:0.88rem;font-weight:600;color:#1a1f36}
+.art-tag-cell{font-size:0.75rem}
+.tag-badge{display:inline-block;background:rgba(26,108,255,0.1);color:#1a6cff;padding:2px 10px;border-radius:20px;font-size:0.72rem;font-weight:600}
+.art-date-cell{font-size:0.8rem;color:#6b7a99}
+.art-actions{display:flex;gap:0.4rem}
+.edit-btn{background:rgba(26,108,255,0.1);color:#1a6cff;border:none;padding:0.3rem 0.7rem;border-radius:6px;cursor:pointer;font-size:0.75rem;font-family:'Vazirmatn',sans-serif}
+.del-btn{background:rgba(229,62,62,0.1);color:#e53e3e;border:none;padding:0.3rem 0.7rem;border-radius:6px;cursor:pointer;font-size:0.75rem;font-family:'Vazirmatn',sans-serif}
+
+/* EDITOR */
+.editor-card{background:#fff;border-radius:14px;border:1px solid rgba(26,108,255,0.08);box-shadow:0 2px 12px rgba(26,108,255,0.04);overflow:hidden}
+.editor-meta{display:grid;grid-template-columns:1fr 1fr;gap:1rem;padding:1.5rem;border-bottom:1px solid rgba(26,108,255,0.08)}
+.editor-meta-full{grid-column:1/-1}
+.form-group{display:flex;flex-direction:column;gap:0.4rem}
+.form-label{font-size:0.78rem;color:#6b7a99;font-weight:600}
+.form-input{padding:0.7rem 1rem;border:1.5px solid rgba(26,108,255,0.15);border-radius:10px;font-family:'Vazirmatn',sans-serif;font-size:0.9rem;color:#1a1f36;outline:none;transition:border-color 0.2s}
+.form-input:focus{border-color:#1a6cff;box-shadow:0 0 0 3px rgba(26,108,255,0.08)}
+
+/* TOOLBAR */
+.editor-toolbar{display:flex;flex-wrap:wrap;gap:4px;padding:0.75rem 1rem;border-bottom:1px solid rgba(26,108,255,0.08);background:rgba(26,108,255,0.02)}
+.tb-group{display:flex;gap:2px;padding-left:8px;margin-left:4px;border-left:1px solid rgba(26,108,255,0.15)}
+.tb-group:last-child{border-left:none}
+.tb-btn{background:#fff;border:1px solid rgba(26,108,255,0.15);border-radius:6px;padding:5px 9px;cursor:pointer;font-size:0.8rem;color:#4a5568;transition:all 0.15s;font-family:'Vazirmatn',sans-serif;display:flex;align-items:center;gap:4px}
+.tb-btn:hover{background:rgba(26,108,255,0.08);color:#1a6cff;border-color:rgba(26,108,255,0.3)}
+.tb-btn.active{background:rgba(26,108,255,0.12);color:#1a6cff;border-color:#1a6cff}
+.tb-select{border:1px solid rgba(26,108,255,0.15);border-radius:6px;padding:5px 8px;font-family:'Vazirmatn',sans-serif;font-size:0.8rem;color:#4a5568;background:#fff;cursor:pointer;outline:none}
+
+/* EDITABLE AREA */
+.editor-body{padding:1.5rem;min-height:400px}
+#editor-content{min-height:380px;outline:none;font-family:'Vazirmatn',sans-serif;font-size:0.97rem;line-height:2;color:#2d3456;direction:rtl}
+#editor-content:empty::before{content:'متن مقاله را اینجا بنویسید...';color:#a0aec0}
+#editor-content h1{font-size:1.6rem;font-weight:800;margin:1rem 0 0.5rem;color:#1a1f36}
+#editor-content h2{font-size:1.3rem;font-weight:700;margin:1rem 0 0.5rem;color:#1a1f36;border-right:4px solid #1a6cff;padding-right:0.75rem}
+#editor-content h3{font-size:1.1rem;font-weight:700;margin:0.8rem 0 0.4rem;color:#5b4fff}
+#editor-content blockquote{border-right:4px solid #1a6cff;padding:0.75rem 1rem;margin:1rem 0;background:rgba(26,108,255,0.05);border-radius:0 8px 8px 0;color:#4a5568;font-style:italic}
+#editor-content table{border-collapse:collapse;width:100%;margin:1rem 0}
+#editor-content td,#editor-content th{border:1px solid rgba(26,108,255,0.2);padding:0.6rem 0.9rem;text-align:right}
+#editor-content th{background:rgba(26,108,255,0.08);font-weight:700}
+#editor-content img{max-width:100%;border-radius:8px;margin:0.5rem 0}
+#editor-content a{color:#1a6cff;text-decoration:underline}
+#editor-content ul,#editor-content ol{padding-right:1.5rem;margin:0.5rem 0}
+
+/* IMAGE UPLOAD */
+.img-upload-zone{border:2px dashed rgba(26,108,255,0.3);border-radius:12px;padding:2rem;text-align:center;cursor:pointer;transition:all 0.2s;background:rgba(26,108,255,0.02)}
+.img-upload-zone:hover{border-color:#1a6cff;background:rgba(26,108,255,0.05)}
+.img-upload-zone p{color:#6b7a99;font-size:0.88rem;margin-top:0.5rem}
+
+/* COLOR PICKER */
+.color-picker-wrap{position:relative;display:inline-block}
+.color-picker-wrap input[type=color]{width:30px;height:28px;border:1px solid rgba(26,108,255,0.2);border-radius:6px;cursor:pointer;padding:2px}
+
+/* SUCCESS MSG */
+.success-toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:#276749;color:#fff;padding:0.75rem 1.5rem;border-radius:12px;font-size:0.9rem;display:none;z-index:999;box-shadow:0 4px 20px rgba(0,0,0,0.2)}
+
+/* TABLE DIALOG */
+.dialog-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);display:none;align-items:center;justify-content:center;z-index:200}
+.dialog-box{background:#fff;border-radius:16px;padding:2rem;width:320px;box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+.dialog-box h3{font-size:1rem;font-weight:700;margin-bottom:1rem;color:#1a1f36}
+.dialog-row{display:flex;gap:1rem;margin-bottom:1rem}
+.dialog-row .form-group{flex:1}
+.dialog-actions{display:flex;gap:0.5rem;justify-content:flex-end;margin-top:1rem}
+
+/* LINK DIALOG */
+#link-dialog{position:fixed;inset:0;background:rgba(0,0,0,0.5);display:none;align-items:center;justify-content:center;z-index:200}
+
+@media(max-width:768px){
+  .sidebar{display:none}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .editor-meta{grid-template-columns:1fr}
+  .table-head,.table-row{grid-template-columns:1fr 80px 80px}
+}
+</style>
 </head>
 <body>
-  <script src="https://unpkg.com/sveltia-cms/dist/sveltia-cms.js"></script>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">حسین سعادتی</div>
+    <h2>ورود به پنل مدیریت محتوا</h2>
+    <input type="password" id="pass-input" placeholder="رمز عبور" onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="login-btn" onclick="doLogin()">ورود</button>
+    <p class="login-error" id="login-error">رمز عبور اشتباه است!</p>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div id="admin-panel">
+  <nav class="admin-nav">
+    <div class="admin-nav-logo">پنل مدیریت | <span>hsaadati.ir</span></div>
+    <div class="nav-actions">
+      <a href="/" target="_blank" style="color:#7ab8ff;font-size:0.82rem;text-decoration:none">🌐 مشاهده سایت</a>
+      <button class="logout-btn" onclick="doLogout()">خروج</button>
+    </div>
+  </nav>
+
+  <div class="admin-layout">
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-label">منو</div>
+        <div class="sidebar-item active" onclick="showPage('dashboard')" id="nav-dashboard">
+          <span class="icon">📊</span> داشبورد
+        </div>
+        <div class="sidebar-item" onclick="showPage('articles')" id="nav-articles">
+          <span class="icon">📝</span> مقالات
+        </div>
+        <div class="sidebar-item" onclick="showPage('new-article')" id="nav-new-article">
+          <span class="icon">➕</span> مقاله جدید
+        </div>
+        <div class="sidebar-item" onclick="showPage('media')" id="nav-media">
+          <span class="icon">🖼️</span> رسانه‌ها
+        </div>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-label">راهنما</div>
+        <div class="sidebar-item" onclick="showPage('guide')" id="nav-guide">
+          <span class="icon">📖</span> راهنمای انتشار
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main-content" id="main-content">
+
+      <!-- DASHBOARD -->
+      <div id="page-dashboard">
+        <div class="page-header">
+          <div class="page-title">داشبورد</div>
+          <button class="btn-primary" onclick="showPage('new-article')">✏️ مقاله جدید</button>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-number" id="stat-total">0</div>
+            <div class="stat-label">کل مقالات</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="stat-this-month">0</div>
+            <div class="stat-label">این ماه</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="stat-media">0</div>
+            <div class="stat-label">تصاویر آپلود شده</div>
+          </div>
+        </div>
+        <div class="table-card">
+          <div class="table-head">
+            <div>عنوان مقاله</div>
+            <div>دسته‌بندی</div>
+            <div>تاریخ</div>
+            <div>عملیات</div>
+          </div>
+          <div id="dashboard-articles-list"></div>
+        </div>
+      </div>
+
+      <!-- ARTICLES -->
+      <div id="page-articles" style="display:none">
+        <div class="page-header">
+          <div class="page-title">مقالات</div>
+          <button class="btn-primary" onclick="showPage('new-article')">✏️ مقاله جدید</button>
+        </div>
+        <div class="table-card">
+          <div class="table-head">
+            <div>عنوان مقاله</div>
+            <div>دسته‌بندی</div>
+            <div>تاریخ</div>
+            <div>عملیات</div>
+          </div>
+          <div id="articles-list"></div>
+        </div>
+      </div>
+
+      <!-- NEW/EDIT ARTICLE -->
+      <div id="page-new-article" style="display:none">
+        <div class="page-header">
+          <div class="page-title" id="editor-page-title">مقاله جدید</div>
+          <div style="display:flex;gap:0.5rem">
+            <button class="btn-secondary" onclick="showPage('articles')">انصراف</button>
+            <button class="btn-primary" onclick="saveArticle()">💾 ذخیره مقاله</button>
+          </div>
+        </div>
+        <div class="editor-card">
+          <!-- META -->
+          <div class="editor-meta">
+            <div class="form-group editor-meta-full">
+              <label class="form-label">عنوان مقاله *</label>
+              <input type="text" class="form-input" id="art-title" placeholder="عنوان مقاله را بنویسید...">
+            </div>
+            <div class="form-group">
+              <label class="form-label">دسته‌بندی</label>
+              <input type="text" class="form-input" id="art-tag" placeholder="مثلاً: تحلیل کسب‌وکار">
+            </div>
+            <div class="form-group">
+              <label class="form-label">تاریخ انتشار</label>
+              <input type="text" class="form-input" id="art-date" placeholder="مثلاً: مرداد ۱۴۰۳">
+            </div>
+            <div class="form-group">
+              <label class="form-label">زمان مطالعه</label>
+              <input type="text" class="form-input" id="art-readtime" placeholder="مثلاً: ۱۰ دقیقه">
+            </div>
+            <div class="form-group">
+              <label class="form-label">خلاصه (برای صفحه اصلی)</label>
+              <input type="text" class="form-input" id="art-excerpt" placeholder="یک جمله کوتاه درباره مقاله...">
+            </div>
+          </div>
+
+          <!-- TOOLBAR -->
+          <div class="editor-toolbar">
+            <!-- Headings -->
+            <div class="tb-group">
+              <select class="tb-select" onchange="formatBlock(this.value);this.value=''">
+                <option value="">پاراگراف</option>
+                <option value="h1">عنوان ۱</option>
+                <option value="h2">عنوان ۲</option>
+                <option value="h3">عنوان ۳</option>
+                <option value="p">متن عادی</option>
+                <option value="blockquote">نقل قول</option>
+              </select>
+            </div>
+            <!-- Font style -->
+            <div class="tb-group">
+              <button class="tb-btn" onclick="fmt('bold')" title="بولد"><b>B</b></button>
+              <button class="tb-btn" onclick="fmt('italic')" title="ایتالیک"><i>I</i></button>
+              <button class="tb-btn" onclick="fmt('underline')" title="زیرخط"><u>U</u></button>
+              <button class="tb-btn" onclick="fmt('strikeThrough')" title="خط روی متن"><s>S</s></button>
+            </div>
+            <!-- Color -->
+            <div class="tb-group">
+              <div class="color-picker-wrap" title="رنگ متن">
+                🎨 <input type="color" value="#1a6cff" onchange="fmt('foreColor',this.value)" title="رنگ متن">
+              </div>
+              <div class="color-picker-wrap" title="رنگ پس‌زمینه">
+                🖍️ <input type="color" value="#ffff00" onchange="fmt('hiliteColor',this.value)" title="هایلایت">
+              </div>
+            </div>
+            <!-- Lists -->
+            <div class="tb-group">
+              <button class="tb-btn" onclick="fmt('insertUnorderedList')" title="لیست نقطه‌ای">• لیست</button>
+              <button class="tb-btn" onclick="fmt('insertOrderedList')" title="لیست شماره‌ای">۱. لیست</button>
+            </div>
+            <!-- Align -->
+            <div class="tb-group">
+              <button class="tb-btn" onclick="fmt('justifyRight')" title="راست‌چین">⬛ راست</button>
+              <button class="tb-btn" onclick="fmt('justifyCenter')" title="وسط‌چین">⬛ وسط</button>
+              <button class="tb-btn" onclick="fmt('justifyLeft')" title="چپ‌چین">⬛ چپ</button>
+            </div>
+            <!-- Table & Image & Link -->
+            <div class="tb-group">
+              <button class="tb-btn" onclick="openTableDialog()" title="درج جدول">📊 جدول</button>
+              <button class="tb-btn" onclick="insertImage()" title="درج تصویر">🖼️ تصویر</button>
+              <button class="tb-btn" onclick="insertLink()" title="درج لینک">🔗 لینک</button>
+            </div>
+            <!-- Clear -->
+            <div class="tb-group">
+              <button class="tb-btn" onclick="fmt('removeFormat')" title="حذف استایل">🧹 پاک</button>
+            </div>
+          </div>
+
+          <!-- EDITOR -->
+          <div class="editor-body">
+            <div id="editor-content" contenteditable="true" spellcheck="false"></div>
+          </div>
+        </div>
+        <input type="hidden" id="editing-id">
+      </div>
+
+      <!-- MEDIA -->
+      <div id="page-media" style="display:none">
+        <div class="page-header">
+          <div class="page-title">رسانه‌ها</div>
+        </div>
+        <div class="editor-card" style="padding:1.5rem">
+          <div class="img-upload-zone" onclick="document.getElementById('media-file-input').click()">
+            <div style="font-size:2.5rem">🖼️</div>
+            <p>کلیک کن یا تصویر را اینجا بکش</p>
+            <p style="font-size:0.75rem;margin-top:0.25rem">JPG, PNG, GIF, WebP</p>
+            <input type="file" id="media-file-input" accept="image/*" multiple style="display:none" onchange="handleMediaUpload(this)">
+          </div>
+          <div id="media-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1rem;margin-top:1.5rem"></div>
+        </div>
+      </div>
+
+      <!-- GUIDE -->
+      <div id="page-guide" style="display:none">
+        <div class="page-header"><div class="page-title">راهنمای انتشار</div></div>
+        <div class="editor-card" style="padding:2rem">
+          <div style="background:rgba(26,108,255,0.05);border:1px solid rgba(26,108,255,0.15);border-radius:12px;padding:1.5rem;margin-bottom:1rem;line-height:2;font-size:0.9rem;color:#4a5568">
+            <strong style="color:#1a6cff">قدم ۱ —</strong> مقاله را بنویس و ذخیره کن<br>
+            <strong style="color:#1a6cff">قدم ۲ —</strong> برو به لیست مقالات و روی «کپی HTML» کلیک کن<br>
+            <strong style="color:#1a6cff">قدم ۳ —</strong> برو به <strong>github.com/hosseinsaadati/hossein-saadati.github.io</strong><br>
+            <strong style="color:#1a6cff">قدم ۴ —</strong> روی <strong>Add file → Create new file</strong> کلیک کن<br>
+            <strong style="color:#1a6cff">قدم ۵ —</strong> اسم فایل: <strong>articles/اسم-مقاله.html</strong><br>
+            <strong style="color:#1a6cff">قدم ۶ —</strong> HTML کپی‌شده را paste کن و Commit بزن<br>
+            <strong style="color:#1a6cff">قدم ۷ —</strong> فایل <strong>articles/index.json</strong> را آپدیت کن<br>
+            <strong style="color:#1a6cff">قدم ۸ —</strong> چند دقیقه صبر کن — مقاله روی سایت ظاهر می‌شود ✅
+          </div>
+          <div style="background:rgba(255,200,0,0.08);border:1px solid rgba(255,200,0,0.3);border-radius:12px;padding:1rem 1.5rem;font-size:0.88rem;color:#744210">
+            💡 <strong>نکته:</strong> هر بار که مقاله جدیدی داری، متن را اینجا بنویس، سپس از دکمه «کپی HTML» استفاده کن و به من (Claude) بگو تا index.json آپدیت‌شده را برایت بسازم.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- TABLE DIALOG -->
+<div class="dialog-overlay" id="table-dialog">
+  <div class="dialog-box">
+    <h3>📊 درج جدول</h3>
+    <div class="dialog-row">
+      <div class="form-group">
+        <label class="form-label">تعداد ردیف</label>
+        <input type="number" class="form-input" id="tbl-rows" value="3" min="1" max="20">
+      </div>
+      <div class="form-group">
+        <label class="form-label">تعداد ستون</label>
+        <input type="number" class="form-input" id="tbl-cols" value="3" min="1" max="10">
+      </div>
+    </div>
+    <label style="display:flex;align-items:center;gap:8px;font-size:0.88rem;color:#4a5568;margin-bottom:1rem">
+      <input type="checkbox" id="tbl-header" checked> ردیف عنوان (هدر)
+    </label>
+    <div class="dialog-actions">
+      <button class="btn-secondary" onclick="closeTableDialog()">انصراف</button>
+      <button class="btn-primary" onclick="doInsertTable()">درج جدول</button>
+    </div>
+  </div>
+</div>
+
+<!-- LINK DIALOG -->
+<div id="link-dialog" style="position:fixed;inset:0;background:rgba(0,0,0,0.5);display:none;align-items:center;justify-content:center;z-index:200">
+  <div class="dialog-box">
+    <h3>🔗 درج لینک</h3>
+    <div class="form-group" style="margin-bottom:1rem">
+      <label class="form-label">آدرس لینک</label>
+      <input type="text" class="form-input" id="link-url" placeholder="https://...">
+    </div>
+    <div class="form-group" style="margin-bottom:1rem">
+      <label class="form-label">متن لینک (اختیاری)</label>
+      <input type="text" class="form-input" id="link-text" placeholder="متن نمایشی">
+    </div>
+    <div class="dialog-actions">
+      <button class="btn-secondary" onclick="closeLinkDialog()">انصراف</button>
+      <button class="btn-primary" onclick="doInsertLink()">درج لینک</button>
+    </div>
+  </div>
+</div>
+
+<div class="success-toast" id="success-toast">✅ ذخیره شد!</div>
+
+<script>
+const PASSWORD = 'Aa@123456';
+const STORAGE_KEY = 'hsaadati_v2_articles';
+const MEDIA_KEY = 'hsaadati_v2_media';
+let savedSelection = null;
+
+// AUTH
+function doLogin(){
+  if(document.getElementById('pass-input').value === PASSWORD){
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('admin-panel').style.display='flex';
+    document.getElementById('admin-panel').style.flexDirection='column';
+    refreshAll();
+  } else {
+    document.getElementById('login-error').style.display='block';
+  }
+}
+function doLogout(){
+  document.getElementById('login-screen').style.display='flex';
+  document.getElementById('admin-panel').style.display='none';
+  document.getElementById('pass-input').value='';
+}
+
+// PAGES
+function showPage(name){
+  ['dashboard','articles','new-article','media','guide'].forEach(p=>{
+    document.getElementById('page-'+p).style.display = p===name?'block':'none';
+    const nav = document.getElementById('nav-'+p);
+    if(nav) nav.classList.toggle('active', p===name);
+  });
+  if(name==='dashboard'||name==='articles') refreshAll();
+  if(name==='new-article' && !document.getElementById('editing-id').value){
+    clearEditor();
+    document.getElementById('editor-page-title').textContent = 'مقاله جدید';
+  }
+  if(name==='media') renderMedia();
+}
+
+// STORAGE
+function getArticles(){ try{ return JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]'); }catch(e){ return []; } }
+function getMedia(){ try{ return JSON.parse(localStorage.getItem(MEDIA_KEY)||'[]'); }catch(e){ return []; } }
+
+// REFRESH
+function refreshAll(){
+  const arts = getArticles();
+  const media = getMedia();
+  document.getElementById('stat-total').textContent = arts.length;
+  const thisMonth = arts.filter(a=>{
+    const d = new Date(a.createdAt);
+    const now = new Date();
+    return d.getMonth()===now.getMonth()&&d.getFullYear()===now.getFullYear();
+  }).length;
+  document.getElementById('stat-this-month').textContent = thisMonth;
+  document.getElementById('stat-media').textContent = media.length;
+  renderArticlesList('dashboard-articles-list', arts);
+  renderArticlesList('articles-list', arts);
+}
+
+function renderArticlesList(containerId, arts){
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  if(arts.length===0){
+    el.innerHTML='<div style="text-align:center;color:#6b7a99;padding:2rem;font-size:0.9rem">هنوز مقاله‌ای ثبت نشده</div>';
+    return;
+  }
+  el.innerHTML = arts.map(a=>`
+    <div class="table-row">
+      <div class="art-title-cell">${a.title||'بدون عنوان'}</div>
+      <div class="art-tag-cell"><span class="tag-badge">${a.tag||'—'}</span></div>
+      <div class="art-date-cell">${a.date||'—'}</div>
+      <div class="art-actions">
+        <button class="edit-btn" onclick="editArticle(${a.id})">ویرایش</button>
+        <button class="del-btn" onclick="deleteArticle(${a.id})">حذف</button>
+        <button class="edit-btn" onclick="copyHTML(${a.id})" style="background:rgba(91,79,255,0.1);color:#5b4fff">کپی HTML</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+// EDITOR
+function fmt(cmd, val){
+  document.getElementById('editor-content').focus();
+  document.execCommand(cmd, false, val||null);
+}
+function formatBlock(tag){
+  if(!tag) return;
+  document.getElementById('editor-content').focus();
+  document.execCommand('formatBlock', false, tag);
+}
+function clearEditor(){
+  document.getElementById('art-title').value='';
+  document.getElementById('art-tag').value='';
+  document.getElementById('art-date').value='';
+  document.getElementById('art-readtime').value='';
+  document.getElementById('art-excerpt').value='';
+  document.getElementById('editor-content').innerHTML='';
+  document.getElementById('editing-id').value='';
+}
+
+function saveArticle(){
+  const title = document.getElementById('art-title').value.trim();
+  const content = document.getElementById('editor-content').innerHTML.trim();
+  if(!title||!content||content===''){alert('عنوان و متن الزامی است!');return;}
+  const arts = getArticles();
+  const editId = document.getElementById('editing-id').value;
+  if(editId){
+    const idx = arts.findIndex(a=>a.id==editId);
+    if(idx>-1){
+      arts[idx]={...arts[idx],
+        title,
+        tag: document.getElementById('art-tag').value.trim(),
+        date: document.getElementById('art-date').value.trim(),
+        readtime: document.getElementById('art-readtime').value.trim(),
+        excerpt: document.getElementById('art-excerpt').value.trim(),
+        content,
+        updatedAt: new Date().toISOString()
+      };
+    }
+  } else {
+    arts.unshift({
+      id: Date.now(),
+      title,
+      tag: document.getElementById('art-tag').value.trim()||'مقاله',
+      date: document.getElementById('art-date').value.trim(),
+      readtime: document.getElementById('art-readtime').value.trim()||'۵ دقیقه',
+      excerpt: document.getElementById('art-excerpt').value.trim(),
+      content,
+      createdAt: new Date().toISOString()
+    });
+  }
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(arts));
+  showToast('مقاله ذخیره شد! ✅');
+  document.getElementById('editing-id').value='';
+  showPage('articles');
+}
+
+function editArticle(id){
+  const a = getArticles().find(x=>x.id===id);
+  if(!a) return;
+  document.getElementById('art-title').value = a.title||'';
+  document.getElementById('art-tag').value = a.tag||'';
+  document.getElementById('art-date').value = a.date||'';
+  document.getElementById('art-readtime').value = a.readtime||'';
+  document.getElementById('art-excerpt').value = a.excerpt||'';
+  document.getElementById('editor-content').innerHTML = a.content||'';
+  document.getElementById('editing-id').value = id;
+  document.getElementById('editor-page-title').textContent = 'ویرایش مقاله';
+  showPage('new-article');
+}
+
+function deleteArticle(id){
+  if(!confirm('مطمئنی؟')) return;
+  const arts = getArticles().filter(a=>a.id!==id);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(arts));
+  refreshAll();
+}
+
+function copyHTML(id){
+  const a = getArticles().find(x=>x.id===id);
+  if(!a) return;
+  const html = `<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${a.title} | حسین سعادتی</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Vazirmatn',sans-serif;background:#f4f6fb;color:#1a1f36;direction:rtl}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 3rem;background:rgba(255,255,255,0.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(26,108,255,0.1)}
+.nav-logo{font-size:1.1rem;font-weight:800;background:linear-gradient(135deg,#1a6cff,#5b4fff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none}
+.nav-back{color:#6b7a99;text-decoration:none;font-size:0.88rem}.nav-back:hover{color:#1a6cff}
+.hero{padding-top:100px;background:linear-gradient(160deg,#0f1729 0%,#0d2145 100%);min-height:300px;display:flex;align-items:flex-end}
+.hero-content{max-width:860px;margin:0 auto;padding:3rem 2rem;width:100%}
+.tag-badge{display:inline-block;background:rgba(26,108,255,0.25);border:1px solid rgba(26,108,255,0.4);color:#7ab8ff;padding:4px 16px;border-radius:30px;font-size:0.8rem;font-weight:600;margin-bottom:1rem}
+h1{font-size:clamp(1.4rem,3vw,2rem);font-weight:800;color:#fff;line-height:1.5;margin-bottom:1rem}
+.meta{display:flex;gap:1.5rem;flex-wrap:wrap;color:rgba(255,255,255,0.5);font-size:0.82rem}
+.container{max-width:860px;margin:0 auto;padding:3rem 2rem 6rem}
+.article-box{background:#fff;border-radius:20px;padding:3rem;box-shadow:0 4px 40px rgba(26,108,255,0.08);border:1px solid rgba(26,108,255,0.08);font-size:0.97rem;line-height:2;color:#2d3456}
+.article-box h1{font-size:1.6rem;font-weight:800;margin:1.5rem 0 0.75rem;color:#1a1f36}
+.article-box h2{font-size:1.25rem;font-weight:700;margin:1.5rem 0 0.75rem;color:#1a1f36;border-right:4px solid #1a6cff;padding-right:0.75rem}
+.article-box h3{font-size:1.05rem;font-weight:700;margin:1.25rem 0 0.5rem;color:#5b4fff}
+.article-box p{margin-bottom:1.2rem}
+.article-box ul,.article-box ol{padding-right:1.5rem;margin-bottom:1.2rem}
+.article-box li{margin-bottom:0.4rem}
+.article-box blockquote{border-right:4px solid #1a6cff;padding:0.75rem 1rem;margin:1rem 0;background:rgba(26,108,255,0.05);border-radius:0 8px 8px 0;color:#4a5568;font-style:italic}
+.article-box table{border-collapse:collapse;width:100%;margin:1rem 0}
+.article-box td,.article-box th{border:1px solid rgba(26,108,255,0.2);padding:0.6rem 0.9rem;text-align:right}
+.article-box th{background:rgba(26,108,255,0.08);font-weight:700}
+.article-box img{max-width:100%;border-radius:8px;margin:0.5rem 0}
+.article-box a{color:#1a6cff}
+.back-btn{display:inline-flex;align-items:center;gap:8px;margin-bottom:2rem;color:#6b7a99;text-decoration:none;font-size:0.9rem}
+.back-btn:hover{color:#1a6cff}
+@media(max-width:600px){nav{padding:1rem 1.5rem}.hero-content,.container{padding:2rem 1rem}.article-box{padding:1.5rem}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="../" class="nav-logo">حسین سعادتی</a>
+  <a href="../" class="nav-back">← بازگشت</a>
+</nav>
+<div class="hero">
+  <div class="hero-content">
+    <span class="tag-badge">${a.tag||'مقاله'}</span>
+    <h1>${a.title}</h1>
+    <div class="meta">
+      <span>✍️ حسین سعادتی</span>
+      <span>📅 ${a.date||''}</span>
+      <span>⏱ ${a.readtime||''}</span>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <a href="../" class="back-btn">← بازگشت به سایت</a>
+  <div class="article-box">${a.content}</div>
+</div>
+</body>
+</html>`;
+  navigator.clipboard.writeText(html).then(()=>showToast('HTML کپی شد! ✅'));
+}
+
+// TABLE
+function openTableDialog(){
+  savedSelection = saveSelection();
+  document.getElementById('table-dialog').style.display='flex';
+}
+function closeTableDialog(){ document.getElementById('table-dialog').style.display='none'; }
+function doInsertTable(){
+  const rows = parseInt(document.getElementById('tbl-rows').value)||3;
+  const cols = parseInt(document.getElementById('tbl-cols').value)||3;
+  const hasHeader = document.getElementById('tbl-header').checked;
+  let html = '<table>';
+  if(hasHeader){
+    html+='<tr>';
+    for(let c=0;c<cols;c++) html+=`<th>عنوان ${c+1}</th>`;
+    html+='</tr>';
+  }
+  for(let r=0;r<rows;r++){
+    html+='<tr>';
+    for(let c=0;c<cols;c++) html+=`<td>سلول</td>`;
+    html+='</tr>';
+  }
+  html+='</table><p></p>';
+  restoreSelection(savedSelection);
+  document.execCommand('insertHTML', false, html);
+  closeTableDialog();
+}
+
+// IMAGE
+function insertImage(){
+  const input = document.createElement('input');
+  input.type='file';
+  input.accept='image/*';
+  input.onchange = e=>{
+    const file = e.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = ev=>{
+      const img = `<img src="${ev.target.result}" alt="${file.name}" style="max-width:100%;border-radius:8px;margin:0.5rem 0"><p></p>`;
+      document.getElementById('editor-content').focus();
+      document.execCommand('insertHTML', false, img);
+      // Save to media
+      const media = getMedia();
+      media.unshift({id:Date.now(), name:file.name, src:ev.target.result, date:new Date().toISOString()});
+      localStorage.setItem(MEDIA_KEY, JSON.stringify(media));
+    };
+    reader.readAsDataURL(file);
+  };
+  input.click();
+}
+
+// LINK
+let savedSel = null;
+function insertLink(){
+  savedSel = saveSelection();
+  document.getElementById('link-url').value='https://';
+  document.getElementById('link-text').value='';
+  document.getElementById('link-dialog').style.display='flex';
+}
+function closeLinkDialog(){ document.getElementById('link-dialog').style.display='none'; }
+function doInsertLink(){
+  const url = document.getElementById('link-url').value.trim();
+  const text = document.getElementById('link-text').value.trim();
+  if(!url) return;
+  restoreSelection(savedSel);
+  if(text){
+    document.execCommand('insertHTML',false,`<a href="${url}" target="_blank">${text}</a>`);
+  } else {
+    document.execCommand('createLink',false,url);
+  }
+  closeLinkDialog();
+}
+
+// SELECTION SAVE/RESTORE
+function saveSelection(){
+  if(window.getSelection){
+    const sel = window.getSelection();
+    if(sel.getRangeAt && sel.rangeCount) return sel.getRangeAt(0).cloneRange();
+  }
+  return null;
+}
+function restoreSelection(range){
+  if(range){
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
+}
+
+// MEDIA
+function handleMediaUpload(input){
+  Array.from(input.files).forEach(file=>{
+    const reader = new FileReader();
+    reader.onload = ev=>{
+      const media = getMedia();
+      media.unshift({id:Date.now(), name:file.name, src:ev.target.result, date:new Date().toISOString()});
+      localStorage.setItem(MEDIA_KEY, JSON.stringify(media));
+      renderMedia();
+      document.getElementById('stat-media').textContent = media.length;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+function renderMedia(){
+  const media = getMedia();
+  const grid = document.getElementById('media-grid');
+  if(!grid) return;
+  if(media.length===0){
+    grid.innerHTML='<div style="color:#6b7a99;font-size:0.88rem;grid-column:1/-1">هنوز تصویری آپلود نشده</div>';
+    return;
+  }
+  grid.innerHTML = media.map(m=>`
+    <div style="border:1px solid rgba(26,108,255,0.1);border-radius:10px;overflow:hidden;cursor:pointer" onclick="copyImageTag('${m.id}')">
+      <img src="${m.src}" style="width:100%;height:120px;object-fit:cover">
+      <div style="padding:0.5rem;font-size:0.72rem;color:#6b7a99;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${m.name}</div>
+    </div>
+  `).join('');
+}
+function copyImageTag(id){
+  const m = getMedia().find(x=>x.id==id);
+  if(!m) return;
+  navigator.clipboard.writeText(`<img src="${m.src}" alt="${m.name}" style="max-width:100%;border-radius:8px">`).then(()=>showToast('تگ تصویر کپی شد!'));
+}
+
+// TOAST
+function showToast(msg){
+  const t = document.getElementById('success-toast');
+  t.textContent = msg;
+  t.style.display='block';
+  setTimeout(()=>t.style.display='none', 3000);
+}
+
+function refreshAll(){
+  const arts = getArticles();
+  const media = getMedia();
+  document.getElementById('stat-total').textContent = arts.length;
+  const now = new Date();
+  const thisMonth = arts.filter(a=>{
+    const d = new Date(a.createdAt);
+    return d.getMonth()===now.getMonth()&&d.getFullYear()===now.getFullYear();
+  }).length;
+  document.getElementById('stat-this-month').textContent = thisMonth;
+  document.getElementById('stat-media').textContent = media.length;
+  renderArticlesList('dashboard-articles-list', arts);
+  renderArticlesList('articles-list', arts);
+}
+</script>
 </body>
 </html>
