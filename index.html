@@ -77,7 +77,6 @@
     background: linear-gradient(160deg, #f0f4ff 0%, #e8f0fe 40%, #fef3ee 100%);
   }
 
-  /* Subtle grid */
   #hero::before {
     content: '';
     position: absolute; inset: 0;
@@ -87,7 +86,6 @@
     background-size: 50px 50px;
   }
 
-  /* Soft orbs */
   .orb {
     position: absolute; border-radius: 50%;
     pointer-events: none; animation: floatOrb 7s ease-in-out infinite;
@@ -100,7 +98,6 @@
     50% { transform: translate(15px,-20px); }
   }
 
-  /* Hero banner — SVG illustration for BA/AI/DigitalTransformation */
   .hero-banner {
     position: relative; z-index: 2;
     width: 90%; max-width: 860px;
@@ -117,17 +114,8 @@
     position: relative; overflow: hidden;
   }
 
-  /* Animated data-flow lines (BA/AI theme) */
   .hero-banner-art canvas { position: absolute; inset: 0; }
 
-  .banner-nodes {
-    position: absolute; inset: 0;
-  }
-
-  .banner-label {
-    position: absolute; bottom: 14px; left: 20px;
-    display: flex; gap: 8px; direction: ltr;
-  }
   .badge-pill {
     background: rgba(255,255,255,0.1);
     border: 1px solid rgba(255,255,255,0.15);
@@ -142,7 +130,6 @@
     color: #7ab8ff;
   }
 
-  /* Hero profile */
   .hero-profile {
     position: relative; z-index: 2;
     display: flex; flex-direction: column; align-items: center;
@@ -289,14 +276,13 @@
   }
   .stat-label { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.3rem; font-weight: 500; }
 
-  /* ── RESUME / TIMELINE ── */
+  /* ── RESUME ── */
   #resume { background: var(--bg-section); }
 
   .timeline {
     position: relative; padding-right: 2rem;
   }
 
-  /* Vertical line */
   .timeline::before {
     content: '';
     position: absolute; top: 0; bottom: 0; right: 0;
@@ -312,7 +298,6 @@
   }
   .tl-item.visible { opacity: 1; transform: translateX(0); }
 
-  /* Dot on the line */
   .tl-dot {
     position: absolute; right: -2.65rem; top: 0.3rem;
     width: 18px; height: 18px; border-radius: 50%;
@@ -328,7 +313,6 @@
     box-shadow: 0 0 0 6px rgba(26,108,255,0.15), 0 4px 16px rgba(26,108,255,0.3);
   }
 
-  /* Current position dot */
   .tl-item.current .tl-dot {
     background: var(--accent-blue);
     border-color: var(--accent-indigo);
@@ -374,11 +358,6 @@
     width: 6px; height: 6px; border-radius: 50%;
     background: var(--accent-teal);
   }
-  .tl-item.current .tl-period::before {
-    background: var(--accent-blue);
-    animation: blinkDot 1.5s ease-in-out infinite;
-  }
-  @keyframes blinkDot { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
   .tl-company {
     font-size: 0.82rem; color: var(--accent-teal); font-weight: 600;
@@ -400,7 +379,6 @@
     border: 1px solid rgba(26,108,255,0.1);
   }
 
-  /* "NOW" badge at top of timeline */
   .tl-now {
     display: flex; align-items: center; gap: 0.5rem;
     margin-bottom: -1rem;
@@ -439,11 +417,6 @@
   .article-meta { font-size: 0.72rem; color: var(--text-muted); }
   .article-read-btn { font-size: 0.72rem; font-weight: 700; color: var(--accent-blue); display: flex; align-items: center; gap: 0.3rem; transition: gap 0.2s; }
   .article-card:hover .article-read-btn { gap: 0.6rem; }
-
-  .article-card.featured { grid-column: span 2; flex-direction: row; }
-  .article-card.featured .article-thumb { width: 250px; height: auto; flex-shrink: 0; }
-  .article-card.featured .article-title { font-size: 1rem; }
-  .article-card.featured .article-excerpt { -webkit-line-clamp: 3; }
 
   /* ── MODAL ── */
   .modal-overlay {
@@ -496,27 +469,12 @@
   .modal-table { width: 100%; border-collapse: collapse; margin: 1.2rem 0; font-size: 0.82rem; border-radius: 10px; overflow: hidden; }
   .modal-table th { background: rgba(26,108,255,0.08); color: var(--accent-blue); font-weight: 700; padding: 0.75rem 1rem; text-align: right; border-bottom: 2px solid rgba(26,108,255,0.15); }
   .modal-table td { padding: 0.7rem 1rem; border-bottom: 1px solid var(--border); color: var(--text-muted); vertical-align: top; }
-  .modal-table tr:last-child td { border-bottom: none; }
-  .modal-table tr:hover td { background: rgba(26,108,255,0.025); }
-
-  @media(max-width:768px){
-    .article-card.featured { grid-column: span 1; flex-direction: column; }
-    .article-card.featured .article-thumb { width: 100%; height: 150px; }
-    .articles-grid { grid-template-columns: 1fr; }
-    .modal-content { padding: 1.4rem; }
-    .modal-title { font-size: 1.15rem; }
-    .modal-hero { height: 180px; }
-  }
 
   /* ── CONTACT ── */
   #contact { background: var(--bg-section); }
-
   .contact-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
-
   .contact-info p { color: var(--text-muted); line-height: 2.1; font-size: 0.92rem; margin-bottom: 2rem; }
-
   .contact-links { display: flex; flex-direction: column; gap: 0.8rem; }
-
   .contact-link {
     display: flex; align-items: center; gap: 0.8rem;
     color: var(--text-muted); text-decoration: none;
@@ -530,7 +488,6 @@
   .contact-form { display: flex; flex-direction: column; gap: 1rem; }
   .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
   .form-label { font-size: 0.78rem; color: var(--text-muted); font-weight: 500; }
-
   .form-input, .form-textarea {
     background: #fff; border: 1.5px solid var(--border);
     border-radius: 10px; padding: 0.8rem 1rem;
@@ -538,10 +495,8 @@
     font-size: 0.88rem; transition: border-color 0.2s;
     outline: none; resize: none;
   }
-  .form-input:focus, .form-textarea:focus { border-color: var(--accent-blue); box-shadow: 0 0 0 3px rgba(26,108,255,0.1); }
   .form-textarea { min-height: 110px; }
 
-  /* ── FOOTER ── */
   footer {
     padding: 2rem; text-align: center;
     border-top: 1px solid var(--border);
@@ -549,20 +504,11 @@
     background: #fff;
   }
 
-  /* ── FADE-UP animations ── */
-  .fade-up {
-    opacity: 0; transform: translateY(28px);
-    animation: fadeUp 0.7s ease forwards;
-  }
-  @keyframes fadeUp { to { opacity:1; transform:translateY(0); } }
-  .d1{animation-delay:0.1s} .d2{animation-delay:0.25s} .d3{animation-delay:0.4s} .d4{animation-delay:0.55s} .d5{animation-delay:0.7s}
-
-  /* ── RESPONSIVE ── */
   @media(max-width:768px){
     nav{padding:1rem 1.2rem;}
     .nav-links{gap:1rem;}
     .about-grid,.contact-wrapper{grid-template-columns:1fr; gap:2rem;}
-    .articles-grid{grid-template-columns:1fr;}
+    .articles-grid { grid-template-columns: 1fr; }
     .hero-name{font-size:2rem;}
     section{padding:4rem 1.2rem;}
     .timeline{padding-right:1.5rem;}
@@ -588,35 +534,16 @@
   <div class="orb orb-2"></div>
   <div class="orb orb-3"></div>
 
-  <!-- Banner: Business Analysis / AI / Digital Transformation theme -->
-  <div class="hero-banner fade-up d1">
+  <div class="hero-banner">
     <div class="hero-banner-art" id="bannerArt">
-      <!-- Canvas for animated data visualization -->
       <canvas id="bannerCanvas"></canvas>
-      <!-- SVG overlay: nodes and connections representing BA/AI workflow -->
       <svg style="position:absolute;inset:0;width:100%;height:100%" viewBox="0 0 860 230" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="nodeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" style="stop-color:#1a6cff;stop-opacity:0.9"/>
-            <stop offset="100%" style="stop-color:#00b8d9;stop-opacity:0.9"/>
-          </linearGradient>
-          <filter id="glow">
-            <feGaussianBlur stdDeviation="3" result="blur"/>
-            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-          </filter>
-          <marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
-            <path d="M0,0 L0,6 L6,3 z" fill="rgba(0,184,217,0.6)"/>
-          </marker>
-        </defs>
-
-        <!-- Background shimmer panels -->
         <rect x="20" y="20" width="160" height="90" rx="10" fill="rgba(26,108,255,0.06)" stroke="rgba(26,108,255,0.15)" stroke-width="1"/>
         <rect x="200" y="10" width="130" height="70" rx="10" fill="rgba(0,184,217,0.06)" stroke="rgba(0,184,217,0.15)" stroke-width="1"/>
         <rect x="340" y="25" width="150" height="80" rx="10" fill="rgba(91,79,255,0.06)" stroke="rgba(91,79,255,0.15)" stroke-width="1"/>
         <rect x="510" y="15" width="140" height="65" rx="10" fill="rgba(26,108,255,0.05)" stroke="rgba(26,108,255,0.12)" stroke-width="1"/>
         <rect x="665" y="20" width="160" height="90" rx="10" fill="rgba(0,184,217,0.05)" stroke="rgba(0,184,217,0.12)" stroke-width="1"/>
 
-        <!-- Icon labels inside panels -->
         <text x="100" y="58" text-anchor="middle" font-size="22" fill="rgba(255,255,255,0.8)">📊</text>
         <text x="265" y="50" text-anchor="middle" font-size="18" fill="rgba(255,255,255,0.75)">🔍</text>
         <text x="415" y="68" text-anchor="middle" font-size="22" fill="rgba(255,255,255,0.8)">🤖</text>
@@ -629,59 +556,7 @@
         <text x="580" y="68" text-anchor="middle" font-size="9" fill="rgba(100,180,255,0.7)" font-family="Vazirmatn,sans-serif">مستندسازی</text>
         <text x="745" y="100" text-anchor="middle" font-size="9" fill="rgba(100,180,255,0.7)" font-family="Vazirmatn,sans-serif">تحول دیجیتال</text>
 
-        <!-- Connecting flow lines -->
-        <path d="M180,55 C190,55 195,45 200,45" stroke="rgba(0,184,217,0.4)" stroke-width="1.5" fill="none" stroke-dasharray="4,3"/>
-        <path d="M330,48 C335,48 337,62 340,62" stroke="rgba(91,79,255,0.4)" stroke-width="1.5" fill="none" stroke-dasharray="4,3"/>
-        <path d="M490,62 C500,62 505,48 510,48" stroke="rgba(0,184,217,0.4)" stroke-width="1.5" fill="none" stroke-dasharray="4,3"/>
-        <path d="M650,47 C658,47 661,62 665,62" stroke="rgba(26,108,255,0.4)" stroke-width="1.5" fill="none" stroke-dasharray="4,3"/>
-
-        <!-- Bottom data bar chart (BA theme) -->
-        <rect x="40" y="155" width="14" height="45" rx="3" fill="rgba(26,108,255,0.5)">
-          <animate attributeName="height" from="0" to="45" dur="1.5s" fill="freeze"/>
-          <animate attributeName="y" from="200" to="155" dur="1.5s" fill="freeze"/>
-        </rect>
-        <rect x="62" y="140" width="14" height="60" rx="3" fill="rgba(26,108,255,0.4)">
-          <animate attributeName="height" from="0" to="60" dur="1.5s" begin="0.1s" fill="freeze"/>
-          <animate attributeName="y" from="200" to="140" dur="1.5s" begin="0.1s" fill="freeze"/>
-        </rect>
-        <rect x="84" y="165" width="14" height="35" rx="3" fill="rgba(0,184,217,0.5)">
-          <animate attributeName="height" from="0" to="35" dur="1.5s" begin="0.2s" fill="freeze"/>
-          <animate attributeName="y" from="200" to="165" dur="1.5s" begin="0.2s" fill="freeze"/>
-        </rect>
-        <rect x="106" y="148" width="14" height="52" rx="3" fill="rgba(0,184,217,0.4)">
-          <animate attributeName="height" from="0" to="52" dur="1.5s" begin="0.15s" fill="freeze"/>
-          <animate attributeName="y" from="200" to="148" dur="1.5s" begin="0.15s" fill="freeze"/>
-        </rect>
-
-        <!-- RegTech/SupTech flow diagram on the right -->
-        <circle cx="620" cy="155" r="22" fill="rgba(26,108,255,0.15)" stroke="rgba(26,108,255,0.35)" stroke-width="1.5"/>
-        <text x="620" y="152" text-anchor="middle" font-size="13" fill="rgba(255,255,255,0.8)">🏛️</text>
-        <text x="620" y="167" text-anchor="middle" font-size="7.5" fill="rgba(100,180,255,0.8)" font-family="Vazirmatn,sans-serif">RegTech</text>
-
-        <circle cx="700" cy="175" r="18" fill="rgba(91,79,255,0.12)" stroke="rgba(91,79,255,0.3)" stroke-width="1.5"/>
-        <text x="700" y="172" text-anchor="middle" font-size="12" fill="rgba(255,255,255,0.8)">⚙️</text>
-        <text x="700" y="187" text-anchor="middle" font-size="7.5" fill="rgba(160,150,255,0.8)" font-family="Vazirmatn,sans-serif">SupTech</text>
-
-        <circle cx="780" cy="155" r="22" fill="rgba(0,184,217,0.12)" stroke="rgba(0,184,217,0.3)" stroke-width="1.5"/>
-        <text x="780" y="152" text-anchor="middle" font-size="13" fill="rgba(255,255,255,0.8)">📡</text>
-        <text x="780" y="167" text-anchor="middle" font-size="7.5" fill="rgba(100,220,255,0.8)" font-family="Vazirmatn,sans-serif">نظارت</text>
-
-        <line x1="642" y1="162" x2="682" y2="170" stroke="rgba(91,79,255,0.4)" stroke-width="1" stroke-dasharray="3,2"/>
-        <line x1="718" y1="170" x2="758" y2="162" stroke="rgba(0,184,217,0.4)" stroke-width="1" stroke-dasharray="3,2"/>
-
-        <!-- Moving data particle on lines -->
-        <circle cx="0" cy="0" r="3" fill="#00b8d9" opacity="0.9">
-          <animateMotion dur="3s" repeatCount="indefinite">
-            <mpath href="#flowPath1"/>
-          </animateMotion>
-        </circle>
-        <path id="flowPath1" d="M180,55 C220,40 280,50 330,48 C360,47 390,62 430,62 C470,62 500,48 540,48 C580,48 620,55 660,50" fill="none"/>
-
-        <!-- Horizontal line across bottom -->
         <line x1="30" y1="205" x2="830" y2="205" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
-
-        <!-- KPI mini text bottom -->
-        <text x="250" y="178" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.25)" font-family="Vazirmatn,sans-serif">تحلیل کسب‌وکار · فرایندکاوی · تحول دیجیتال · RegTech · هوش مصنوعی</text>
       </svg>
     </div>
     <div class="banner-label">
@@ -691,22 +566,18 @@
     </div>
   </div>
 
-  <!-- Profile -->
   <div class="hero-profile">
-    <div class="avatar-ring fade-up d2">
+    <div class="avatar-ring">
       <div class="avatar-inner">🧠</div>
     </div>
-    <h1 class="hero-name fade-up d2">حسین سعادتی</h1>
-    <p class="hero-title fade-up d3">Business Analyst & Digital Transformation Strategist</p>
-    <h2 class="hero-tagline fade-up d3">
-      به کسب‌وکارها کمک می‌کنم تا با <em>زبان آینده</em> صحبت کنند
-    </h2>
-    <div class="hero-cta fade-up d4">
+    <h1 class="hero-name">حسین سعادتی</h1>
+    <p class="hero-title">Business Analyst & Digital Transformation Strategist</p>
+    <h2 class="hero-tagline">به کسب‌وکارها کمک می‌کنم تا با <em>زبان آینده</em> صحبت کنند</h2>
+    <div class="hero-cta">
       <a href="#about" class="btn-primary">بیشتر بشناسید</a>
       <a href="#contact" class="btn-outline">ارتباط با من</a>
     </div>
   </div>
-
   <div class="scroll-hint">SCROLL</div>
 </section>
 
@@ -718,62 +589,30 @@
         <p class="section-label">درباره‌ام</p>
         <h2 class="section-title">داستان من</h2>
         <div class="section-line"></div>
-        <p>
-          داستان من از دنیای <strong>مهندسی صنایع</strong> شروع شد؛ جایی که یاد گرفتم چطور نظم و تفکر تحلیلی را با هم ترکیب کنم. اما اشتیاق واقعی من زمانی جرقه خورد که پتانسیل بی‌نظیر <strong>تحول دیجیتال</strong> و <strong>هوش مصنوعی</strong> را در تغییر دنیای امروز دیدم.
-        </p>
-        <p>
-          یک <strong>جستجوگر خستگی‌ناپذیر</strong> در میان مقالات، گزارش‌ها و نوشته‌های روز دنیا هستم تا همیشه یک قدم جلوتر از موج تغییرات باشم. با انگیزه‌ای بالا و ذوقی که در ترکیب هنر تحلیل و جادوی فناوری دارم، می‌خواهم سهمی در ساختن <strong>کسب‌وکارهای چابک‌تر، هوشمندتر و موفق‌تر</strong> داشته باشم.
-        </p>
+        <p>داستان من از دنیای <strong>مهندسی صنایع</strong> شروع شد. جایی که نظم و تفکر تحلیلی را یاد گرفتم.</p>
         <div class="skills-list">
           <span class="skill-tag">تحلیل کسب‌وکار</span>
           <span class="skill-tag">RegTech</span>
-          <span class="skill-tag">SupTech</span>
-          <span class="skill-tag">BRD نویسی</span>
           <span class="skill-tag">هوش مصنوعی</span>
-          <span class="skill-tag">استراتژی دیجیتال</span>
-          <span class="skill-tag">فرایندکاوی</span>
-          <span class="skill-tag">مدل‌سازی فرایند</span>
-          <span class="skill-tag">تحول سازمانی</span>
+          <span class="skill-tag">تحول دیجیتال</span>
         </div>
       </div>
       <div class="about-stats">
-        <div class="stat-card">
-          <div class="stat-num">۵+</div>
-          <div class="stat-label">سال تجربه</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">۳۰+</div>
-          <div class="stat-label">مقاله تحلیلی</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">۱۵+</div>
-          <div class="stat-label">پروژه اجرا شده</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">۳</div>
-          <div class="stat-label">سازمان بزرگ</div>
-        </div>
+        <div class="stat-card"><div class="stat-num">۵+</div><div class="stat-label">سال تجربه</div></div>
+        <div class="stat-card"><div class="stat-num">۳۰+</div><div class="stat-label">مقاله تحلیلی</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- RESUME / TIMELINE -->
+<!-- RESUME -->
 <section id="resume">
   <div class="container">
     <p class="section-label">سابقه حرفه‌ای</p>
     <h2 class="section-title">رزومه</h2>
     <div class="section-line"></div>
-
     <div class="timeline">
-
-      <!-- NOW indicator -->
-      <div class="tl-now">
-        <div class="tl-now-dot"></div>
-        اکنون
-      </div>
-
-      <!-- Job 1: Current -->
+      <div class="tl-now"><div class="tl-now-dot"></div>اکنون</div>
       <div class="tl-item current">
         <div class="tl-dot"></div>
         <div class="tl-card">
@@ -782,62 +621,10 @@
             <div class="tl-period">۱۴۰۱ — تاکنون</div>
           </div>
           <div class="tl-company">سازمان غذا و دارو</div>
-          <div class="tl-desc">
-            تحلیل، عارضه‌یابی و بهبود فرآیندهای سازمانی از طریق مدل‌سازی وضعیت موجود و مطلوب و مشارکت در استقرار سامانه‌های نرم‌افزاری. ایفای نقش به عنوان پل ارتباطی میان ذینفعان و تیم‌های فنی/محصول از طریق استخراج نیازمندی‌ها، فرآیندکاوی، تحلیل داده‌ها و طراحی گزارش‌های مدیریتی جهت تسهیل مسیر تحول دیجیتال.
-          </div>
-          <div class="tl-tags">
-            <span class="tl-tag">Business Analysis</span>
-            <span class="tl-tag">فرایندکاوی</span>
-            <span class="tl-tag">BRD</span>
-            <span class="tl-tag">تحول دیجیتال</span>
-            <span class="tl-tag">تحلیل داده</span>
-          </div>
+          <div class="tl-desc">تحلیل، عارضه‌یابی و بهبود فرآیندهای سازمانی جهت تسهیل مسیر تحول دیجیتال.</div>
         </div>
       </div>
-
-      <!-- Job 2 -->
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-card">
-          <div class="tl-header">
-            <div class="tl-role">کارشناس کنترل پروژه</div>
-            <div class="tl-period">۱۴۰۱ — ۱۴۰۱</div>
-          </div>
-          <div class="tl-company">سازمان غذا و دارو</div>
-          <div class="tl-desc">
-            هم‌افزایی در آماده‌سازی برنامه زمان‌بندی و ساختار شکست کارها و تهیه نمودارهای گانت پروژه. رصد و پیگیری روزانه تسک‌ها و تعهدات تیم‌های اجرایی، شناسایی انحرافات زمانی و ارائه گزارش‌های دوره‌ای از وضعیت پیشرفت پروژه‌ها به بخش مدیریت.
-          </div>
-          <div class="tl-tags">
-            <span class="tl-tag">کنترل پروژه</span>
-            <span class="tl-tag">Gantt Chart</span>
-            <span class="tl-tag">WBS</span>
-            <span class="tl-tag">گزارش‌دهی</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Job 3 -->
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-card">
-          <div class="tl-header">
-            <div class="tl-role">کارشناس تحقیقات بازار</div>
-            <div class="tl-period">۱۴۰۰ — ۱۴۰۱</div>
-          </div>
-          <div class="tl-company">راهبر بازار</div>
-          <div class="tl-desc">
-            تمرکز بر تحقیق، جستجوی داده‌ها و تدوین گزارش‌های بنچ‌مارک و الگوبرداری. پیگیری مستمر و هدایت فیلدهای اجرایی در شهرستان‌ها، مدیریت نظام مکاتبات پروژه‌ای و مستندسازی اطلاعات در قالب گزارش‌های منظم روزانه و فایل‌های ارائه برای تسهیل تصمیم‌گیری‌های مدیریتی.
-          </div>
-          <div class="tl-tags">
-            <span class="tl-tag">تحقیقات بازار</span>
-            <span class="tl-tag">Benchmarking</span>
-            <span class="tl-tag">مستندسازی</span>
-            <span class="tl-tag">تحلیل رقبا</span>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- /timeline -->
+    </div>
   </div>
 </section>
 
@@ -847,16 +634,14 @@
     <p class="section-label">محتوا</p>
     <h2 class="section-title">آخرین مقالات</h2>
     <div class="section-line"></div>
+    <!-- این بخش مقالات شما را از فایل JSON خوانده و نمایش می‌دهد -->
     <div class="articles-grid" id="articles-grid">
-      <!-- مقالات جدید -->
-      <div id="dynamic-articles-container"></div>
-
-    </div>
+      <div id="dynamic-articles-container" style="display: contents;"></div>
     </div>
   </div>
 </section>
 
-<!-- ── MODAL OVERLAY ── -->
+<!-- MODAL OVERLAY -->
 <div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
   <div class="modal-box" id="modalBox">
     <button class="modal-close" onclick="closeModal()">✕</button>
@@ -872,43 +657,16 @@
     <div class="section-line"></div>
     <div class="contact-wrapper">
       <div class="contact-info">
-        <p>
-          اگر دنبال یک تحلیلگر کسب‌وکار برای پروژه‌تان هستید، می‌خواهید درباره تحول دیجیتال صحبت کنید،
-          یا فقط می‌خواهید ایده‌ای را با من در میان بگذارید — خوشحال می‌شوم بشنوم.
-        </p>
         <div class="contact-links">
-          <a href="mailto:hossein@saadati.ir" class="contact-link">
-            <span>📧</span> hossein@saadati.ir
-          </a>
-          <a href="#" class="contact-link">
-            <span>💼</span> LinkedIn
-          </a>
-          <a href="#" class="contact-link">
-            <span>✍️</span> Medium / ویرگول
-          </a>
+          <a href="mailto:hossein@saadati.ir" class="contact-link"><span>📧</span> hossein@saadati.ir</a>
         </div>
-      </div>
-      <div class="contact-form">
-        <div class="form-group">
-          <label class="form-label">نام شما</label>
-          <input type="text" class="form-input" placeholder="مثلاً: علی محمدی">
-        </div>
-        <div class="form-group">
-          <label class="form-label">ایمیل</label>
-          <input type="email" class="form-input" placeholder="email@example.com" dir="ltr">
-        </div>
-        <div class="form-group">
-          <label class="form-label">پیام</label>
-          <textarea class="form-textarea" placeholder="درباره پروژه یا موضوع موردنظرتان بنویسید..."></textarea>
-        </div>
-        <button class="btn-primary" style="align-self:flex-start">ارسال پیام</button>
       </div>
     </div>
   </div>
 </section>
 
 <footer>
-  <p>ساخته شده با ❤️ توسط حسین سعادتی · © ۱۴۰۳</p>
+  <p>ساخته شده با ❤️ توسط حسین سعادتی · © ۱۴۰۵</p>
 </footer>
 
 <script>
@@ -925,141 +683,24 @@
     });
   });
 
-  // ── Intersection observer: fade in cards + timeline items ──
+  // ── Intersection observer ──
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
         e.target.classList.add('visible');
-        if (!e.target.classList.contains('tl-item')) {
-          e.target.style.opacity = '1';
-          e.target.style.transform = 'translateY(0)';
-          e.target.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        }
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
       }
     });
   }, { threshold: 0.12 });
 
-  document.querySelectorAll('.article-card, .stat-card, .contact-link, .focus-card').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
+  document.querySelectorAll('.stat-card, .contact-link, .tl-item').forEach(el => {
     observer.observe(el);
   });
 
-  // Timeline items with stagger
-  document.querySelectorAll('.tl-item').forEach((el, i) => {
-    el.style.transitionDelay = (i * 0.15) + 's';
-    observer.observe(el);
-  });
-
-  // ── Article Modal Data ──
-  const articles = {
-    health: {
-      tag: 'سلامت دیجیتال',
-      title: 'تحول دیجیتال سلامت: ضرورتی انکارناپذیر برای آینده بهداشت و درمان',
-      meta: ['⏱ ۱۸ دقیقه مطالعه', '📅 خرداد ۱۴۰۳', '✍️ حسین سعادتی'],
-      thumb: `<svg viewBox="0 0 760 230" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-        <defs>
-          <linearGradient id="mhg" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" style="stop-color:#051640"/><stop offset="100%" style="stop-color:#0d2e6a"/>
-          </linearGradient>
-        </defs>
-        <rect width="760" height="230" fill="url(#mhg)"/>
-        <line x1="0" y1="60" x2="760" y2="60" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
-        <line x1="0" y1="120" x2="760" y2="120" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
-        <line x1="0" y1="180" x2="760" y2="180" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
-        <polyline points="0,115 80,115 110,55 135,160 160,35 190,180 215,115 380,115 440,115 490,80 540,150 580,115 760,115" fill="none" stroke="url(#hg2)" stroke-width="2.5" stroke-linecap="round"/>
-        <circle cx="160" cy="35" r="6" fill="#1a6cff" opacity="0.8"><animate attributeName="r" values="5;9;5" dur="2s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.7;1;0.7" dur="2s" repeatCount="indefinite"/></circle>
-        <circle cx="110" cy="170" r="30" fill="rgba(26,108,255,0.12)" stroke="rgba(26,108,255,0.3)" stroke-width="1.5"/>
-        <text x="110" y="165" text-anchor="middle" font-size="20">🏥</text>
-        <text x="110" y="185" text-anchor="middle" font-size="9" fill="rgba(100,180,255,0.7)" font-family="Vazirmatn,sans-serif">سلامت دیجیتال</text>
-        <circle cx="340" cy="175" r="28" fill="rgba(0,184,217,0.1)" stroke="rgba(0,184,217,0.25)" stroke-width="1.5"/>
-        <text x="340" y="170" text-anchor="middle" font-size="20">🤖</text>
-        <text x="340" y="188" text-anchor="middle" font-size="9" fill="rgba(100,220,255,0.7)" font-family="Vazirmatn,sans-serif">هوش مصنوعی</text>
-        <circle cx="570" cy="175" r="28" fill="rgba(91,79,255,0.1)" stroke="rgba(91,79,255,0.25)" stroke-width="1.5"/>
-        <text x="570" y="170" text-anchor="middle" font-size="20">📡</text>
-        <text x="570" y="188" text-anchor="middle" font-size="9" fill="rgba(160,150,255,0.7)" font-family="Vazirmatn,sans-serif">تحول دیجیتال</text>
-        <rect x="270" y="15" width="220" height="28" rx="14" fill="rgba(26,108,255,0.2)" stroke="rgba(26,108,255,0.3)" stroke-width="1"/>
-        <text x="380" y="33" text-anchor="middle" font-size="11" fill="rgba(150,200,255,0.9)" font-family="Vazirmatn,sans-serif" font-weight="bold">تحول دیجیتال سلامت · ۲۰۲۵</text>
-      </svg>`,
-      content: `
-        <p>در دنیای امروز، <strong>تحول دیجیتال</strong> به‌عنوان یکی از چالش‌های بزرگ و در عین حال فرصتی استثنایی برای بهبود سیستم‌های بهداشتی و درمانی در سطح جهانی مطرح می‌شود. این تغییرات در حوزه سلامت، تنها یک ابزار فناورانه نیست، بلکه به‌عنوان یک استراتژی اساسی برای ارتقای کیفیت خدمات شناخته می‌شود.</p>
-
-        <h3>چرا تحول دیجیتال سلامت ضروری است؟</h3>
-        <p>پیش‌بینی‌ها نشان می‌دهند که <strong>بازار جهانی سلامت از ۱۰ تریلیون دلار در سال ۲۰۲۳ به ۲۰ تریلیون دلار تا سال ۲۰۳۰</strong> خواهد رسید. همچنین بازار سلامت دیجیتال از ۲۷۰ میلیارد دلار به ۱.۱ تریلیون دلار در همین بازه خواهد رسید.</p>
-        <p>تقریباً <strong>۶۰ درصد از جمعیت جهانی</strong> (۴.۵ میلیارد نفر) از دسترسی به خدمات بهداشتی اساسی محروم هستند. با این حال، تحقیقات مک‌کینزی نشان می‌دهند که با استفاده از ابزارهای دیجیتال، سیستم‌های بهداشتی می‌توانند تا <strong>۱۵ درصد در کارایی خود افزایش</strong> یابند.</p>
-
-        <h3>الگوهای موفق جهانی</h3>
-        <table class="modal-table">
-          <thead><tr><th>کشور</th><th>فناوری دیجیتال پیاده‌سازی شده</th></tr></thead>
-          <tbody>
-            <tr><td><strong>سوئد</strong></td><td>دسترسی شهروندان به سوابق پزشکی از طریق شماره شناسایی شخصی و مدیریت نسخ الکترونیکی</td></tr>
-            <tr><td><strong>آلمان</strong></td><td>احداث مراکز بهداشت دیجیتال</td></tr>
-            <tr><td><strong>اندونزی</strong></td><td>توسعه پلتفرم‌های دیجیتالی و یکپارچه‌سازی سیستم‌های داده سلامت</td></tr>
-            <tr><td><strong>استرالیا و انگلستان</strong></td><td>پیاده‌سازی بلاکچین برای مدیریت سوابق پزشکی</td></tr>
-            <tr><td><strong>ایالات متحده</strong></td><td>استفاده از هوش مصنوعی و یادگیری ماشین برای مراقبت‌های پیشگیرانه</td></tr>
-          </tbody>
-        </table>
-
-        <h3>چالش‌های اصلی</h3>
-        <ul>
-          <li><strong>حریم خصوصی و امنیت داده‌ها:</strong> تهدیدات سایبری مانند گروه‌های باج‌افزاری که به سیستم‌های بهداشتی حمله می‌کنند</li>
-          <li><strong>مقاومت‌های سازمانی:</strong> ترس از تغییر و کمبود رهبری مؤثر</li>
-          <li><strong>نیاز به آموزش:</strong> ۶۳٪ از کارکنان بهداشتی از آموزش ناکافی گزارش داده‌اند</li>
-          <li><strong>چالش‌های فنی:</strong> ناسازگاری سیستم‌ها و کمبود زیرساخت</li>
-          <li><strong>سیاست‌گذاری:</strong> در ایران، تحریم‌های بین‌المللی دستیابی به فناوری‌های روز را دشوار کرده</li>
-        </ul>
-
-        <h3>آینده سیستم بهداشت و درمان</h3>
-        <p>آینده سیستم بهداشت به سمت <strong>مصرف‌کنندگان</strong> متمایل خواهد شد؛ جایی که شهروندان مسئولیت مدیریت سلامت خود را بر عهده می‌گیرند. <strong>درمان سرپایی</strong> بهینه‌ترین روش خواهد بود و خانه‌ها به مکان‌های اصلی درمان تبدیل می‌شوند. تحول به سمت <strong>پیشگیری</strong> به جای درمان بیماری خواهد رفت.</p>
-      `
-    },
-    regtech: {
-      tag: 'RegTech',
-      title: 'آینده نظارت مالی با هوش مصنوعی: از SupTech تا نظارت بلادرنگ',
-      meta: ['⏱ ۱۵ دقیقه مطالعه', '📅 تیر ۱۴۰۳', '✍️ حسین سعادتی'],
-      thumb: `<svg viewBox="0 0 760 230" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-        <defs><linearGradient id="mrg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#0f1e3c"/><stop offset="100%" style="stop-color:#1a3060"/></linearGradient></defs>
-        <rect width="760" height="230" fill="url(#mrg)"/>
-        <circle cx="380" cy="100" r="80" fill="rgba(26,108,255,0.08)" stroke="rgba(26,108,255,0.2)" stroke-width="1.5"/>
-        <circle cx="380" cy="100" r="55" fill="rgba(26,108,255,0.1)" stroke="rgba(26,108,255,0.25)" stroke-width="1"/>
-        <text x="380" y="115" text-anchor="middle" font-size="45">🏛️</text>
-        <circle cx="100" cy="60" r="28" fill="rgba(0,184,217,0.1)" stroke="rgba(0,184,217,0.3)" stroke-width="1.5"/><text x="100" y="57" text-anchor="middle" font-size="18">⚙️</text><text x="100" y="74" text-anchor="middle" font-size="8" fill="rgba(100,220,255,0.7)" font-family="Vazirmatn,sans-serif">RegTech</text>
-        <circle cx="660" cy="60" r="28" fill="rgba(91,79,255,0.1)" stroke="rgba(91,79,255,0.3)" stroke-width="1.5"/><text x="660" y="57" text-anchor="middle" font-size="18">📊</text><text x="660" y="74" text-anchor="middle" font-size="8" fill="rgba(160,150,255,0.7)" font-family="Vazirmatn,sans-serif">SupTech</text>
-        <circle cx="100" cy="175" r="28" fill="rgba(26,108,255,0.1)" stroke="rgba(26,108,255,0.25)" stroke-width="1.5"/><text x="100" y="172" text-anchor="middle" font-size="18">🔐</text><text x="100" y="188" text-anchor="middle" font-size="8" fill="rgba(100,180,255,0.7)" font-family="Vazirmatn,sans-serif">انطباق</text>
-        <circle cx="660" cy="175" r="28" fill="rgba(0,184,217,0.1)" stroke="rgba(0,184,217,0.25)" stroke-width="1.5"/><text x="660" y="172" text-anchor="middle" font-size="18">📡</text><text x="660" y="188" text-anchor="middle" font-size="8" fill="rgba(100,220,255,0.7)" font-family="Vazirmatn,sans-serif">نظارت</text>
-        <line x1="128" y1="70" x2="310" y2="90" stroke="rgba(26,108,255,0.3)" stroke-width="1" stroke-dasharray="4,3"/>
-        <line x1="632" y1="70" x2="450" y2="90" stroke="rgba(26,108,255,0.3)" stroke-width="1" stroke-dasharray="4,3"/>
-        <line x1="128" y1="168" x2="310" y2="115" stroke="rgba(0,184,217,0.25)" stroke-width="1" stroke-dasharray="4,3"/>
-        <line x1="632" y1="168" x2="450" y2="115" stroke="rgba(91,79,255,0.25)" stroke-width="1" stroke-dasharray="4,3"/>
-      </svg>`,
-      content: `<p>این مقاله به‌زودی کامل منتشر می‌شود. موضوع اصلی: چگونه <strong>RegTech و SupTech</strong> با استفاده از هوش مصنوعی، نظارت مالی را در زمان واقعی ممکن می‌سازند.</p>`
-    },
-    brd: {
-      tag: 'تحلیل کسب‌وکار',
-      title: 'راهنمای کامل نوشتن BRD حرفه‌ای برای پروژه‌های نرم‌افزاری',
-      meta: ['⏱ ۱۲ دقیقه مطالعه', '📅 اردیبهشت ۱۴۰۳', '✍️ حسین سعادتی'],
-      thumb: `<svg viewBox="0 0 760 230" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-        <defs><linearGradient id="mbg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#1a1040"/><stop offset="100%" style="stop-color:#2d1a60"/></linearGradient></defs>
-        <rect width="760" height="230" fill="url(#mbg)"/>
-        <rect x="100" y="25" width="560" height="175" rx="14" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-        <rect x="120" y="45" width="200" height="9" rx="4" fill="rgba(26,108,255,0.7)"/>
-        <text x="222" y="53" text-anchor="middle" font-size="10" fill="rgba(150,200,255,0.9)" font-family="Vazirmatn,sans-serif" font-weight="bold">Business Requirements Document</text>
-        <rect x="120" y="65" width="520" height="5" rx="2.5" fill="rgba(255,255,255,0.12)"/>
-        <rect x="120" y="77" width="480" height="5" rx="2.5" fill="rgba(255,255,255,0.08)"/>
-        <rect x="120" y="89" width="500" height="5" rx="2.5" fill="rgba(255,255,255,0.08)"/>
-        <rect x="120" y="108" width="160" height="7" rx="3.5" fill="rgba(91,79,255,0.6)"/>
-        <rect x="120" y="123" width="520" height="5" rx="2.5" fill="rgba(255,255,255,0.07)"/>
-        <rect x="120" y="135" width="460" height="5" rx="2.5" fill="rgba(255,255,255,0.07)"/>
-        <rect x="120" y="147" width="500" height="5" rx="2.5" fill="rgba(255,255,255,0.07)"/>
-        <rect x="120" y="166" width="140" height="7" rx="3.5" fill="rgba(0,184,217,0.5)"/>
-        <rect x="120" y="181" width="400" height="5" rx="2.5" fill="rgba(255,255,255,0.06)"/>
-      </svg>`,
-      content: `<p>این مقاله به‌زودی کامل منتشر می‌شود. راهنمای گام‌به‌گام نوشتن <strong>BRD حرفه‌ای</strong>، از استخراج نیازمندی‌ها تا تحویل به تیم توسعه.</p>`
-    }
-  };
-
-  function openModal(id) {
-    const a = articles[id];
+  // ── پنجره‌های پاپ‌آپ (Modal) ──
+  function openDynamicModal(id) {
+    const a = window.dynamicArticles && window.dynamicArticles[id];
     if (!a) return;
     document.getElementById('modalInner').innerHTML = `
       <div class="modal-hero">
@@ -1087,157 +728,79 @@
 
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-  // ── Dynamic Articles Loader ──
+  // ── لودر اصلی مقالات از فایل JSON شما ──
   async function loadDynamicArticles() {
     try {
-      // Fetch list of files from _articles folder via GitHub API
-      const repoOwner = 'hosseinsaadati';
-      const repoName = 'hossein-saadati.github.io';
-      const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/_articles`;
+      // کد به پوشه articles و فایل articles.json شما متصل می‌شود
+      const jsonUrl = './articles/articles.json'; 
       
-      const res = await fetch(apiUrl);
-      if (!res.ok) return;
-      const files = await res.json();
-      
-      const mdFiles = files.filter(f => f.name.endsWith('.md') && f.name !== 'placeholder.md');
-      if (mdFiles.length === 0) return;
+      const res = await fetch(jsonUrl);
+      if (!res.ok) {
+        console.log('فایل articles.json در پوشه articles پیدا نشد.');
+        return;
+      }
+      const articlesList = await res.json();
+      if (!articlesList || articlesList.length === 0) return;
       
       const container = document.getElementById('dynamic-articles-container');
+      container.innerHTML = ''; // پاکسازی شبیه‌سازها
       
-      for (const file of mdFiles) {
-        const fileRes = await fetch(file.download_url);
-        const text = await fileRes.text();
-        
-        // Parse frontmatter
-        const fmMatch = text.match(/^---
-([\s\S]*?)
----/);
-        if (!fmMatch) continue;
-        
-        const fm = {};
-        fmMatch[1].split('
-').forEach(line => {
-          const [key, ...val] = line.split(':');
-          if (key && val.length) fm[key.trim()] = val.join(':').trim().replace(/^"|"$/g, '');
-        });
-        
-        if (fm.published === 'false') continue;
-        
-        // Get body content
-        const body = text.replace(/^---
-[\s\S]*?
----
-/, '').trim();
-        const excerpt = body.replace(/#{1,6}\s/g, '').replace(/\*\*/g, '').substring(0, 120) + '...';
-        
-        // Create article card
+      articlesList.forEach((article, index) => {
+        const articleId = 'dynamic_' + (article.id || index);
         const card = document.createElement('div');
         card.className = 'article-card';
-        card.style.cursor = 'pointer';
         
-        const articleId = 'dynamic_' + file.name.replace('.md', '');
+        const excerpt = article.excerpt || (article.content ? article.content.substring(0, 120) + '...' : 'بدون خلاصه...');
         
         card.innerHTML = `
           <div class="article-thumb" style="background: linear-gradient(135deg, #0f1729 0%, #0d2145 100%); display:flex; align-items:center; justify-content:center;">
             <span style="font-size:3rem;">📝</span>
           </div>
           <div class="article-body">
-            <span class="article-tag">${fm.tag || 'مقاله'}</span>
-            <div class="article-title">${fm.title || 'بدون عنوان'}</div>
+            <span class="article-tag">${article.tag || 'مقاله'}</span>
+            <div class="article-title">${article.title || 'بدون عنوان'}</div>
             <div class="article-excerpt">${excerpt}</div>
             <div class="article-footer">
-              <span class="article-meta">⏱ ${fm.readtime || ''} · ${fm.date || ''}</span>
+              <span class="article-meta">⏱ ${article.readtime || '۵ دقیقه'} · ${article.date || ''}</span>
               <span class="article-read-btn">مطالعه <span>←</span></span>
             </div>
           </div>`;
         
-        // Store article data for modal
         window.dynamicArticles = window.dynamicArticles || {};
         window.dynamicArticles[articleId] = {
-          tag: fm.tag || 'مقاله',
-          title: fm.title || 'بدون عنوان',
-          meta: [`⏱ ${fm.readtime || ''}`, `📅 ${fm.date || ''}`, '✍️ حسین سعادتی'],
+          tag: article.tag || 'مقاله',
+          title: article.title || 'بدون عنوان',
+          meta: [`⏱ ${article.readtime || '۵ دقیقه'}`, `📅 ${article.date || ''}`, '✍️ حسین سعادتی'],
           thumb: `<div style="height:230px; background: linear-gradient(135deg, #0f1729, #0d2145); display:flex; align-items:center; justify-content:center; font-size:5rem;">📝</div>`,
-          content: body.replace(/
-/g, '<br>').replace(/#{3}\s(.*)/g, '<h3>$1</h3>').replace(/#{2}\s(.*)/g, '<h2>$1</h2>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+          content: article.content || '<p>متن مقاله خالی است.</p>'
         };
         
         card.onclick = () => openDynamicModal(articleId);
         container.appendChild(card);
-      }
+      });
     } catch(e) {
-      console.log('Could not load dynamic articles:', e);
+      console.log('خطا در بارگذاری مقالات:', e);
     }
   }
   
-  function openDynamicModal(id) {
-    const a = window.dynamicArticles && window.dynamicArticles[id];
-    if (!a) return;
-    document.getElementById('modalInner').innerHTML = `
-      <div class="modal-hero">
-        ${a.thumb}
-        <span class="modal-hero-badge">${a.tag}</span>
-      </div>
-      <div class="modal-content">
-        <span class="modal-tag">${a.tag}</span>
-        <h2 class="modal-title">${a.title}</h2>
-        <div class="modal-meta">${a.meta.map(m=>`<span>${m}</span>`).join('')}</div>
-        <div class="modal-body">${a.content}</div>
-      </div>`;
-    document.getElementById('modalOverlay').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-  
-  // Load dynamic articles on page load
+  // اجرای خودکار لودر مقالات هنگام باز شدن صفحه
   loadDynamicArticles();
 
-
-
-  // ── Banner canvas: animated data flow dots ──
+  // ── Canvas Background Banner ──
   const canvas = document.getElementById('bannerCanvas');
   if (canvas) {
     const ctx = canvas.getContext('2d');
     const art = document.getElementById('bannerArt');
-    function resize() {
-      canvas.width = art.offsetWidth;
-      canvas.height = art.offsetHeight;
-    }
-    resize();
-
-    const dots = Array.from({length: 35}, () => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      r: 1 + Math.random() * 2,
-      vx: (Math.random() - 0.5) * 0.5,
-      vy: (Math.random() - 0.5) * 0.4,
-      color: Math.random() > 0.5 ? '26,108,255' : '0,184,217',
-      a: 0.2 + Math.random() * 0.4
+    canvas.width = art.offsetWidth; canvas.height = art.offsetHeight;
+    const dots = Array.from({length: 20}, () => ({
+      x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+      r: 1.5, vx: (Math.random() - 0.5) * 0.4, vy: (Math.random() - 0.5) * 0.4
     }));
-
     function draw() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      // Draw connection lines between close dots
-      for (let i = 0; i < dots.length; i++) {
-        for (let j = i+1; j < dots.length; j++) {
-          const dx = dots[i].x - dots[j].x;
-          const dy = dots[i].y - dots[j].y;
-          const dist = Math.sqrt(dx*dx + dy*dy);
-          if (dist < 90) {
-            ctx.beginPath();
-            ctx.moveTo(dots[i].x, dots[i].y);
-            ctx.lineTo(dots[j].x, dots[j].y);
-            ctx.strokeStyle = `rgba(26,108,255,${0.12 * (1 - dist/90)})`;
-            ctx.lineWidth = 0.8;
-            ctx.stroke();
-          }
-        }
-      }
-      // Draw dots
       dots.forEach(d => {
-        ctx.beginPath();
-        ctx.arc(d.x, d.y, d.r, 0, Math.PI*2);
-        ctx.fillStyle = `rgba(${d.color},${d.a})`;
-        ctx.fill();
+        ctx.beginPath(); ctx.arc(d.x, d.y, d.r, 0, Math.PI*2);
+        ctx.fillStyle = 'rgba(26,108,255,0.3)'; ctx.fill();
         d.x += d.vx; d.y += d.vy;
         if (d.x < 0 || d.x > canvas.width) d.vx *= -1;
         if (d.y < 0 || d.y > canvas.height) d.vy *= -1;
