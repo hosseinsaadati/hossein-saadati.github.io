@@ -717,7 +717,7 @@
   // ── لودر اصلی مقالات از فایل JSON ──
   async function loadDynamicArticles() {
     try {
-      const jsonUrl = './articles/articles.json'; 
+     const jsonUrl = './articles/articles.json?v=' + new Date().getTime(); 
       
       const res = await fetch(jsonUrl);
       if (!res.ok) {
