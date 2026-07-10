@@ -3,348 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>پنل ادمین | حسین سعادتی</title>
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;900&display=swap" rel="stylesheet">
-<style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:'Vazirmatn',sans-serif; background:#f0f4ff; direction:rtl; min-height:100vh; }
-
-/* LOGIN */
-#login-screen {
-  min-height:100vh; display:flex; align-items:center; justify-content:center;
-  background: linear-gradient(160deg, #0f1729 0%, #0d2145 100%);
-}
-.login-box {
-  background:#fff; border-radius:20px; padding:2.5rem;
-  width:100%; max-width:400px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-}
-.login-logo {
-  text-align:center; margin-bottom:2rem;
-  font-size:1.4rem; font-weight:900;
-  background: linear-gradient(135deg,#1a6cff,#5b4fff);
-  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-}
-.login-box h2 { text-align:center; color:#1a1f36; font-size:1.1rem; margin-bottom:1.5rem; font-weight:500; }
-.login-box input {
-  width:100%; padding:0.9rem 1rem; border:1.5px solid rgba(26,108,255,0.2);
-  border-radius:10px; font-family:'Vazirmatn',sans-serif; font-size:1rem;
-  outline:none; transition:border-color 0.2s; margin-bottom:1rem; direction:ltr;
-}
-.login-box input:focus { border-color:#1a6cff; }
-.login-btn {
-  width:100%; padding:0.9rem; background:linear-gradient(135deg,#1a6cff,#5b4fff);
-  color:#fff; border:none; border-radius:10px; font-family:'Vazirmatn',sans-serif;
-  font-size:1rem; font-weight:700; cursor:pointer; transition:opacity 0.2s;
-}
-.login-btn:hover { opacity:0.9; }
-.login-error { color:#e53e3e; font-size:0.85rem; text-align:center; margin-top:0.5rem; display:none; }
-
-/* ADMIN PANEL */
-#admin-panel { display:none; min-height:100vh; }
-
-.admin-nav {
-  background: linear-gradient(135deg,#0f1729,#0d2145);
-  padding:1rem 2rem; display:flex; align-items:center; justify-content:space-between;
-  position:sticky; top:0; z-index:100;
-}
-.admin-nav-logo { color:#fff; font-size:1.1rem; font-weight:900; }
-.admin-nav-logo span { color:#7ab8ff; }
-.logout-btn {
-  background:rgba(255,255,255,0.1); color:#fff; border:1px solid rgba(255,255,255,0.2);
-  padding:0.4rem 1rem; border-radius:8px; cursor:pointer; font-family:'Vazirmatn',sans-serif;
-  font-size:0.85rem; transition:background 0.2s;
-}
-.logout-btn:hover { background:rgba(255,255,255,0.2); }
-
-.admin-body { max-width:900px; margin:0 auto; padding:2rem; }
-
-/* TABS */
-.tabs { display:flex; gap:0.5rem; margin-bottom:2rem; }
-.tab-btn {
-  padding:0.6rem 1.5rem; border-radius:10px; border:1.5px solid rgba(26,108,255,0.2);
-  background:#fff; color:#6b7a99; font-family:'Vazirmatn',sans-serif;
-  font-size:0.9rem; cursor:pointer; transition:all 0.2s; font-weight:500;
-}
-.tab-btn.active { background:linear-gradient(135deg,#1a6cff,#5b4fff); color:#fff; border-color:transparent; }
-
-/* ARTICLE FORM */
-.form-card {
-  background:#fff; border-radius:16px; padding:2rem;
-  box-shadow:0 4px 24px rgba(26,108,255,0.08);
-  border:1px solid rgba(26,108,255,0.1);
-}
-.form-card h3 { font-size:1.1rem; color:#1a1f36; margin-bottom:1.5rem; font-weight:700; }
-.form-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem; }
-.form-group { display:flex; flex-direction:column; gap:0.4rem; margin-bottom:1rem; }
-.form-group label { font-size:0.82rem; color:#6b7a99; font-weight:500; }
-.form-group input, .form-group select, .form-group textarea {
-  padding:0.75rem 1rem; border:1.5px solid rgba(26,108,255,0.15);
-  border-radius:10px; font-family:'Vazirmatn',sans-serif; font-size:0.92rem;
-  color:#1a1f36; outline:none; transition:border-color 0.2s;
-  background:#fff;
-}
-.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-  border-color:#1a6cff; box-shadow:0 0 0 3px rgba(26,108,255,0.08);
-}
-.form-group textarea { min-height:250px; resize:vertical; line-height:1.8; }
-.submit-btn {
-  background:linear-gradient(135deg,#1a6cff,#5b4fff); color:#fff;
-  border:none; padding:0.85rem 2rem; border-radius:10px;
-  font-family:'Vazirmatn',sans-serif; font-size:1rem; font-weight:700;
-  cursor:pointer; transition:opacity 0.2s;
-}
-.submit-btn:hover { opacity:0.9; }
-
-/* ARTICLES LIST */
-.articles-list { display:flex; flex-direction:column; gap:1rem; }
-.article-item {
-  background:#fff; border-radius:12px; padding:1.25rem 1.5rem;
-  border:1px solid rgba(26,108,255,0.1);
-  display:flex; align-items:center; justify-content:space-between;
-  box-shadow:0 2px 12px rgba(26,108,255,0.05);
-}
-.article-item-title { font-weight:700; color:#1a1f36; font-size:0.95rem; }
-.article-item-meta { font-size:0.78rem; color:#6b7a99; margin-top:4px; }
-.article-item-tag {
-  display:inline-block; background:rgba(26,108,255,0.1); color:#1a6cff;
-  padding:2px 10px; border-radius:20px; font-size:0.72rem; font-weight:600;
-  margin-left:8px;
-}
-.delete-btn {
-  background:#fff; border:1.5px solid rgba(229,62,62,0.3); color:#e53e3e;
-  padding:0.4rem 0.9rem; border-radius:8px; cursor:pointer;
-  font-family:'Vazirmatn',sans-serif; font-size:0.82rem; transition:all 0.2s;
-}
-.delete-btn:hover { background:#fff5f5; border-color:#e53e3e; }
-
-.success-msg {
-  background:#f0fff4; border:1px solid #9ae6b4; color:#276749;
-  padding:0.75rem 1rem; border-radius:10px; margin-bottom:1rem;
-  font-size:0.9rem; display:none;
-}
-.empty-state { text-align:center; color:#6b7a99; padding:3rem; font-size:0.95rem; }
-
-/* HOW TO PUBLISH */
-.info-card {
-  background:linear-gradient(135deg,rgba(26,108,255,0.05),rgba(91,79,255,0.05));
-  border:1px solid rgba(26,108,255,0.15); border-radius:12px;
-  padding:1.25rem 1.5rem; margin-bottom:1.5rem; font-size:0.88rem; color:#6b7a99;
-  line-height:1.8;
-}
-.info-card strong { color:#1a6cff; }
-</style>
-</head>
-<body>
-
-<!-- LOGIN -->
-<div id="login-screen">
-  <div class="login-box">
-    <div class="login-logo">حسین سعادتی</div>
-    <h2>ورود به پنل مدیریت</h2>
-    <input type="password" id="pass-input" placeholder="رمز عبور را وارد کنید" onkeydown="if(event.key==='Enter')doLogin()">
-    <button class="login-btn" onclick="doLogin()">ورود</button>
-    <p class="login-error" id="login-error">رمز عبور اشتباه است!</p>
-  </div>
-</div>
-
-<!-- ADMIN PANEL -->
-<div id="admin-panel">
-  <nav class="admin-nav">
-    <div class="admin-nav-logo">پنل ادمین | <span>حسین سعادتی</span></div>
-    <button class="logout-btn" onclick="doLogout()">خروج</button>
-  </nav>
-
-  <div class="admin-body">
-
-    <div class="tabs">
-      <button class="tab-btn active" onclick="showTab('new')">✏️ مقاله جدید</button>
-      <button class="tab-btn" onclick="showTab('list')">📋 مقالات من</button>
-      <button class="tab-btn" onclick="showTab('guide')">📖 راهنما</button>
-    </div>
-
-    <!-- NEW ARTICLE -->
-    <div id="tab-new">
-      <div class="success-msg" id="success-msg">✅ مقاله ذخیره شد! برای انتشار روی سایت، مراحل راهنما را دنبال کنید.</div>
-      <div class="form-card">
-        <h3>✏️ نوشتن مقاله جدید</h3>
-        <div class="form-row">
-          <div class="form-group">
-            <label>عنوان مقاله *</label>
-            <input type="text" id="art-title" placeholder="عنوان مقاله را بنویسید">
-          </div>
-          <div class="form-group">
-            <label>دسته‌بندی</label>
-            <input type="text" id="art-tag" placeholder="مثلاً: تحلیل کسب‌وکار">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>تاریخ انتشار</label>
-            <input type="text" id="art-date" placeholder="مثلاً: تیر ۱۴۰۳">
-          </div>
-          <div class="form-group">
-            <label>زمان مطالعه</label>
-            <input type="text" id="art-readtime" placeholder="مثلاً: ۱۰ دقیقه مطالعه">
-          </div>
-        </div>
-        <div class="form-group">
-          <label>متن مقاله *</label>
-          <textarea id="art-body" placeholder="متن کامل مقاله را اینجا بنویسید یا از ورد کپی کنید..."></textarea>
-        </div>
-        <button class="submit-btn" onclick="saveArticle()">💾 ذخیره مقاله</button>
-      </div>
-    </div>
-
-    <!-- ARTICLES LIST -->
-    <div id="tab-list" style="display:none">
-      <div class="form-card">
-        <h3>📋 مقالات ذخیره‌شده</h3>
-        <div id="articles-list-container"></div>
-      </div>
-    </div>
-
-    <!-- GUIDE -->
-    <div id="tab-guide" style="display:none">
-      <div class="form-card">
-        <h3>📖 چطور مقاله منتشر کنم؟</h3>
-        <br>
-        <div class="info-card">
-          <strong>قدم ۱ —</strong> مقاله رو اینجا بنویس و ذخیره کن<br>
-          <strong>قدم ۲ —</strong> برو به تب «مقالات من» و روی «کپی برای GitHub» کلیک کن<br>
-          <strong>قدم ۳ —</strong> برو به <strong>github.com/hosseinsaadati/hossein-saadati.github.io</strong><br>
-          <strong>قدم ۴ —</strong> روی <strong>Add file → Create new file</strong> کلیک کن<br>
-          <strong>قدم ۵ —</strong> اسم فایل رو بنویس: <strong>articles/اسم-مقاله.html</strong><br>
-          <strong>قدم ۶ —</strong> متن کپی‌شده رو paste کن و Commit changes بزن<br>
-          <strong>قدم ۷ —</strong> چند دقیقه صبر کن — مقاله روی سایتت ظاهر میشه! ✅
-        </div>
-        <div class="info-card">
-          💡 <strong>نکته:</strong> من (Claude) هر بار که مقاله جدید داری، میتونم فایل HTML آماده‌اش رو برات بسازم. فقط متن مقاله رو اینجا ذخیره کن و بعد برام بفرست!
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<script>
-const PASSWORD = 'Aa@123456';
-const STORAGE_KEY = 'hsaadati_articles';
-
-function doLogin() {
-  const val = document.getElementById('pass-input').value;
-  if (val === PASSWORD) {
-    document.getElementById('login-screen').style.display = 'none';
-    document.getElementById('admin-panel').style.display = 'block';
-    loadArticlesList();
-  } else {
-    document.getElementById('login-error').style.display = 'block';
-  }
-}
-
-function doLogout() {
-  document.getElementById('login-screen').style.display = 'flex';
-  document.getElementById('admin-panel').style.display = 'none';
-  document.getElementById('pass-input').value = '';
-}
-
-function showTab(name) {
-  ['new','list','guide'].forEach(t => {
-    document.getElementById('tab-'+t).style.display = t===name ? 'block' : 'none';
-  });
-  document.querySelectorAll('.tab-btn').forEach((btn,i) => {
-    btn.classList.toggle('active', ['new','list','guide'][i] === name);
-  });
-  if (name === 'list') loadArticlesList();
-}
-
-function getArticles() {
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); } catch(e) { return []; }
-}
-
-function saveArticle() {
-  const title = document.getElementById('art-title').value.trim();
-  const body = document.getElementById('art-body').value.trim();
-  if (!title || !body) { alert('عنوان و متن مقاله الزامی است!'); return; }
-
-  const articles = getArticles();
-  const article = {
-    id: Date.now(),
-    title,
-    tag: document.getElementById('art-tag').value.trim() || 'مقاله',
-    date: document.getElementById('art-date').value.trim() || '',
-    readtime: document.getElementById('art-readtime').value.trim() || '۵ دقیقه مطالعه',
-    body,
-    createdAt: new Date().toLocaleDateString('fa-IR')
-  };
-  articles.unshift(article);
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(articles));
-
-  // Clear form
-  ['art-title','art-tag','art-date','art-readtime','art-body'].forEach(id => {
-    document.getElementById(id).value = '';
-  });
-  document.getElementById('success-msg').style.display = 'block';
-  setTimeout(() => document.getElementById('success-msg').style.display = 'none', 4000);
-}
-
-function loadArticlesList() {
-  const articles = getArticles();
-  const container = document.getElementById('articles-list-container');
-  if (articles.length === 0) {
-    container.innerHTML = '<div class="empty-state">هنوز مقاله‌ای ذخیره نکردی 📝</div>';
-    return;
-  }
-  container.innerHTML = '<div class="articles-list">' + articles.map(a => `
-    <div class="article-item">
-      <div>
-        <div class="article-item-title">${a.title} <span class="article-item-tag">${a.tag}</span></div>
-        <div class="article-item-meta">📅 ${a.date || a.createdAt} · ⏱ ${a.readtime}</div>
-      </div>
-      <div style="display:flex;gap:0.5rem">
-        <button class="submit-btn" style="padding:0.4rem 0.9rem;font-size:0.8rem" onclick="copyForGithub(${a.id})">کپی برای GitHub</button>
-        <button class="delete-btn" onclick="deleteArticle(${a.id})">حذف</button>
-      </div>
-    </div>
-  `).join('') + '</div>';
-}
-
-function deleteArticle(id) {
-  if (!confirm('مطمئنی؟')) return;
-  const articles = getArticles().filter(a => a.id !== id);
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(articles));
-  loadArticlesList();
-}
-
-function copyForGithub(id) {
-  const a = getArticles().find(x => x.id === id);
-  if (!a) return;
-  const bodyHtml = a.body.split('\n\n').map(p => `    <p>${p.replace(/\n/g,'<br>')}</p>`).join('\n');
-  const html = `<!DOCTYPE html>
-<html lang="fa" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${a.title} | حسین سعادتی</title>
+<title>تحول دیجیتال در نظام سلامت: نقش فناوری‌های هوشمند در بازآفرینی تشخیص، درمان و دسترسی | حسین سعادتی</title>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Vazirmatn',sans-serif;background:#f4f6fb;color:#1a1f36;direction:rtl}
 nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 3rem;background:rgba(255,255,255,0.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(26,108,255,0.1)}
 .nav-logo{font-size:1.1rem;font-weight:800;background:linear-gradient(135deg,#1a6cff,#5b4fff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none}
-.nav-back{color:#6b7a99;text-decoration:none;font-size:0.88rem}
-.nav-back:hover{color:#1a6cff}
-.hero{padding-top:100px;background:linear-gradient(160deg,#0f1729 0%,#0d2145 100%);min-height:320px;display:flex;align-items:flex-end}
+.nav-back{color:#6b7a99;text-decoration:none;font-size:0.88rem}.nav-back:hover{color:#1a6cff}
+.hero{padding-top:100px;background:linear-gradient(160deg,#0f1729 0%,#0d2145 100%);min-height:300px;display:flex;align-items:flex-end}
 .hero-content{max-width:860px;margin:0 auto;padding:3rem 2rem;width:100%}
 .tag-badge{display:inline-block;background:rgba(26,108,255,0.25);border:1px solid rgba(26,108,255,0.4);color:#7ab8ff;padding:4px 16px;border-radius:30px;font-size:0.8rem;font-weight:600;margin-bottom:1rem}
 h1{font-size:clamp(1.4rem,3vw,2rem);font-weight:800;color:#fff;line-height:1.5;margin-bottom:1rem}
 .meta{display:flex;gap:1.5rem;flex-wrap:wrap;color:rgba(255,255,255,0.5);font-size:0.82rem}
 .container{max-width:860px;margin:0 auto;padding:3rem 2rem 6rem}
-.article-box{background:#fff;border-radius:20px;padding:3rem;box-shadow:0 4px 40px rgba(26,108,255,0.08);border:1px solid rgba(26,108,255,0.08)}
-.article-box p{font-size:1rem;line-height:2.1;color:#2d3456;margin-bottom:1.5rem}
+.article-box{background:#fff;border-radius:20px;padding:3rem;box-shadow:0 4px 40px rgba(26,108,255,0.08);border:1px solid rgba(26,108,255,0.08);font-size:0.97rem;line-height:2;color:#2d3456}
+.article-box h1{font-size:1.6rem;font-weight:800;margin:1.5rem 0 0.75rem;color:#1a1f36}
+.article-box h2{font-size:1.25rem;font-weight:700;margin:1.5rem 0 0.75rem;color:#1a1f36;border-right:4px solid #1a6cff;padding-right:0.75rem}
+.article-box h3{font-size:1.05rem;font-weight:700;margin:1.25rem 0 0.5rem;color:#5b4fff}
+.article-box p{margin-bottom:1.2rem}
+.article-box ul,.article-box ol{padding-right:1.5rem;margin-bottom:1.2rem}
+.article-box li{margin-bottom:0.4rem}
+.article-box blockquote{border-right:4px solid #1a6cff;padding:0.75rem 1rem;margin:1rem 0;background:rgba(26,108,255,0.05);border-radius:0 8px 8px 0;color:#4a5568;font-style:italic}
+.article-box table{border-collapse:collapse;width:100%;margin:1rem 0}
+.article-box td,.article-box th{border:1px solid rgba(26,108,255,0.2);padding:0.6rem 0.9rem;text-align:right}
+.article-box th{background:rgba(26,108,255,0.08);font-weight:700}
+.article-box img{max-width:100%;border-radius:8px;margin:0.5rem 0}
+.article-box a{color:#1a6cff}
 .back-btn{display:inline-flex;align-items:center;gap:8px;margin-bottom:2rem;color:#6b7a99;text-decoration:none;font-size:0.9rem}
 .back-btn:hover{color:#1a6cff}
-@media(max-width:600px){nav{padding:1rem 1.5rem}.hero-content{padding:2rem 1.5rem}.container{padding:2rem 1rem 4rem}.article-box{padding:1.5rem}}
+@media(max-width:600px){nav{padding:1rem 1.5rem}.hero-content,.container{padding:2rem 1rem}.article-box{padding:1.5rem}}
 </style>
 </head>
 <body>
@@ -354,28 +42,970 @@ h1{font-size:clamp(1.4rem,3vw,2rem);font-weight:800;color:#fff;line-height:1.5;m
 </nav>
 <div class="hero">
   <div class="hero-content">
-    <span class="tag-badge">${a.tag}</span>
-    <h1>${a.title}</h1>
+    <span class="tag-badge">تحول دیجیتال سلامت</span>
+    <h1>تحول دیجیتال در نظام سلامت: نقش فناوری‌های هوشمند در بازآفرینی تشخیص، درمان و دسترسی</h1>
     <div class="meta">
       <span>✍️ حسین سعادتی</span>
-      <span>📅 ${a.date}</span>
-      <span>⏱ ${a.readtime}</span>
+      <span>📅 شهريور 1404</span>
+      <span>⏱ 9 دقيقه</span>
     </div>
   </div>
 </div>
 <div class="container">
   <a href="../" class="back-btn">← بازگشت به سایت</a>
-  <div class="article-box">
-${bodyHtml}
-  </div>
-</div>
-</body>
-</html>`;
+  <div class="article-box"><blockquote><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">&nbsp;</span></blockquote><p class="MsoNormal" align="center" dir="RTL" style="text-align:center"><b><span lang="AR-SA" style="font-size:16.0pt;line-height:115%;font-family:&quot;B Nazanin&quot;">تحول
+دیجیتال در نظام سلامت: نقش فناوری‌های هوشمند در بازآفرینی تشخیص، درمان و دسترسی<o:p></o:p></span></b></p><p class="MsoNormal" align="center" dir="RTL" style="text-align:center"><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">&nbsp;</span></p><p class="MsoNormal" dir="RTL"><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">تحول
+دیجیتال در دهه‌ی اخیر، به‌عنوان یکی از عمیق‌ترین روندهای دگرگون‌کننده‌ی جهان معاصر،
+به‌ویژه در نظام سلامت، مطرح شده است. استفاده از فناوری‌های نوینی همچون هوش مصنوعی<a href="file:///D:/&amp;nbsp;/%D8%AF%DA%A9%D8%AA%D8%B1%20%D9%85%D8%B9%D8%A8%D9%88%D8%AF%DB%8C/14040530/%D9%85%D9%82%D8%A7%D9%84%D9%87%20%D8%AF%D9%88%D9%85.docx#_ftn1" name="_ftnref1" title=""><span class="MsoFootnoteReference"><span dir="LTR"><!--[if !supportFootnotes]--><span class="MsoFootnoteReference"><span style="font-size:12.0pt;line-height:115%;
+font-family:&quot;Aptos&quot;,sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-family:
+Aptos;mso-fareast-theme-font:minor-latin;mso-hansi-theme-font:minor-latin;
+mso-bidi-font-family:&quot;B Nazanin&quot;;mso-ansi-language:EN-US;mso-fareast-language:
+EN-US;mso-bidi-language:AR-SA">[1]</span></span><!--[endif]--></span></span></a> (</span><span dir="LTR">AI</span><span dir="RTL"></span><span dir="RTL"></span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span>)، اینترنت
+اشیا<a href="file:///D:/&amp;nbsp;/%D8%AF%DA%A9%D8%AA%D8%B1%20%D9%85%D8%B9%D8%A8%D9%88%D8%AF%DB%8C/14040530/%D9%85%D9%82%D8%A7%D9%84%D9%87%20%D8%AF%D9%88%D9%85.docx#_ftn2" name="_ftnref2" title=""><span class="MsoFootnoteReference"><span dir="LTR"><!--[if !supportFootnotes]--><span class="MsoFootnoteReference"><span style="font-size:12.0pt;line-height:115%;
+font-family:&quot;Aptos&quot;,sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-family:
+Aptos;mso-fareast-theme-font:minor-latin;mso-hansi-theme-font:minor-latin;
+mso-bidi-font-family:&quot;B Nazanin&quot;;mso-ansi-language:EN-US;mso-fareast-language:
+EN-US;mso-bidi-language:AR-SA">[2]</span></span><!--[endif]--></span></span></a> (</span><span dir="LTR">IoT</span><span dir="RTL"></span><span dir="RTL"></span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span>)، سلامت
+و پزشکی از راه دور<a href="file:///D:/&amp;nbsp;/%D8%AF%DA%A9%D8%AA%D8%B1%20%D9%85%D8%B9%D8%A8%D9%88%D8%AF%DB%8C/14040530/%D9%85%D9%82%D8%A7%D9%84%D9%87%20%D8%AF%D9%88%D9%85.docx#_ftn3" name="_ftnref3" title=""><span class="MsoFootnoteReference"><span dir="LTR"><!--[if !supportFootnotes]--><span class="MsoFootnoteReference"><span style="font-size:12.0pt;line-height:115%;font-family:&quot;Aptos&quot;,sans-serif;
+mso-ascii-theme-font:minor-latin;mso-fareast-font-family:Aptos;mso-fareast-theme-font:
+minor-latin;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:&quot;B Nazanin&quot;;
+mso-ansi-language:EN-US;mso-fareast-language:EN-US;mso-bidi-language:AR-SA">[3]</span></span><!--[endif]--></span></span></a>
+و فناوری زنجیره بلوکی<a href="file:///D:/&amp;nbsp;/%D8%AF%DA%A9%D8%AA%D8%B1%20%D9%85%D8%B9%D8%A8%D9%88%D8%AF%DB%8C/14040530/%D9%85%D9%82%D8%A7%D9%84%D9%87%20%D8%AF%D9%88%D9%85.docx#_ftn4" name="_ftnref4" title=""><span class="MsoFootnoteReference"><span dir="LTR"><!--[if !supportFootnotes]--><span class="MsoFootnoteReference"><span style="font-size:12.0pt;line-height:115%;
+font-family:&quot;Aptos&quot;,sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-family:
+Aptos;mso-fareast-theme-font:minor-latin;mso-hansi-theme-font:minor-latin;
+mso-bidi-font-family:&quot;B Nazanin&quot;;mso-ansi-language:EN-US;mso-fareast-language:
+EN-US;mso-bidi-language:AR-SA">[4]</span></span><!--[endif]--></span></span></a>، افق
+تازه‌ای در مدیریت، تشخیص، درمان و پایش سلامت گشوده است. این فناوری‌ها با هدف حل
+چالش‌های دیرپای نظام سلامت از جمله دسترسی نابرابر به خدمات، هزینه‌های فزاینده، خطاهای
+انسانی و کمبود داده‌های قابل‌اعتماد طراحی و توسعه یافته‌اند. امروز، داده و هوش به
+مؤلفه‌هایی حیاتی در تصمیم‌سازی و سیاست‌گذاری سلامت تبدیل شده‌اند؛ مؤلفه‌هایی که
+می‌توانند کارآمدی، عدالت و شفافیت را در ساختارهای درمانی و بهداشتی ارتقا بخشند.
+در شماره‌ی پیشین </span><span lang="FA" style="font-family:&quot;B Nazanin&quot;;
+mso-bidi-language:FA">ماهنامه</span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">،
+به مبانی و نقش کلی فناوری‌های نوآورانه در آینده‌ی نظام سلامت پرداختیم. در این شماره،
+تمرکز بر کاربردهای عملی و نمونه‌های واقعی از فناوری‌های نوین است؛ اینکه هر یک از
+این فناوری‌ها چگونه در عرصه‌های مختلف سلامت مورد استفاده قرار می‌گیرند و چه فرصت‌ها
+و چالش‌هایی را به همراه دارند.</span></p><blockquote><b><span lang="AR-SA" style="font-size:18.0pt;mso-ansi-font-size:16.0pt;line-height:115%;font-family:
+&quot;B Titr&quot;">معرفی مفهوم و قابلیت‌های </span></b><span dir="LTR">AI</span></blockquote><p class="MsoNormal" dir="RTL"><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">هوش
+مصنوعی (</span><span dir="LTR">AI</span><span dir="RTL"></span><span dir="RTL"></span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span>)
+به نظام‌هایی گفته می‌شود که قادرند بر مبنای داده‌ها و الگوها، محیط پیرامون خود را
+درک کنند، استنتاج نمایند، تصمیم بگیرند و بیاموزند تا عملکردشان را بهبود بخشند. این
+فناوری بر پایه ترکیبی از الگوریتم‌های یادگیری ماشین، شبکه‌های عصبی عمیق و پردازش
+داده‌های بزرگ<a href="file:///D:/&amp;nbsp;/%D8%AF%DA%A9%D8%AA%D8%B1%20%D9%85%D8%B9%D8%A8%D9%88%D8%AF%DB%8C/14040530/%D9%85%D9%82%D8%A7%D9%84%D9%87%20%D8%AF%D9%88%D9%85.docx#_ftn5" name="_ftnref5" title=""><span class="MsoFootnoteReference"><span dir="LTR"><!--[if !supportFootnotes]--><span class="MsoFootnoteReference"><span style="font-size:12.0pt;line-height:115%;font-family:&quot;Aptos&quot;,sans-serif;
+mso-ascii-theme-font:minor-latin;mso-fareast-font-family:Aptos;mso-fareast-theme-font:
+minor-latin;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:&quot;B Nazanin&quot;;
+mso-ansi-language:EN-US;mso-fareast-language:EN-US;mso-bidi-language:AR-SA">[5]</span></span><!--[endif]--></span></span></a>
+شکل می‌گیرد. در حوزه سلامت، </span><span dir="LTR">AI</span><span dir="RTL"></span><span dir="RTL"></span><span style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span> <span lang="AR-SA">قدرت تبدیل داده‌های گسسته و پراکنده </span></span><span lang="AR-SA" style="font-family:&quot;Arial&quot;,sans-serif">–</span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;"> مانند تصاویر پزشکی، سیگنال‌های زیستی، پرونده‌های
+الکترونیک سلامت و داده‌های جمعیتی </span><span lang="AR-SA" style="font-family:
+&quot;Arial&quot;,sans-serif">–</span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;"> به
+اطلاعات عملی و تصمیم‌یارهای کلینیکی را داراست. این امکان، دروازه‌ای به سوی تشخیص
+سریع‌تر، درمان دقیق‌تر و سیستم‌های بهداشتی هوشمند است.</span><span dir="LTR"><o:p></o:p></span></p><p class="MsoNormal" dir="RTL"><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">سازمان
+جهانی بهداشت<a href="file:///D:/&amp;nbsp;/%D8%AF%DA%A9%D8%AA%D8%B1%20%D9%85%D8%B9%D8%A8%D9%88%D8%AF%DB%8C/14040530/%D9%85%D9%82%D8%A7%D9%84%D9%87%20%D8%AF%D9%88%D9%85.docx#_ftn6" name="_ftnref6" title=""><span class="MsoFootnoteReference"><span dir="LTR"><!--[if !supportFootnotes]--><span class="MsoFootnoteReference"><span style="font-size:12.0pt;line-height:115%;font-family:&quot;Aptos&quot;,sans-serif;
+mso-ascii-theme-font:minor-latin;mso-fareast-font-family:Aptos;mso-fareast-theme-font:
+minor-latin;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:&quot;B Nazanin&quot;;
+mso-ansi-language:EN-US;mso-fareast-language:EN-US;mso-bidi-language:AR-SA">[6]</span></span><!--[endif]--></span></span></a>(</span><span dir="LTR">WHO</span><span dir="RTL"></span><span dir="RTL"></span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span>) نیز
+تأکید کرده است که هوش مصنوعی هم‌اکنون در زمینه‌هایی مانند تشخیص بیماری‌ها، مراقبت
+بالینی، تحقیق دارویی، نظارت بر اپیدمی و مدیریت نظام سلامت نقش دارد. مطالعات مروری
+نیز نشان داده‌اند که کاربرد </span><span dir="LTR">AI</span><span dir="RTL"></span><span dir="RTL"></span><span style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span> <span lang="AR-SA">در حوزه سلامت طیف وسیعی از زمینه‌ها را دربر می‌گیرد،
+از تحلیل تصویر پزشکی تا مراقبت مجازی، تحقیق دارویی و کاربردهای اداری. </span></span><span dir="LTR"><o:p></o:p></span></p><blockquote><b><span lang="AR-SA" style="font-size:18.0pt;mso-ansi-font-size:16.0pt;line-height:115%;font-family:
+&quot;B Titr&quot;">کاربرد در تشخیص و پیش‌بینی بیماری‌ها</span></b></blockquote><p class="MsoNormal" dir="RTL"><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">یکی
+از کاربردهای برجسته و پُرتکرار </span><span dir="LTR">AI</span><span dir="RTL"></span><span dir="RTL"></span><span style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span> <span lang="AR-SA">در سلامت، تشخیص زودهنگام و پیش‌بینی بیماری‌ها از
+طریق تحلیل تصاویر پزشکی است. سامانه‌های مبتنی بر یادگیری عمیق می‌توانند داده‌های
+تصویری نظیر </span></span><span dir="LTR">MRI</span><span dir="RTL"></span><span dir="RTL"></span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span>، </span><span dir="LTR">CT Scan</span><span dir="RTL"></span><span dir="RTL"></span><span style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span> <span lang="AR-SA">و عکس‌های رادیولوژی را پردازش کنند و نشانه‌های
+بیماری را در مراحل اولیه شناسایی نمایند.</span></span><span dir="LTR"></span><span dir="LTR"></span><span lang="AR-SA" dir="LTR"><span dir="LTR"></span><span dir="LTR"></span>
+</span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">به‌عنوان مثال، در حوزه‌ی
+شبکیه چشم، سامانه‌های هوشمند تشخیص رتینوپاتی دیابتی<a href="file:///D:/&amp;nbsp;/%D8%AF%DA%A9%D8%AA%D8%B1%20%D9%85%D8%B9%D8%A8%D9%88%D8%AF%DB%8C/14040530/%D9%85%D9%82%D8%A7%D9%84%D9%87%20%D8%AF%D9%88%D9%85.docx#_ftn7" name="_ftnref7" title=""><span class="MsoFootnoteReference"><span dir="LTR"><!--[if !supportFootnotes]--><span class="MsoFootnoteReference"><span style="font-size:12.0pt;line-height:115%;
+font-family:&quot;Aptos&quot;,sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-family:
+Aptos;mso-fareast-theme-font:minor-latin;mso-hansi-theme-font:minor-latin;
+mso-bidi-font-family:&quot;B Nazanin&quot;;mso-ansi-language:EN-US;mso-fareast-language:
+EN-US;mso-bidi-language:AR-SA">[7]</span></span><!--[endif]--></span></span></a> بسیار
+موفق عمل کرده‌اند. در یک مطالعه بالینی، سیستم </span><span dir="LTR">AI</span><span dir="RTL"></span><span dir="RTL"></span><span style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span> <span lang="AR-SA">ارزیابی رتینال موسوم به </span></span><span dir="LTR">ARDA</span><span dir="RTL"></span><span dir="RTL"></span><span style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span> <span lang="AR-SA">که در بیمارستان </span></span><span dir="LTR">Aravind</span><span dir="RTL"></span><span dir="RTL"></span><span style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span> <span lang="AR-SA">در هند به کار گرفته شد، حساسیت
+</span></span><span lang="FA" style="font-family:&quot;B Nazanin&quot;;mso-bidi-language:
+FA">۹۷</span><span lang="AR-SA" style="font-family:&quot;Arial&quot;,sans-serif">٫</span><span lang="FA" style="font-family:&quot;B Nazanin&quot;;mso-bidi-language:FA">۰</span><span lang="FA" style="font-family:&quot;Arial&quot;,sans-serif;mso-bidi-language:FA">٪</span><span lang="FA" style="font-family:&quot;B Nazanin&quot;"> </span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">و ویژگی </span><span lang="FA" style="font-family:
+&quot;B Nazanin&quot;;mso-bidi-language:FA">۹۶</span><span lang="AR-SA" style="font-family:
+&quot;Arial&quot;,sans-serif">٫</span><span lang="FA" style="font-family:&quot;B Nazanin&quot;;
+mso-bidi-language:FA">۴</span><span lang="FA" style="font-family:&quot;Arial&quot;,sans-serif;
+mso-bidi-language:FA">٪</span><span lang="FA" style="font-family:&quot;B Nazanin&quot;"> </span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">را در تشخیص رتینوپاتی شدید نشان داد؛
+یعنی تقریباً همه موارد جدی را شناسایی کرد</span><span dir="LTR"></span><span dir="LTR"></span><span dir="LTR"><span dir="LTR"></span><span dir="LTR"></span>[<a href="https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2758476">1</a>]</span><span dir="RTL"></span><span dir="RTL"></span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span>. همچنین در مطالعه‌ای دیگر، سامانه هوش مصنوعی
+با تحلیل تصاویر فلانوس (</span><span dir="LTR">fundus</span><span dir="RTL"></span><span dir="RTL"></span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span>) توانست عملکردی هم‌عرض متخصصان چشم‌پزشک در تشخیص رتینوپاتی دیابتی
+ارائه دهد</span><span dir="LTR"></span><span dir="LTR"></span><span dir="LTR"><span dir="LTR"></span><span dir="LTR"></span>[<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9636573/?utm_source=chatgpt.com">2</a>]</span><span dir="RTL"></span><span dir="RTL"></span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span>. در حوزه تشخیص‌های تصویری غیرچشمی، شرکت </span><span dir="LTR">Aidoc</span><span dir="RTL"></span><span dir="RTL"></span><span style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span> <span lang="AR-SA">یکی از نمونه‌های معروف است که الگوریتم‌های هوشمند را برای اولویت‌بندی
+و هشدار در موارد اورژانسی مانند خونریزی مغزی، آمبولی ریه و شکستگی‌ها به‌کار می‌گیرد.
+این سیستم در بیش از </span></span><span lang="FA" style="font-family:&quot;B Nazanin&quot;;
+mso-bidi-language:FA">۹۰۰</span><span lang="FA" style="font-family:&quot;B Nazanin&quot;"> </span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">بیمارستان در جهان عملیاتی شده است</span><span dir="LTR"></span><span dir="LTR"></span><span dir="LTR"><span dir="LTR"></span><span dir="LTR"></span>[<a href="https://en.wikipedia.org/wiki/Aidoc?utm_source=chatgpt.com">3</a>]</span><span dir="RTL"></span><span dir="RTL"></span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span>. </span><span dir="LTR"><o:p></o:p></span></p><p class="MsoNormal" dir="RTL"><span style="font-size: 0.97rem;">&nbsp;</span></p><blockquote><b><span lang="AR-SA" style="font-size:18.0pt;mso-ansi-font-size:16.0pt;line-height:115%;font-family:
+&quot;B Titr&quot;">نقش در پزشکی شخصی‌سازی‌شده و کشف دارو</span></b></blockquote><p class="MsoNormal" dir="RTL"><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">یکی
+از نویدبخش‌ترین عرصه‌های تحول در نظام سلامت، بهره‌گیری از هوش مصنوعی (</span><span dir="LTR">AI</span><span dir="RTL"></span><span dir="RTL"></span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span>) در توسعه‌ی
+پزشکی شخصی‌سازی‌شده و تسریع فرآیند کشف و طراحی دارو است. در حالی که پزشکی سنتی عمدتاً
+بر درمان‌های عمومی و یکسان برای گروه‌های وسیع از بیماران استوار بود، پزشکی شخصی‌سازی‌شده<a href="file:///D:/&amp;nbsp;/%D8%AF%DA%A9%D8%AA%D8%B1%20%D9%85%D8%B9%D8%A8%D9%88%D8%AF%DB%8C/14040530/%D9%85%D9%82%D8%A7%D9%84%D9%87%20%D8%AF%D9%88%D9%85.docx#_ftn8" name="_ftnref8" title=""><span class="MsoFootnoteReference"><span dir="LTR"><!--[if !supportFootnotes]--><span class="MsoFootnoteReference"><span style="font-size:12.0pt;line-height:115%;
+font-family:&quot;Aptos&quot;,sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-family:
+Aptos;mso-fareast-theme-font:minor-latin;mso-hansi-theme-font:minor-latin;
+mso-bidi-font-family:&quot;B Nazanin&quot;;mso-ansi-language:EN-US;mso-fareast-language:
+EN-US;mso-bidi-language:AR-SA">[8]</span></span><!--[endif]--></span></span></a> رویکردی
+مبتنی بر داده و ویژگی‌های منحصربه‌فرد هر فرد را دنبال می‌کند </span><span lang="AR-SA" style="font-family:&quot;Arial&quot;,sans-serif">—</span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;"> از ژنتیک و سبک زندگی گرفته تا پاسخ دارویی و وضعیت
+محیطی.</span><span dir="LTR"><o:p></o:p></span></p><blockquote><b><span lang="AR-SA" style="font-family:&quot;B Titr&quot;">پزشکی شخصی‌سازی‌شده</span></b></blockquote><p class="MsoNormal" dir="RTL"><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">در این
+رویکرد، هوش مصنوعی با تحلیل داده‌های ژنومی، تصویربرداری مولکولی، سوابق پزشکی و شاخص‌های
+زیستی، به پزشکان کمک می‌کند تا درمانی دقیق، هدفمند و متناسب با خصوصیات فردی بیمار
+انتخاب کنند.</span><span dir="LTR"></span><span dir="LTR"></span><span lang="AR-SA" dir="LTR"><span dir="LTR"></span><span dir="LTR"></span> </span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">الگوریتم‌های یادگیری ماشین قادرند الگوهای پنهان
+میان داده‌های گسترده بیماران را شناسایی کنند و پیش‌بینی نمایند که هر بیمار به کدام
+دارو یا روش درمانی پاسخ مؤثرتری خواهد داد.</span><span dir="LTR"></span><span dir="LTR"></span><span lang="AR-SA" dir="LTR"><span dir="LTR"></span><span dir="LTR"></span>
+</span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">به‌عنوان نمونه، شرکت </span><span dir="LTR">Tempus Labs</span><span dir="RTL"></span><span dir="RTL"></span><span style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span> <span lang="AR-SA">در ایالات متحده سامانه‌ای مبتنی بر هوش مصنوعی طراحی کرده است که داده‌های
+ژنتیکی و بالینی بیماران سرطانی را تحلیل کرده و برای هر بیمار، گزینه‌ی درمانی اختصاصی
+پیشنهاد می‌دهد. این سامانه هم‌اکنون در بیش از </span></span><span lang="FA" style="font-family:&quot;B Nazanin&quot;;mso-bidi-language:FA">۵۰</span><span lang="FA" style="font-family:&quot;B Nazanin&quot;"> </span><span lang="AR-SA" style="font-family:
+&quot;B Nazanin&quot;">مرکز درمان سرطان در حال استفاده است و دقت پیش‌بینی پاسخ دارویی را به
+میزان قابل‌توجهی افزایش داده است</span><span dir="LTR"></span><span dir="LTR"></span><span dir="LTR"><span dir="LTR"></span><span dir="LTR"></span>[<a href="https://www.youtube.com/watch?v=LZRr2sAFa9w">4</a>]</span><span dir="RTL"></span><span dir="RTL"></span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span>.</span><span dir="LTR"></span><span dir="LTR"></span><span lang="AR-SA" dir="LTR"><span dir="LTR"></span><span dir="LTR"></span> </span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">همچنین در مطالعه‌ای دیگر، پژوهشگران دانشگاه
+استنفورد با بهره‌گیری از یادگیری عمیق توانستند مدل‌هایی توسعه دهند که بر اساس بیان
+ژن‌ها<a href="file:///D:/&amp;nbsp;/%D8%AF%DA%A9%D8%AA%D8%B1%20%D9%85%D8%B9%D8%A8%D9%88%D8%AF%DB%8C/14040530/%D9%85%D9%82%D8%A7%D9%84%D9%87%20%D8%AF%D9%88%D9%85.docx#_ftn9" name="_ftnref9" title=""><span class="MsoFootnoteReference"><span dir="LTR"><!--[if !supportFootnotes]--><span class="MsoFootnoteReference"><span style="font-size:12.0pt;line-height:115%;
+font-family:&quot;Aptos&quot;,sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-family:
+Aptos;mso-fareast-theme-font:minor-latin;mso-hansi-theme-font:minor-latin;
+mso-bidi-font-family:&quot;B Nazanin&quot;;mso-ansi-language:EN-US;mso-fareast-language:
+EN-US;mso-bidi-language:AR-SA">[9]</span></span><!--[endif]--></span></span></a> پیش‌بینی
+می‌کند آیا بیمار به داروهای ضد‌التهاب یا شیمی‌درمانی پاسخ مطلوبی خواهد داد یا خیر
+</span><span lang="AR-SA" style="font-family:&quot;Arial&quot;,sans-serif">—</span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;"> گامی مهم در جهت پیش‌بینی اثربخشی درمان
+قبل از مصرف دارو.</span></p><blockquote><b><span lang="AR-SA" style="font-family:&quot;B Titr&quot;">کشف و طراحی دارو<a href="file:///D:/&amp;nbsp;/%D8%AF%DA%A9%D8%AA%D8%B1%20%D9%85%D8%B9%D8%A8%D9%88%D8%AF%DB%8C/14040530/%D9%85%D9%82%D8%A7%D9%84%D9%87%20%D8%AF%D9%88%D9%85.docx#_ftn10" name="_ftnref10" title=""><span class="MsoFootnoteReference"><span dir="LTR"><!--[if !supportFootnotes]--><span class="MsoFootnoteReference"><b><span style="font-size:14.0pt;line-height:115%;font-family:&quot;Aptos&quot;,sans-serif;
+mso-ascii-theme-font:minor-latin;mso-fareast-font-family:&quot;Times New Roman&quot;;
+mso-fareast-theme-font:major-fareast;mso-hansi-theme-font:minor-latin;
+mso-bidi-font-family:&quot;B Titr&quot;;color:#0F4761;mso-themecolor:accent1;mso-themeshade:
+191;mso-ansi-language:EN-US;mso-fareast-language:EN-US;mso-bidi-language:AR-SA">[10]</span></b></span><!--[endif]--></span></span></a></span></b></blockquote><p class="MsoNormal" dir="RTL"><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">فرآیند
+سنتی کشف دارو معمولاً بین </span><span lang="FA" style="font-family:&quot;B Nazanin&quot;;
+mso-bidi-language:FA">۱۰</span><span lang="FA" style="font-family:&quot;B Nazanin&quot;"> </span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">تا </span><span lang="FA" style="font-family:&quot;B Nazanin&quot;;mso-bidi-language:FA">۱۵</span><span lang="FA" style="font-family:&quot;B Nazanin&quot;"> </span><span lang="AR-SA" style="font-family:
+&quot;B Nazanin&quot;">سال زمان و میلیاردها دلار هزینه نیاز دارد. هوش مصنوعی با توانایی تحلیل
+میلیون‌ها ترکیب شیمیایی، مدل‌سازی برهم‌کنش‌های مولکولی و پیش‌بینی سمیت یا کارایی
+دارو، می‌تواند این مسیر را ده‌ها برابر سریع‌تر و کم‌هزینه‌تر کند.</span><span dir="LTR"></span><span dir="LTR"></span><span lang="AR-SA" dir="LTR"><span dir="LTR"></span><span dir="LTR"></span> </span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">الگوریتم‌های
+یادگیری عمیق قادرند ساختارهای مولکولی جدیدی را شبیه‌سازی کنند و حتی ترکیباتی را
+پیشنهاد دهند که پیش‌تر هرگز در آزمایشگاه‌ها ساخته نشده‌اند. این قابلیت، راه را برای
+توسعه‌ی نسل جدیدی از داروهای هدفمند باز کرده است.<br>
+<!--[if !supportLineBreakNewLine]--><br>
+<!--[endif]--><o:p></o:p></span></p><p class="MsoNormal" align="center" dir="RTL" style="text-align:center"><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">جدول </span><span lang="FA" style="font-family:&quot;B Nazanin&quot;;mso-bidi-language:FA">۱. </span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">نمونه‌های شاخص کاربرد هوش مصنوعی در کشف
+دارو<o:p></o:p></span></p><div align="center">
 
-  navigator.clipboard.writeText(html).then(() => {
-    alert('✅ کپی شد! حالا برو GitHub و paste کن.');
-  });
-}
-</script>
+<table class="MsoTableGrid" dir="rtl" border="1" cellspacing="0" cellpadding="0" style="border-width: medium; border-style: none; border-color: currentcolor; border-image: initial;">
+ <tbody><tr>
+  <td style="border-width: 1pt; border-color: windowtext; padding: 0in 5.4pt;">
+  <p class="MsoNormal" align="center" dir="RTL" style="margin-bottom:0in;text-align:
+  center;line-height:normal"><b><span lang="AR-SA" style="font-size:10.0pt;
+  font-family:&quot;B Nazanin&quot;">نام پلتفرم<o:p></o:p></span></b></p>
+  </td>
+  <td width="83" style="width: 62.35pt; border-width: 1pt medium 1pt 1pt; border-style: solid none solid solid; border-color: windowtext currentcolor windowtext windowtext; padding: 0in 5.4pt;">
+  <p class="MsoNormal" align="center" dir="RTL" style="margin-bottom:0in;text-align:
+  center;line-height:normal"><b><span lang="AR-SA" style="font-size:10.0pt;
+  font-family:&quot;B Nazanin&quot;">کشور<o:p></o:p></span></b></p>
+  </td>
+  <td width="133" style="width: 99.45pt; border-width: 1pt medium 1pt 1pt; border-style: solid none solid solid; border-color: windowtext currentcolor windowtext windowtext; padding: 0in 5.4pt;">
+  <p class="MsoNormal" align="center" dir="RTL" style="margin-bottom:0in;text-align:
+  center;line-height:normal"><b><span lang="AR-SA" style="font-size:10.0pt;
+  font-family:&quot;B Nazanin&quot;">فناوری مورد استفاده<o:p></o:p></span></b></p>
+  </td>
+  <td style="border-width: 1pt medium 1pt 1pt; border-style: solid none solid solid; border-color: windowtext currentcolor windowtext windowtext; padding: 0in 5.4pt;">
+  <p class="MsoNormal" align="center" dir="RTL" style="margin-bottom:0in;text-align:
+  center;line-height:normal"><b><span lang="AR-SA" style="font-size:10.0pt;
+  font-family:&quot;B Nazanin&quot;">حوزه کاربرد<o:p></o:p></span></b></p>
+  </td>
+  <td style="border-width: 1pt medium 1pt 1pt; border-style: solid none solid solid; border-color: windowtext currentcolor windowtext windowtext; padding: 0in 5.4pt;">
+  <p class="MsoNormal" align="center" dir="RTL" style="margin-bottom:0in;text-align:
+  center;line-height:normal"><b><span lang="AR-SA" style="font-size:10.0pt;
+  font-family:&quot;B Nazanin&quot;">دستاورد کلیدی<o:p></o:p></span></b></p>
+  </td>
+  <td style="border-width: 1pt medium 1pt 1pt; border-style: solid none solid solid; border-color: windowtext currentcolor windowtext windowtext; padding: 0in 5.4pt;">
+  <p class="MsoNormal" align="center" dir="RTL" style="margin-bottom:0in;text-align:
+  center;line-height:normal"><b><span lang="AR-SA" style="font-size:10.0pt;
+  font-family:&quot;B Nazanin&quot;">منبع<o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td style="border-width: medium 1pt 1pt; border-style: none solid solid; border-color: currentcolor windowtext windowtext; padding: 0in 5.4pt;">
+  <p class="MsoNormal" align="center" dir="RTL" style="margin-bottom:0in;text-align:
+  center;line-height:normal"><span dir="LTR" style="font-size:10.0pt">Insilico
+  Medicine</span><span lang="AR-SA" style="font-size:10.0pt;font-family:&quot;B Nazanin&quot;"><o:p></o:p></span></p>
+  </td>
+  <td width="83" style="width:62.35pt;border-top:none;border-left:solid windowtext 1.0pt;
+  border-bottom:solid windowtext 1.0pt;border-right:none;mso-border-top-alt:
+  solid windowtext .5pt;mso-border-right-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" dir="RTL" style="margin-bottom:0in;text-align:
+  center;line-height:normal"><span lang="AR-SA" style="font-size:10.0pt;
+  font-family:&quot;B Nazanin&quot;">هنگ‌کنگ<o:p></o:p></span></p>
+  </td>
+  <td width="133" style="width:99.45pt;border-top:none;border-left:solid windowtext 1.0pt;
+  border-bottom:solid windowtext 1.0pt;border-right:none;mso-border-top-alt:
+  solid windowtext .5pt;mso-border-right-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" dir="RTL" style="margin-bottom:0in;text-align:
+  center;line-height:normal"><span lang="AR-SA" style="font-size:10.0pt;
+  font-family:&quot;B Nazanin&quot;">مدل‌های مولد هوش مصنوعی<a href="file:///D:/&amp;nbsp;/%D8%AF%DA%A9%D8%AA%D8%B1%20%D9%85%D8%B9%D8%A8%D9%88%D8%AF%DB%8C/14040530/%D9%85%D9%82%D8%A7%D9%84%D9%87%20%D8%AF%D9%88%D9%85.docx#_ftn11" name="_ftnref11" title=""><span class="MsoFootnoteReference"><span dir="LTR"><!--[if !supportFootnotes]--><span class="MsoFootnoteReference"><span style="font-size:10.0pt;line-height:115%;
+  font-family:&quot;Aptos&quot;,sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-family:
+  Aptos;mso-fareast-theme-font:minor-latin;mso-hansi-theme-font:minor-latin;
+  mso-bidi-font-family:&quot;B Nazanin&quot;;mso-ansi-language:EN-US;mso-fareast-language:
+  EN-US;mso-bidi-language:AR-SA">[11]</span></span><!--[endif]--></span></span></a>
+  و یادگیری عمیق برای طراحی مولکولی<o:p></o:p></span></p>
+  </td>
+  <td style="border-top:none;border-left:solid windowtext 1.0pt;border-bottom:
+  solid windowtext 1.0pt;border-right:none;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-right-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" dir="RTL" style="margin-bottom:0in;text-align:
+  center;line-height:normal"><span lang="AR-SA" style="font-size:10.0pt;
+  font-family:&quot;B Nazanin&quot;">درمان فیبروز ریوی ایدیوپاتیک<a href="file:///D:/&amp;nbsp;/%D8%AF%DA%A9%D8%AA%D8%B1%20%D9%85%D8%B9%D8%A8%D9%88%D8%AF%DB%8C/14040530/%D9%85%D9%82%D8%A7%D9%84%D9%87%20%D8%AF%D9%88%D9%85.docx#_ftn12" name="_ftnref12" title=""><span class="MsoFootnoteReference"><span dir="LTR"><!--[if !supportFootnotes]--><span class="MsoFootnoteReference"><span style="font-size:10.0pt;line-height:115%;
+  font-family:&quot;Aptos&quot;,sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-family:
+  Aptos;mso-fareast-theme-font:minor-latin;mso-hansi-theme-font:minor-latin;
+  mso-bidi-font-family:&quot;B Nazanin&quot;;mso-ansi-language:EN-US;mso-fareast-language:
+  EN-US;mso-bidi-language:AR-SA">[12]</span></span><!--[endif]--></span></span></a>
+  (</span><span dir="LTR" style="font-size:10.0pt">IPF</span><span dir="RTL"></span><span dir="RTL"></span><span lang="AR-SA" style="font-size:10.0pt;font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span>)<o:p></o:p></span></p>
+  </td>
+  <td style="border-top:none;border-left:solid windowtext 1.0pt;border-bottom:
+  solid windowtext 1.0pt;border-right:none;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-right-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" dir="RTL" style="margin-bottom:0in;text-align:
+  center;line-height:normal"><span lang="AR-SA" style="font-size:10.0pt;
+  font-family:&quot;B Nazanin&quot;">طراحی و توسعه‌ی نخستین داروی ساخته‌شده به‌طور کامل توسط
+  هوش مصنوعی در کمتر از </span><span lang="FA" style="font-size:10.0pt;
+  font-family:&quot;B Nazanin&quot;;mso-bidi-language:FA">۱۸</span><span lang="FA" style="font-size:10.0pt;font-family:&quot;B Nazanin&quot;"> </span><span lang="AR-SA" style="font-size:10.0pt;font-family:&quot;B Nazanin&quot;">ماه (در مقایسه با </span><span lang="FA" style="font-size:10.0pt;font-family:&quot;B Nazanin&quot;;mso-bidi-language:
+  FA">۴</span><span lang="FA" style="font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;
+  mso-bidi-language:FA">–</span><span lang="FA" style="font-size:10.0pt;
+  font-family:&quot;B Nazanin&quot;;mso-bidi-language:FA">۵</span><span lang="FA" style="font-size:10.0pt;font-family:&quot;B Nazanin&quot;"> </span><span lang="AR-SA" style="font-size:10.0pt;font-family:&quot;B Nazanin&quot;">سال در روش‌های سنتی)<o:p></o:p></span></p>
+  </td>
+  <td style="border-top:none;border-left:solid windowtext 1.0pt;border-bottom:
+  solid windowtext 1.0pt;border-right:none;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-right-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" dir="RTL" style="margin-bottom:0in;text-align:
+  center;line-height:normal"><span dir="LTR"></span><span dir="LTR"></span><span dir="LTR" style="font-size:10.0pt"><span dir="LTR"></span><span dir="LTR"></span>[</span><span dir="LTR"><a href="https://insilico.com/"><span style="font-size:10.0pt">5</span></a></span><span dir="LTR" style="font-size:10.0pt">]</span><span lang="AR-SA" style="font-size:
+  10.0pt;font-family:&quot;B Nazanin&quot;"><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style="border-width: medium 1pt 1pt; border-style: none solid solid; border-color: currentcolor windowtext windowtext; padding: 0in 5.4pt;">
+  <p class="MsoNormal" align="center" dir="RTL" style="margin-bottom:0in;text-align:
+  center;line-height:normal"><span dir="LTR" style="font-size:10.0pt">Atomwise</span><span lang="AR-SA" style="font-size:10.0pt;font-family:&quot;B Nazanin&quot;"><o:p></o:p></span></p>
+  </td>
+  <td width="83" style="width:62.35pt;border-top:none;border-left:solid windowtext 1.0pt;
+  border-bottom:solid windowtext 1.0pt;border-right:none;mso-border-top-alt:
+  solid windowtext .5pt;mso-border-right-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" dir="RTL" style="margin-bottom:0in;text-align:
+  center;line-height:normal"><span lang="AR-SA" style="font-size:10.0pt;
+  font-family:&quot;B Nazanin&quot;">ایالات متحده<o:p></o:p></span></p>
+  </td>
+  <td width="133" style="width:99.45pt;border-top:none;border-left:solid windowtext 1.0pt;
+  border-bottom:solid windowtext 1.0pt;border-right:none;mso-border-top-alt:
+  solid windowtext .5pt;mso-border-right-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" dir="RTL" style="margin-bottom:0in;text-align:
+  center;line-height:normal"><span lang="AR-SA" style="font-size:10.0pt;
+  font-family:&quot;B Nazanin&quot;">شبکه‌های عصبی سه‌بعدی برای تحلیل ساختار مولکولی<o:p></o:p></span></p>
+  </td>
+  <td style="border-top:none;border-left:solid windowtext 1.0pt;border-bottom:
+  solid windowtext 1.0pt;border-right:none;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-right-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" dir="RTL" style="margin-bottom:0in;text-align:
+  center;line-height:normal"><span lang="AR-SA" style="font-size:10.0pt;
+  font-family:&quot;B Nazanin&quot;">شناسایی داروهای بالقوه برای ابولا، مالاریا، پارکینسون<o:p></o:p></span></p>
+  </td>
+  <td style="border-top:none;border-left:solid windowtext 1.0pt;border-bottom:
+  solid windowtext 1.0pt;border-right:none;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-right-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" dir="RTL" style="margin-bottom:0in;text-align:
+  center;line-height:normal"><span lang="AR-SA" style="font-size:10.0pt;
+  font-family:&quot;B Nazanin&quot;">تحلیل بیش از </span><span lang="FA" style="font-size:
+  10.0pt;font-family:&quot;B Nazanin&quot;;mso-bidi-language:FA">۱۰</span><span lang="FA" style="font-size:10.0pt;font-family:&quot;B Nazanin&quot;"> </span><span lang="AR-SA" style="font-size:10.0pt;font-family:&quot;B Nazanin&quot;">میلیون ترکیب شیمیایی در چند روز
+  و انتخاب ترکیبات با بیشترین احتمال اثربخشی<o:p></o:p></span></p>
+  </td>
+  <td style="border-top:none;border-left:solid windowtext 1.0pt;border-bottom:
+  solid windowtext 1.0pt;border-right:none;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-right-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" dir="RTL" style="margin-bottom:0in;text-align:
+  center;line-height:normal"><span dir="LTR"></span><span dir="LTR"></span><span dir="LTR" style="font-size:10.0pt"><span dir="LTR"></span><span dir="LTR"></span>[</span><span dir="LTR"><a href="https://www.atomwise.com/"><span style="font-size:10.0pt">6</span></a></span><span dir="LTR" style="font-size:10.0pt">]</span><span lang="AR-SA" style="font-size:
+  10.0pt;font-family:&quot;B Nazanin&quot;"><o:p></o:p></span></p>
+  </td>
+ </tr>
+</tbody></table>
+
+</div><p class="MsoNormal" dir="RTL"><span dir="LTR"><o:p>&nbsp;</o:p></span></p><blockquote><b><span lang="AR-SA" style="font-size:18.0pt;mso-ansi-font-size:16.0pt;line-height:115%;font-family:
+&quot;B Titr&quot;">نمونه‌های موفق&nbsp; ملی</span></b></blockquote><p class="MsoNormal" dir="RTL"><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">تحولات
+جهانی در حوزه‌ی هوش مصنوعی تنها به مراکز تحقیقاتی پیشرفته‌ی بین‌المللی محدود نیست؛
+در ایران نیز در سال‌های اخیر، مجموعه‌ای از پروژه‌های پژوهشی و صنعتی با هدف بومی‌سازی
+فناوری‌های هوش مصنوعی در حوزه سلامت شکل گرفته‌اند. این طرح‌ها، از تحلیل تصاویر پزشکی
+و پیش‌بینی بیماری‌ها تا سیاست‌گذاری در سطح کلان، نشان می‌دهند که زیست‌بوم فناوری
+سلامت کشور به‌تدریج در حال ورود به مرحله‌ی بلوغ هوشمند است. دانشگاه‌های علوم پزشکی،
+شرکت‌های دانش‌بنیان و مراکز تحقیقاتی کشور در تلاش‌اند تا از ظرفیت یادگیری ماشین
+و تحلیل داده‌های بزرگ در بهبود تشخیص، درمان و مدیریت منابع استفاده کنند. هرچند بسیاری
+از این طرح‌ها هنوز در مراحل تحقیقاتی یا پایلوت قرار دارند، اما نتایج اولیه‌ی آن‌ها
+نشان‌دهنده‌ی پتانسیل قابل‌توجه ایران در توسعه‌ی فناوری‌های هوش مصنوعی پزشکی است.
+در جدول زیر، شماری از پروژه‌ها و مطالعات شاخص داخلی معرفی شده‌اند که در آن‌ها از
+الگوریتم‌های هوش مصنوعی برای تحلیل داده‌های بالینی، تصویربرداری پزشکی و تصمیم‌گیری
+بالینی استفاده شده است.<o:p></o:p></span></p><p class="MsoNormal" align="center" dir="RTL" style="text-align:center"><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">جدول </span><span lang="FA" style="font-family:&quot;B Nazanin&quot;;mso-bidi-language:FA">۲. </span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">نمونه‌های شاخص ملی در کاربرد هوش مصنوعی
+در سلامت ایران<o:p></o:p></span></p><div align="center">
+
+<table class="MsoTableGrid" dir="rtl" border="1" cellspacing="0" cellpadding="0" style="border-width: medium; border-style: none; border-color: currentcolor; border-image: initial;">
+ <tbody><tr>
+  <td style="border-width: 1pt; border-color: windowtext; padding: 0in 5.4pt;">
+  <p class="MsoNormal" align="center" dir="RTL" style="margin-bottom:0in;text-align:
+  center;line-height:normal"><span lang="AR-SA" style="font-size:10.0pt;
+  font-family:&quot;B Nazanin&quot;">پروژه / مطالعه<o:p></o:p></span></p>
+  </td>
+  <td style="border-width: 1pt medium 1pt 1pt; border-style: solid none solid solid; border-color: windowtext currentcolor windowtext windowtext; padding: 0in 5.4pt;">
+  <p class="MsoNormal" align="center" dir="RTL" style="margin-bottom:0in;text-align:
+  center;line-height:normal"><span lang="AR-SA" style="font-size:10.0pt;
+  font-family:&quot;B Nazanin&quot;">زمینه کاربرد<o:p></o:p></span></p>
+  </td>
+  <td style="border-width: 1pt medium 1pt 1pt; border-style: solid none solid solid; border-color: windowtext currentcolor windowtext windowtext; padding: 0in 5.4pt;">
+  <p class="MsoNormal" align="center" dir="RTL" style="margin-bottom:0in;text-align:
+  center;line-height:normal"><span lang="AR-SA" style="font-size:10.0pt;
+  font-family:&quot;B Nazanin&quot;">دستاورد یا نقش </span><span dir="LTR" style="font-size:10.0pt">AI</span><span lang="AR-SA" style="font-size:10.0pt;
+  font-family:&quot;B Nazanin&quot;"><o:p></o:p></span></p>
+  </td>
+  <td style="border-width: 1pt medium 1pt 1pt; border-style: solid none solid solid; border-color: windowtext currentcolor windowtext windowtext; padding: 0in 5.4pt;">
+  <p class="MsoNormal" align="center" dir="RTL" style="margin-bottom:0in;text-align:
+  center;line-height:normal"><span lang="AR-SA" style="font-size:10.0pt;
+  font-family:&quot;B Nazanin&quot;">مرجع / منبع<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style="border-width: medium 1pt 1pt; border-style: none solid solid; border-color: currentcolor windowtext windowtext; padding: 0in 5.4pt;">
+  <p class="MsoNormal" align="center" dir="RTL" style="margin-bottom:0in;text-align:
+  center;line-height:normal"><span lang="AR-SA" style="font-size:10.0pt;
+  font-family:&quot;B Nazanin&quot;">ارزیابی سن استخوان کودکان ایرانی با هوش مصنوعی<o:p></o:p></span></p>
+  </td>
+  <td style="border-top:none;border-left:solid windowtext 1.0pt;border-bottom:
+  solid windowtext 1.0pt;border-right:none;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-right-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" dir="RTL" style="margin-bottom:0in;text-align:
+  center;line-height:normal"><span lang="AR-SA" style="font-size:10.0pt;
+  font-family:&quot;B Nazanin&quot;">تصویربرداری رادیولوژیک / تحلیل تصویر<o:p></o:p></span></p>
+  </td>
+  <td style="border-top:none;border-left:solid windowtext 1.0pt;border-bottom:
+  solid windowtext 1.0pt;border-right:none;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-right-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" dir="RTL" style="margin-bottom:0in;text-align:
+  center;line-height:normal"><span lang="AR-SA" style="font-size:10.0pt;
+  font-family:&quot;B Nazanin&quot;">توسعه‌ی مدل هوش مصنوعی برای برآورد سن استخوان کودکان
+  ایرانی با دقت بالا<o:p></o:p></span></p>
+  </td>
+  <td style="border-top:none;border-left:solid windowtext 1.0pt;border-bottom:
+  solid windowtext 1.0pt;border-right:none;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-right-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" dir="RTL" style="margin-bottom:0in;text-align:
+  center;line-height:normal"><span dir="LTR"></span><span dir="LTR"></span><span dir="LTR" style="font-size:10.0pt"><span dir="LTR"></span><span dir="LTR"></span>[</span><span dir="LTR"><a href="https://pubmed.ncbi.nlm.nih.gov/40382691/"><span style="font-size:10.0pt">7</span></a></span><span dir="LTR" style="font-size:
+  10.0pt">]</span><span lang="AR-SA" style="font-size:10.0pt;font-family:&quot;B Nazanin&quot;"><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style="border-width: medium 1pt 1pt; border-style: none solid solid; border-color: currentcolor windowtext windowtext; padding: 0in 5.4pt;">
+  <p class="MsoNormal" align="center" dir="RTL" style="margin-bottom:0in;text-align:
+  center;line-height:normal"><span lang="AR-SA" style="font-size:10.0pt;
+  font-family:&quot;B Nazanin&quot;">پیش‌بینی بقا بیماران </span><span dir="LTR" style="font-size:10.0pt">COVID-19</span><span dir="RTL"></span><span dir="RTL"></span><span style="font-size:10.0pt;font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span> <span lang="AR-SA">ایرانی با یادگیری عمیق<o:p></o:p></span></span></p>
+  </td>
+  <td style="border-top:none;border-left:solid windowtext 1.0pt;border-bottom:
+  solid windowtext 1.0pt;border-right:none;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-right-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" dir="RTL" style="margin-bottom:0in;text-align:
+  center;line-height:normal"><span lang="AR-SA" style="font-size:10.0pt;
+  font-family:&quot;B Nazanin&quot;">داده‌های بالینی و تصاویر </span><span dir="LTR" style="font-size:10.0pt">CT</span><span lang="AR-SA" style="font-size:10.0pt;
+  font-family:&quot;B Nazanin&quot;"><o:p></o:p></span></p>
+  </td>
+  <td style="border-top:none;border-left:solid windowtext 1.0pt;border-bottom:
+  solid windowtext 1.0pt;border-right:none;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-right-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" dir="RTL" style="margin-bottom:0in;text-align:
+  center;line-height:normal"><span lang="AR-SA" style="font-size:10.0pt;
+  font-family:&quot;B Nazanin&quot;">طراحی شبکه عصبی عمیق برای پیش‌بینی بقا و شدت بیماری کووید-</span><span lang="FA" style="font-size:10.0pt;font-family:&quot;B Nazanin&quot;;mso-bidi-language:
+  FA">۱۹</span><span lang="FA" style="font-size:10.0pt;font-family:&quot;B Nazanin&quot;"> </span><span lang="AR-SA" style="font-size:10.0pt;font-family:&quot;B Nazanin&quot;">بر اساس ویژگی‌های
+  تصویری و علائم بالینی<o:p></o:p></span></p>
+  </td>
+  <td style="border-top:none;border-left:solid windowtext 1.0pt;border-bottom:
+  solid windowtext 1.0pt;border-right:none;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-right-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" dir="RTL" style="margin-bottom:0in;text-align:
+  center;line-height:normal"><span dir="LTR"></span><span dir="LTR"></span><span dir="LTR" style="font-size:10.0pt"><span dir="LTR"></span><span dir="LTR"></span>[</span><span dir="LTR"><a href="https://pubmed.ncbi.nlm.nih.gov/38058649/"><span style="font-size:10.0pt">8</span></a></span><span dir="LTR" style="font-size:
+  10.0pt">]<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr>
+  <td style="border-width: medium 1pt 1pt; border-style: none solid solid; border-color: currentcolor windowtext windowtext; padding: 0in 5.4pt;">
+  <p class="MsoNormal" align="center" dir="RTL" style="margin-bottom:0in;text-align:
+  center;line-height:normal"><span lang="AR-SA" style="font-size:10.0pt;
+  font-family:&quot;B Nazanin&quot;">کاربرد هوش مصنوعی در تحقیقات تصویربرداری پزشکی ایران<o:p></o:p></span></p>
+  </td>
+  <td style="border-top:none;border-left:solid windowtext 1.0pt;border-bottom:
+  solid windowtext 1.0pt;border-right:none;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-right-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" dir="RTL" style="margin-bottom:0in;text-align:
+  center;line-height:normal"><span lang="AR-SA" style="font-size:10.0pt;
+  font-family:&quot;B Nazanin&quot;">فیزیک پزشکی<o:p></o:p></span></p>
+  </td>
+  <td style="border-top:none;border-left:solid windowtext 1.0pt;border-bottom:
+  solid windowtext 1.0pt;border-right:none;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-right-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" dir="RTL" style="margin-bottom:0in;text-align:
+  center;line-height:normal"><span lang="AR-SA" style="font-size:10.0pt;
+  font-family:&quot;B Nazanin&quot;">مرور سیستماتیک مطالعات داخلی درباره‌ی استفاده از الگوریتم‌های
+  تقسیم‌بندی تصویر و طبقه‌بندی در پزشکی<o:p></o:p></span></p>
+  </td>
+  <td style="border-top:none;border-left:solid windowtext 1.0pt;border-bottom:
+  solid windowtext 1.0pt;border-right:none;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-right-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0in 5.4pt 0in 5.4pt">
+  <p class="MsoNormal" align="center" dir="RTL" style="margin-bottom:0in;text-align:
+  center;line-height:normal"><span dir="LTR"></span><span dir="LTR"></span><span dir="LTR" style="font-size:10.0pt"><span dir="LTR"></span><span dir="LTR"></span>[</span><span dir="LTR"><a href="https://www.researchgate.net/publication/394674586_Applications_of_Artificial_Intelligence_in_Medical_Imaging_A_Review_of_Medical_Physics_Research_in_Iran"><span style="font-size:10.0pt">9</span></a></span><span dir="LTR" style="font-size:
+  10.0pt">]</span><span lang="AR-SA" style="font-size:10.0pt;font-family:&quot;B Nazanin&quot;"><o:p></o:p></span></p>
+  </td>
+ </tr>
+</tbody></table>
+
+</div><p class="MsoNormal" dir="RTL"><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">&nbsp;</span></p><p class="MsoNormal" dir="RTL"><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">در
+کنار این کاربردها، فناوری‌ها و راهکارهای نوین دیگری نیز در حال شکل‌دهی آینده‌ی
+سلامت هوشمند هستند؛ از ربات‌های جراح با دقت بالا که توانایی اجرای پیچیده‌ترین
+عمل‌ها را دارند، تا دستیاران مجازی و چت‌بات‌های سلامت که خدمات مشاوره و پایش
+اولیه را برای بیماران فراهم می‌کنند. این فناوری‌ها در کنار سامانه‌های تشخیص،
+داروسازی و پزشکی شخصی‌سازی‌شده، تصویری جامع از نقش تحول‌آفرین هوش مصنوعی در
+نظام سلامت آینده ترسیم می‌کنند</span><span dir="LTR"></span><span dir="LTR"></span><span dir="LTR"><span dir="LTR"></span><span dir="LTR"></span>.</span></p><p class="MsoNormal" dir="RTL"><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">&nbsp;</span></p><blockquote><b><span lang="AR-SA" style="font-family:&quot;B Titr&quot;">اینترنت اشیا پزشکی</span></b><span dir="LTR"></span><span dir="LTR"></span><span dir="LTR"><span dir="LTR"></span><span dir="LTR"></span> (IoMT)<a href="file:///D:/&amp;nbsp;/%D8%AF%DA%A9%D8%AA%D8%B1%20%D9%85%D8%B9%D8%A8%D9%88%D8%AF%DB%8C/14040530/%D9%85%D9%82%D8%A7%D9%84%D9%87%20%D8%AF%D9%88%D9%85.docx#_ftn13" name="_ftnref13" title=""><span class="MsoFootnoteReference"><!--[if !supportFootnotes]--><span class="MsoFootnoteReference"><span style="font-size:20.0pt;line-height:115%;
+font-family:&quot;Aptos Display&quot;,sans-serif;mso-ascii-theme-font:major-latin;
+mso-fareast-font-family:&quot;Times New Roman&quot;;mso-fareast-theme-font:major-fareast;
+mso-hansi-theme-font:major-latin;mso-bidi-font-family:&quot;B Titr&quot;;color:#0F4761;
+mso-themecolor:accent1;mso-themeshade:191;mso-ansi-language:EN-US;mso-fareast-language:
+EN-US;mso-bidi-language:AR-SA;mso-bidi-font-weight:bold">[13]</span></span><!--[endif]--></span></a></span></blockquote><h2 dir="RTL"><b><span lang="AR-SA" style="font-size:18.0pt;mso-ansi-font-size:16.0pt;line-height:115%;font-family:
+&quot;B Titr&quot;">معرفی مفهوم و زیرساخت‌ها<o:p></o:p></span></b></h2><p class="MsoNormal" dir="RTL"><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">اینترنت
+اشیا (</span><span dir="LTR">IoT</span><span dir="RTL"></span><span dir="RTL"></span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span>)
+به مجموعه‌ای از دستگاه‌ها، سنسورها و سیستم‌های متصل به‌هم گفته می‌شود که از طریق
+شبکه‌های ارتباطی (مانند اینترنت، بلوتوث یا وای‌فای) قادر به جمع‌آوری، ارسال و تحلیل
+داده‌ها در زمان واقعی هستند. این دستگاه‌ها که می‌توانند شامل دستگاه‌های هوشمند،
+حسگرها، و ابزارهای دیجیتال باشند، به‌طور مستقل یا در تعامل با یکدیگر عمل می‌کنند
+تا اطلاعات را از محیط‌های مختلف به‌دست آورده و آن‌ها را برای پردازش و تحلیل به سیستم‌های
+مرکزی یا دستگاه‌های دیگر منتقل کنند. در حقیقت، </span><span dir="LTR">IoT</span><span dir="RTL"></span><span dir="RTL"></span><span style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span> <span lang="AR-SA">به‌عنوان شبکه‌ای از اشیای
+دیجیتال عمل می‌کند که به هم متصل شده و از یکدیگر اطلاعات دریافت و ارسال می‌کنند،
+با هدف بهینه‌سازی فرایندها و اتخاذ تصمیمات هوشمندانه‌تر. این تکنولوژی، که با تحلیل
+داده‌های کلان و یادگیری ماشین ترکیب می‌شود، به‌ویژه در حوزه‌های صنعتی، سلامت، حمل‌ونقل،
+کشاورزی و خانه‌های هوشمند کاربرد فراوانی پیدا کرده است.</span></span></p><p class="MsoNormal" dir="RTL"><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">اینترنت
+اشیا پزشکی شاخه‌ای از اینترنت اشیا است که به‌طور خاص به استفاده از دستگاه‌ها و سنسورهای
+متصل در بخش‌های مختلف نظام سلامت اختصاص دارد. </span><span dir="LTR">IoMT</span><span dir="RTL"></span><span dir="RTL"></span><span style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span> <span lang="AR-SA">شامل دستگاه‌های پوشیدنی پزشکی،
+حسگرهای زیستی (برای اندازه‌گیری فاکتورهای سلامت مانند فشار خون، ضربان قلب، دما،
+و سطح اکسیژن خون) و ابزارهای دیجیتال متصل به اینترنت است که می‌توانند به‌طور مداوم
+داده‌های بیماران را در زمان واقعی جمع‌آوری، انتقال و تحلیل کنند. این داده‌ها می‌توانند
+به سیستم‌های پزشکی و مراقبتی ارسال شده و پزشکان را در تشخیص، درمان و پایش وضعیت
+بیماران یاری دهند.<o:p></o:p></span></span></p><blockquote><b><span lang="AR-SA" style="font-size:18.0pt;mso-ansi-font-size:16.0pt;line-height:115%;font-family:
+&quot;B Titr&quot;">دستگاه‌های پوشیدنی و سنسورهای پایش سلامت</span></b></blockquote><p class="MsoNormal" dir="RTL"><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">در سال‌های
+اخیر، دستگاه‌های پوشیدنی به‌عنوان ابزارهای کلیدی در پایش مستمر وضعیت سلامت افراد،
+به‌ویژه در زمینه‌های پیشگیری، مدیریت بیماری‌های مزمن و ارتقای کیفیت زندگی، مطرح
+شده‌اند. این دستگاه‌ها با استفاده از سنسورهای پیشرفته قادر به اندازه‌گیری و تحلیل
+پارامترهای فیزیولوژیکی مختلف مانند ضربان قلب، فشار خون، سطح اکسیژن خون، دما، فعالیت‌های
+بدنی و کیفیت خواب هستند.</span><span dir="LTR"><o:p></o:p></span></p><p class="MsoNormal" dir="RTL"><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">دستگاه‌های
+پوشیدنی با ارائه داده‌های بلادرنگ، امکان نظارت پیوسته بر وضعیت سلامت فرد را فراهم
+می‌کنند. به‌عنوان مثال، ساعت‌های هوشمند مانند </span><span dir="LTR">Huawei Watch
+GT 6 Pro</span><span dir="RTL"></span><span dir="RTL"></span><span style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span> <span lang="AR-SA">با دقت بالا در اندازه‌گیری ضربان قلب و سایر پارامترهای سلامت، ابزارهای
+مؤثری برای کاربران فعال و علاقه‌مندان به تناسب اندام محسوب می‌شوند</span></span><span dir="LTR"></span><span dir="LTR"></span><span dir="LTR"><span dir="LTR"></span><span dir="LTR"></span>[<a href="https://www.techradar.com/health-fitness/smartwatches/huawei-watch-gt-6-pro-review">10</a>]</span><span dir="RTL"></span><span dir="RTL"></span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span>. همچنین این دستگاه‌ها در مدیریت بیماری‌هایی
+مانند دیابت و بیماری‌های قلبی نقش مهمی ایفا می‌کنند. برای نمونه، </span><span dir="LTR">Masimo W1 Medical Watch</span><span dir="RTL"></span><span dir="RTL"></span><span style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span> <span lang="AR-SA">تنها دستگاه پوشیدنی تأییدشده توسط </span></span><span dir="LTR">FDA</span><span dir="RTL"></span><span dir="RTL"></span><span style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span> <span lang="AR-SA">است که نظارت مداوم بر سطح
+اکسیژن خون (</span></span><span dir="LTR">SpO₂</span><span dir="RTL"></span><span dir="RTL"></span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span>) و ضربان قلب را با دقت پزشکی ارائه می‌دهد</span><span dir="LTR"></span><span dir="LTR"></span><span dir="LTR"><span dir="LTR"></span><span dir="LTR"></span>[<a href="https://time.com/7094688/masimo-w1-medical/">11</a>]</span><span dir="RTL"></span><span dir="RTL"></span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span>. <o:p></o:p></span></p><blockquote><b style="color: rgb(74, 85, 104); font-style: italic; font-size: 0.97rem;"><span lang="AR-SA" style="font-size:18.0pt;mso-ansi-font-size:16.0pt;line-height:115%;font-family:
+&quot;B Titr&quot;">اتصال بیمار، پزشک و داده در زمان واقعی</span></b></blockquote><p class="MsoNormal" dir="RTL"><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">دستگاه‌های
+پوشیدنی و حسگرهای پزشکی می‌توانند به‌طور </span><span lang="FA" style="font-family:
+&quot;B Nazanin&quot;;mso-bidi-language:FA">۲۴</span><span lang="FA" style="font-family:
+&quot;B Nazanin&quot;"> </span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">ساعته و مستمر
+وضعیت سلامت بیمار را کنترل کنند. این داده‌ها به‌طور آنلاین و آنی به پزشکان ارسال
+می‌شود و به آنان این امکان را می‌دهد که وضعیت بیمار را به‌صورت لحظه‌ای پیگیری کنند.
+برای مثال، در صورت مشاهده تغییرات غیرعادی در پارامترهایی مانند فشار خون یا ضربان
+قلب، هشدارهای فوری به پزشک ارسال می‌شود. به‌کمک این داده‌ها، پزشکان می‌توانند تصمیمات
+درمانی سریع‌تر و دقیقی اتخاذ کنند. این فناوری به‌ویژه در مواقع اورژانسی مانند حادثه‌های
+قلبی یا نارسایی تنفسی می‌تواند در کاهش زمان درمان و افزایش دقت تشخیص کمک شایانی
+کند. بیمارانی که دچار بیماری‌های مزمن مانند دیابت، بیماری‌های قلبی و آسم هستند،
+با استفاده از این فناوری می‌توانند تحت پایش مداوم قرار گیرند. برای مثال، اگر سطح
+گلوکز خون یک بیمار دیابتی از حد نرمال پایین‌تر یا بالاتر رود، این اطلاعات بلافاصله
+به پزشک منتقل شده و او می‌تواند اقداماتی فوری را اتخاذ کند.<o:p></o:p></span></p><blockquote><b><span lang="AR-SA" style="font-family:&quot;B Titr&quot;">چالش‌ها و ملاحظات</span></b></blockquote><p class="MsoNormal" dir="RTL"><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">با وجود
+مزایای فراوان، استفاده از دستگاه‌های پوشیدنی با چالش‌هایی نیز همراه است. یکی از
+این چالش‌ها، امنیت داده‌ها و حریم خصوصی است. اطلاعات جمع‌آوری‌شده توسط این دستگاه‌ها
+ممکن است حاوی داده‌های حساس باشند که در صورت نداشتن تدابیر امنیتی مناسب، در معرض
+خطر دسترسی غیرمجاز قرار گیرند. اگرچه اتصال بلادرنگ و ارسال داده‌ها به‌طور آنی مزایای
+زیادی دارد، اما برای عملکرد بهینه، امنیت داده‌ها و حریم خصوصی باید در اولویت قرار
+گیرد. اطلاعات پزشکی به‌دست‌آمده از بیماران، که اغلب حاوی داده‌های حساس است، باید
+با استفاده از پروتکل‌های امن منتقل و ذخیره شوند تا از هرگونه دسترسی غیرمجاز جلوگیری
+شود. علاوه بر این، هماهنگی میان سیستم‌های مختلف از جمله بیمارستان‌ها، کلینیک‌ها
+و پزشکان نیز چالشی دیگر است که باید در نظر گرفته شود. استانداردسازی داده‌ها و پیاده‌سازی
+یک پلتفرم یکپارچه برای اشتراک‌گذاری اطلاعات بین نهادهای مختلف سلامت، از اهمیت ویژه‌ای
+برخوردار است.<o:p></o:p></span></p><blockquote><b><span lang="FA" style="font-family:&quot;B Titr&quot;;mso-bidi-language:FA">پزشکی</span></b><b><span lang="AR-SA" style="font-family:&quot;B Titr&quot;">
+از راه دور<br></span></b><b><span lang="AR-SA" style="font-size:18.0pt;mso-ansi-font-size:16.0pt;line-height:115%;font-family:
+&quot;B Titr&quot;">تعریف و انواع خدمات پزشکی از راه دور</span></b></blockquote><p class="MsoNormal" dir="RTL"><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">سلامت
+و پزشکی از راه دور به ارائه خدمات بهداشتی از طریق فناوری‌های دیجیتال و ارتباطی گفته
+می‌شود که امکان مشاوره، تشخیص، درمان و پیگیری وضعیت بیماران را بدون نیاز به حضور
+فیزیکی بیمار در مطب یا بیمارستان فراهم می‌آورد. این خدمات می‌توانند از راه‌های مختلف
+ارتباطی مانند ویدئو کنفرانس، تلفن، پیامک، پلتفرم‌های آنلاین و اپلیکیشن‌های موبایل
+ارائه شوند. هدف اصلی سلامت از راه دور، بهبود دسترسی به مراقبت‌های بهداشتی، کاهش
+هزینه‌ها، افزایش راحتی بیمار و پاسخ‌دهی سریع‌تر به نیازهای پزشکی است. این رویکرد
+به‌ویژه در مناطقی که دسترسی به پزشک یا مراکز درمانی محدود است، مزایای فراوانی دارد.
+یکی از رایج‌ترین خدمات سلامت از راه دور، مشاوره آنلاین بین پزشک و بیمار است. در
+این خدمات، بیمار از طریق ویدئو کنفرانس، تماس صوتی یا چت آنلاین می‌تواند با پزشک
+خود ارتباط برقرار کرده و از راه دور مشاوره دریافت کند. بسیاری از پلتفرم‌ها مانند
+</span><span dir="LTR">Teledoc</span><span dir="RTL"></span><span dir="RTL"></span><span style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span> <span lang="AR-SA">و </span></span><span dir="LTR">Babylon Health</span><span dir="RTL"></span><span dir="RTL"></span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span>، این خدمات را به‌صورت آنلاین ارائه می‌دهند و در مواردی که نیازی
+به معاینه فیزیکی نباشد، بیمار می‌تواند به راحتی از این خدمات استفاده کند.<o:p></o:p></span></p><p class="MsoNormal" dir="RTL" style="page-break-after:avoid"><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;;mso-ansi-language:AR-SA;mso-no-proof:yes">&nbsp;</span></p><p class="MsoNormal" align="center" dir="RTL" style="text-align:center;page-break-after:
+avoid"><span lang="AR-SA" dir="LTR"><v:shape id="Picture_x0020_3" o:spid="_x0000_i1026" type="#_x0000_t75" style="width:327.6pt;height:264pt;visibility:visible;mso-wrap-style:square">
+ <v:imagedata src="file:///C:/Users/USER~1.DES/AppData/Local/Temp/msohtmlclip1/01/clip_image006.jpg" o:title="" cropright="19666f">
+</v:imagedata></v:shape></span><span dir="LTR"><o:p></o:p></span></p><p class="MsoCaption" align="center" dir="RTL" style="text-align:center"><br></p><p class="MsoNormal" dir="RTL"><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">در این
+نوع خدمات، دستگاه‌های پوشیدنی و سنسورها به کمک پزشکان آمده‌اند تا وضعیت سلامت بیماران
+را به‌طور مستمر پایش کنند. این ابزارها می‌توانند اطلاعاتی همچون ضربان قلب، فشار
+خون، سطح اکسیژن خون، گلوکز و فعالیت‌های بدنی بیمار را به‌طور مستقیم به پزشک منتقل
+کنند. این امکان به‌ویژه برای بیماران مبتلا به بیماری‌های مزمن مانند دیابت، فشار
+خون بالا یا مشکلات قلبی بسیار مفید است. تشخیص از راه دور به پزشکان این امکان را
+می‌دهد که تصاویر پزشکی مانند </span><span dir="LTR">X-ray</span><span dir="RTL"></span><span dir="RTL"></span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span>، </span><span dir="LTR">CT scan</span><span dir="RTL"></span><span dir="RTL"></span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span>، </span><span dir="LTR">MRI</span><span dir="RTL"></span><span dir="RTL"></span><span style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span> <span lang="AR-SA">را از طریق پلتفرم‌های آنلاین دریافت کرده و بررسی
+کنند. پزشکان می‌توانند بدون نیاز به حضور فیزیکی بیمار، این تصاویر را تحلیل کرده
+و تشخیص‌های پزشکی را در اختیار بیمار قرار دهند. این روش به‌ویژه در مناطقی که دسترسی
+به رادیولوژیست‌ها محدود است، اهمیت زیادی دارد. در عصر تحول دیجیتال، با استفاده از
+تصاویر رادیولوژیک، تشخیص دقیق‌تری ارائه می‌دهند و امکان بررسی موارد اورژانسی را
+در زمان کوتاه فراهم می‌کنند. این نوع خدمات شامل نظارت بر فرآیند درمان و پیگیری وضعیت
+بیمار بعد از انجام عمل جراحی یا شروع درمان است. پزشکان می‌توانند با استفاده از داده‌های
+آنلاین و چت‌های ویدئویی، از وضعیت بهبودی بیمار مطلع شوند و در صورت نیاز، دستورالعمل‌های
+درمانی جدیدی را به بیمار بدهند.<o:p></o:p></span></span></p><p class="MsoNormal" dir="RTL"><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">&nbsp;</span></p><blockquote><b><span lang="AR-SA" style="font-size:18.0pt;mso-ansi-font-size:16.0pt;line-height:115%;font-family:
+&quot;B Titr&quot;">نقش پزشکی از راه ‌دور در کاهش نابرابری‌های جغرافیایی</span></b></blockquote><p class="MsoNormal" dir="RTL"><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">یکی
+از چالش‌های اصلی نظام‌های بهداشتی در سراسر جهان، نابرابری‌های جغرافیایی در دسترسی
+به خدمات درمانی است. بسیاری از مناطق دورافتاده و روستایی در کشورهای مختلف، از جمله
+ایران، از دسترسی کافی به متخصصان پزشکی و خدمات درمانی پیشرفته محروم‌اند. سلامت از
+راه دور به مناطقی که دارای کمبود متخصصان پزشکی هستند، این امکان را می‌دهد که به‌راحتی
+با پزشکان متخصص در شهرهای بزرگ یا حتی کشورهای دیگر ارتباط برقرار کنند. از طریق ویدئو
+کنفرانس، چت آنلاین یا ارتباط تلفنی، بیمار می‌تواند مشاوره، درمان یا پیگیری وضعیت
+پزشکی خود را دریافت کند، بدون اینکه نیاز به سفر به مراکز درمانی دور داشته باشد.<o:p></o:p></span></p><p class="MsoNormal" dir="RTL"><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">در برخی
+کشورهای آفریقایی مانند کنیا و تنزانیا، سلامت از راه دور به روشی مؤثر برای دسترسی
+به مراقبت‌های پزشکی در مناطق دورافتاده تبدیل شده است. پلتفرم‌هایی مانند </span><span dir="LTR">mHealth</span><span dir="RTL"></span><span dir="RTL"></span><span style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span> <span lang="AR-SA">با استفاده از تلفن‌های همراه و خدمات مشاوره آنلاین، توانسته‌اند به افراد
+در این مناطق کمک کنند تا مشکلات پزشکی خود را بدون نیاز به سفرهای طولانی به بیمارستان‌ها
+حل کنند</span></span><span dir="LTR"></span><span dir="LTR"></span><span dir="LTR"><span dir="LTR"></span><span dir="LTR"></span>[<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9005819/">12</a>]</span><span dir="RTL"></span><span dir="RTL"></span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span>.</span><span dir="LTR"></span><span dir="LTR"></span><span lang="AR-SA" dir="LTR"><span dir="LTR"></span><span dir="LTR"></span> </span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">در هند، که یکی از کشورهای با بیشترین
+تفاوت‌های جغرافیایی در دسترسی به خدمات پزشکی است، پلتفرم‌هایی مانند </span><span dir="LTR">Practo</span><span dir="RTL"></span><span dir="RTL"></span><span style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span> <span lang="AR-SA">و </span></span><span dir="LTR">Teleconsultation</span><span dir="RTL"></span><span dir="RTL"></span><span style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span> <span lang="AR-SA">توانسته‌اند به افرادی که در مناطق روستایی زندگی
+می‌کنند، خدمات پزشکی آنلاین ارائه دهند. این پلتفرم‌ها با اتصال بیماران به پزشکان
+متخصص در مراکز شهری، به کاهش فاصله‌های جغرافیایی و بهبود دسترسی به درمان کمک کرده‌اند</span></span><span dir="LTR"></span><span dir="LTR"></span><span dir="LTR"><span dir="LTR"></span><span dir="LTR"></span>[<a href="https://www.reuters.com/business/healthcare-pharmaceuticals/indian-healthcare-platform-practo-aims-double-international-revenue-3-years-ceo-2025-05-28/">13</a>]</span><span dir="RTL"></span><span dir="RTL"></span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span>.<o:p></o:p></span></p><blockquote><b><span lang="AR-SA" style="font-size:18.0pt;mso-ansi-font-size:16.0pt;line-height:115%;font-family:
+&quot;B Titr&quot;">چالش‌ها و ملاحظات</span></b></blockquote><p class="MsoNormal" dir="RTL"><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">گرچه
+سلامت از راه دور امکانات زیادی فراهم می‌کند، اما همچنان با چالش‌هایی روبه‌رو است
+که نیاز به توجه ویژه دارند. از جمله این چالش‌ها می‌توان به حریم خصوصی داده‌ها، امنیت
+اطلاعات پزشکی و محدودیت‌های ارتباطی در برخی مناطق اشاره کرد. همچنین، برخی از بیماران
+و پزشکان ممکن است به دلیل عدم دسترسی به تکنولوژی‌های لازم یا آشنایی نداشتن با روش‌های
+دیجیتال با موانعی در این زمینه مواجه شوند.<o:p></o:p></span></p><blockquote><b><span lang="AR-SA" style="font-family:&quot;B Titr&quot;">فناوری زنجیره بلوکی در سلامت</span></b></blockquote><blockquote><b><span lang="AR-SA" style="font-size:18.0pt;mso-ansi-font-size:16.0pt;line-height:115%;font-family:
+&quot;B Titr&quot;">مفهوم بلاکچین و قابلیت اعتماد غیرمتمرکز</span></b></blockquote><p class="MsoNormal" dir="RTL"><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">بلاکچین
+یک فناوری نوین و غیرمتمرکز برای ذخیره‌سازی و انتقال داده‌ها است که به‌طور ویژه در
+ارزهای دیجیتال مانند بیت‌کوین شناخته شده است. اما کاربرد بلاکچین تنها به ارزهای
+دیجیتال محدود نمی‌شود. این فناوری، به‌ویژه در زمینه‌هایی مانند سلامت، بانکداری،
+و امور حقوقی نیز به کار می‌رود.</span><span dir="LTR"></span><span dir="LTR"></span><span lang="AR-SA" dir="LTR"><span dir="LTR"></span><span dir="LTR"></span> </span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">بلاکچین به‌طور ساده، یک دفتر کل توزیع‌شده
+است که اطلاعات به صورت زنجیره‌ای از بلوک‌ها ذخیره می‌شوند. هر بلوک شامل یک مجموعه
+از اطلاعات تراکنش‌ها است که به‌طور رمزنگاری‌شده به بلوک قبلی متصل می‌شود. این ساختار
+به‌گونه‌ای طراحی شده است که تغییر یا حذف اطلاعات در آن به‌سادگی ممکن نیست، چرا که
+هر تغییر باید توسط تمام نودها (کامپیوترها) در شبکه تایید شود.</span><span dir="LTR"></span><span dir="LTR"></span><span lang="AR-SA" dir="LTR"><span dir="LTR"></span><span dir="LTR"></span> </span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">یکی از ویژگی‌های
+مهم بلاکچین، قابلیت اعتماد غیرمتمرکز آن است. در مدل‌های سنتی ذخیره‌سازی داده‌ها،
+یک نهاد یا سازمان مرکزی مسئول تایید و ذخیره اطلاعات است. اما در بلاکچین، اطلاعات
+به‌صورت توزیع‌شده بین شبکه‌ای از کامپیوترها ذخیره می‌شود. این </span><span lang="FA" style="font-family:&quot;B Nazanin&quot;;mso-bidi-language:FA">قابلیت به معنی </span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">عدم وابستگی اطلاعات به نهاد مرکزی</span><span lang="FA" style="font-family:&quot;B Nazanin&quot;;mso-bidi-language:FA"> است. </span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">اطلاعات در بلاکچین توسط تمام اعضای شبکه
+تایید و ثبت می‌شود، نه یک نهاد مرکزی. این ویژگی باعث می‌شود که هیچ شخص یا سازمانی
+نتواند به‌طور یک‌جانبه اطلاعات را تغییر دهد یا حذف کند.</span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;;mso-bidi-language:FA"> </span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">تمامی تراکنش‌ها در بلاکچین به‌صورت عمومی و شفاف
+ثبت می‌شوند و قابل پیگیری هستند. هر تراکنش پس از تایید در بلوک‌های جدید به زنجیره
+اضافه می‌شود و همه اعضای شبکه می‌توانند آن را مشاهده کنند.</span><span lang="FA" style="font-family:&quot;B Nazanin&quot;;mso-bidi-language:FA"> از طرفی، </span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">داده‌ها در بلاکچین با استفاده از رمزنگاری
+پیشرفته محافظت می‌شوند، به‌طوری‌که تغییر دادن اطلاعات ثبت‌شده در هر بلوک به کار
+بسیار پیچیده و تقریبا غیرممکنی تبدیل می‌شود.</span><span lang="FA" style="font-family:&quot;B Nazanin&quot;;mso-bidi-language:FA"><o:p></o:p></span></p><p class="MsoNormal" dir="RTL"><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">بلاکچین
+می‌تواند برای مدیریت داده‌های پزشکی به‌ویژه در راستای حفظ حریم خصوصی و امنیت اطلاعات
+بیماران به‌کار رود. با استفاده از بلاکچین، سابقه پزشکی هر بیمار به‌صورت امن و غیرقابل
+تغییر در سیستم ذخیره می‌شود و فقط افراد مجاز می‌توانند به آن دسترسی داشته باشند.
+همچنین این فناوری می‌تواند در ردیابی محصولات در زنجیره تأمین به‌کار رود. با ذخیره‌سازی
+اطلاعات هر مرحله از تولید و حمل‌ونقل محصول در بلاکچین، می‌توان شفافیت و قابلیت ردیابی
+محصولات را در تمام مراحل تأمین فراهم کرد.<o:p></o:p></span></p><blockquote><b><span lang="AR-SA" style="font-size:18.0pt;mso-ansi-font-size:16.0pt;line-height:115%;font-family:
+&quot;B Titr&quot;">کاربرد در ذخیره و تبادل امن اطلاعات پزشکی</span></b></blockquote><p class="MsoNormal" dir="RTL"><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">یکی
+از چالش‌های اصلی در سیستم‌های بهداشتی و درمانی، حفظ امنیت و حریم خصوصی داده‌های
+پزشکی بیماران است. اطلاعات پزشکی حساس شامل سوابق درمانی، نتایج آزمایشات، داروها،
+و تاریخچه بیماری‌ها می‌تواند هدف حملات سایبری قرار گیرد. در این راستا، بلاکچین به‌عنوان
+یک فناوری غیرمتمرکز و امن، راهکاری ایده‌آل برای ذخیره و تبادل اطلاعات پزشکی به‌صورت
+امن و شفاف است. در سیستم‌های سنتی، داده‌های پزشکی معمولاً در سرورهای متمرکز ذخیره
+می‌شوند که ممکن است در برابر حملات سایبری آسیب‌پذیر باشند. اما در بلاکچین، اطلاعات
+به‌صورت توزیع‌شده و غیرمتمرکز قرار می‌گیرد، که باعث می‌شود امکان دسترسی غیرمجاز
+و تغییر اطلاعات به‌طور قابل‌توجهی کاهش یابد. هر تغییری در داده‌ها باید توسط تمام
+نودها (کامپیوترها) تایید شود، و این ویژگی، امنیت و اعتبار داده‌ها را به میزان زیادی
+افزایش می‌دهد. یکی از ویژگی‌های مهم بلاکچین، شفافیت و قابلیت ردیابی است. هر تراکنش
+یا تغییر در داده‌های پزشکی به‌طور دائمی در زنجیره بلوک‌ها ثبت می‌شود و نمی‌توان
+آن‌ها را حذف یا تغییر داد. به این ترتیب، اطلاعات پزشکی بیمار، چه در سطح ملی و چه
+در سطح بین‌المللی، قابل ردیابی و شفاف می‌شود. این ویژگی کمک می‌کند تا پزشکان و نهادهای
+درمانی به راحتی به تاریخچه کامل بیماری‌ها و پیشینه درمانی بیماران دسترسی داشته باشند.<o:p></o:p></span></p><p class="MsoNormal" dir="RTL"><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">یکی
+دیگر از چالش‌ها در دنیای پزشکی، عدم هماهنگی و کاهش دسترسی سریع به داده‌های پزشکی
+در میان نهادهای درمانی مختلف است. بلاکچین با فراهم آوردن یک سیستم غیرمتمرکز و مشترک،
+انتقال سریع و امن داده‌های پزشکی بین بیمارستان‌ها، کلینیک‌ها، و پزشکان مختلف را
+ممکن می‌سازد. به‌طور مثال، اگر بیمار از یک مرکز درمانی به مرکز دیگری منتقل شود،
+سوابق پزشکی او می‌تواند از طریق بلاکچین به راحتی و بدون نقص به پزشک جدید منتقل گردد.
+در این مدل، بیماران کنترل بیشتری روی داده‌های خود خواهند داشت و می‌توانند خودشان
+تصمیم بگیرند که به کدام پزشک یا سازمان، دسترسی به سوابق پزشکی‌شان را بدهند.
+بلاکچین به‌عنوان یک سیستم شفاف و ایمن، به بیماران این اطمینان را می‌دهد که داده‌های
+پزشکی‌شان به‌طور خصوصی و با کدگذاری قوی منتقل و ذخیره می‌شود.<o:p></o:p></span></p><blockquote><b><span lang="AR-SA" style="font-family:&quot;B Titr&quot;">چالش‌های اجرایی و تنظیم‌گری فناوری پیشران</span></b></blockquote><p class="MsoNormal" dir="RTL"><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">یکی
+از چالش‌های اصلی در پیاده‌سازی فناوری‌های نوین &nbsp;نظیر بلاکچین در سلامت به موانع اجرایی مربوط می‌شود.
+این موانع شامل کمبود زیرساخت‌ها، آموزش نیروی انسانی و پذیرش تکنولوژی توسط سیستم‌های
+درمانی و بیماران هستند. در بسیاری از کشورها، به‌ویژه در مناطق روستایی و دورافتاده،
+زیرساخت‌های اینترنتی یا دسترسی به دستگاه‌های پزشکی پیشرفته وجود ندارد. بدون وجود
+اتصال اینترنت پایدار و دستگاه‌های پزشکی دیجیتال، استفاده از فناوری‌های سلامت از
+راه دور و تحلیل داده‌های پزشکی به‌طور مؤثر امکان‌پذیر نخواهد بود. پذیرش فناوری‌های
+نوین نیاز به آموزش و توانمندسازی کادر درمانی دارد. پزشکان، پرستاران و متخصصان باید
+مهارت‌های لازم برای استفاده از این ابزارهای دیجیتال را کسب کنند تا بتوانند از آنها
+به‌طور مؤثر در درمان بیماران استفاده کنند. مراجعه به درمان‌های دیجیتال، به‌ویژه
+در حوزه‌هایی مانند سلامت از راه دور، برای بسیاری از بیماران ممکن است با مشکلاتی
+همراه باشد. عدم آشنایی با ابزارهای دیجیتال و ترس از فناوری‌های نوین ممکن است باعث
+ایجاد مقاومت در برابر استفاده از این خدمات شود.<o:p></o:p></span></p><p class="MsoNormal" dir="RTL"><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">چالش‌های
+تنظیم‌گری و قانونی در زمینه فناوری‌های نوین پزشکی، به‌ویژه در حوزه‌هایی مانند هوش
+مصنوعی و بلاکچین، از مسائل مهم و قابل توجه به شمار می‌روند. یکی از بزرگ‌ترین چالش‌ها
+در استفاده از فناوری‌های نوین پزشکی، عدم وجود استانداردهای جهانی برای تنظیم و نظارت
+بر آن‌ها است. به‌ویژه در زمینه‌هایی مانند سلامت از راه دور و بلاکچین، که اطلاعات
+پزشکی حساس از طریق اینترنت منتقل می‌شود، نیاز به قوانین و استانداردهای بین‌المللی
+برای محافظت از حریم خصوصی و امنیت داده‌ها احساس می‌شود. مسئولیت در صورت بروز اشتباهات
+پزشکی یا خطاهای ناشی از سیستم‌های هوش مصنوعی یکی دیگر از چالش‌های مهم در زمینه تنظیم‌گری
+است. به‌عنوان مثال، اگر هوش مصنوعی در تشخیص یک بیماری اشتباه کند، مسئولیت قانونی
+بر عهده چه کسی خواهد بود؟ آیا بیمار باید از طرف سیستم درمانی یا توسعه‌دهنده هوش
+مصنوعی جبران خسارت دریافت کند؟ استفاده از بلاکچین و دیگر فناوری‌ها در ذخیره و انتقال
+داده‌های پزشکی می‌تواند چالش‌های قانونی در زمینه حریم خصوصی ایجاد کند. بسیاری از
+کشورها هنوز قوانین واضح و شفافی برای حفاظت از داده‌های شخصی در سطح جهانی ندارند.
+نظارت بر کاربرد هوش مصنوعی و دیگر فناوری‌های نوین در سلامت نیاز به بررسی‌های مستمر
+و ارزیابی‌های دقیق دارد. دولت‌ها و نهادهای تنظیم‌کننده باید سیستم‌های نظارتی ایجاد
+کنند تا اطمینان حاصل شود که این فناوری‌ها به‌طور صحیح و بدون خطر برای بیماران به‌کار
+گرفته می‌شوند.<o:p></o:p></span></p><blockquote><b><span lang="FA" style="font-family:&quot;B Titr&quot;;mso-bidi-language:FA">جمع‌بندی</span></b></blockquote><p class="MsoNormal" dir="RTL"><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">در
+جهان امروز، مرز میان علم، فناوری و سلامت هر روز بیش از پیش در هم تنیده می‌شود.
+فناوری‌های نوین پزشکی نه‌تنها چهره‌ی درمان و تشخیص را دگرگون کرده‌اند، بلکه
+بنیان‌های سیاست‌گذاری، تولید و حتی فرهنگ سلامت را نیز متحول ساخته‌اند. این
+تحولات، حاصل هم‌افزایی میان دانشمندان، فناوران، شرکت‌های دانش‌بنیان و نهادهای
+سیاست‌گذار است؛ هم‌افزایی‌ای که می‌تواند مسیر آینده‌ی نظام سلامت کشور را ترسیم
+کند. فناوری‌های نوین از جمله هوش مصنوعی، اینترنت اشیا پزشکی، پزشکی از راه دور و
+بلاکچین، چهره نظام سلامت جهانی را به‌گونه‌ای بنیادین دگرگون ساخته‌اند. این
+فناوری‌ها نه تنها موجب افزایش دقت در تشخیص و درمان، بهبود دسترسی به خدمات، و
+ارتقای کارایی نظام‌های بهداشتی شده‌اند، بلکه پارادایم تصمیم‌گیری و سیاست‌گذاری
+سلامت را نیز متحول کرده‌اند</span><span dir="LTR"></span><span dir="LTR"></span><span dir="LTR"><span dir="LTR"></span><span dir="LTR"></span>.</span><span dir="LTR"><o:p></o:p></span></p><p class="MsoNormal" dir="RTL"><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">هوش
+مصنوعی با تحلیل کلان‌داده‌های زیستی و بالینی، امکان تشخیص زودهنگام بیماری‌ها و
+توسعه پزشکی شخصی را فراهم آورده است. اینترنت اشیا پزشکی نیز با اتصال هوشمند
+میان بیمار، پزشک و داده، مراقبت مستمر و بلادرنگ را ممکن کرده است. فناوری
+بلاکچین به‌عنوان بستری امن و غیرمتمرکز، به حفاظت از داده‌های پزشکی و تسهیل
+تبادل ایمن اطلاعات کمک می‌کند. در کنار این مزایا، چالش‌های مهمی نظیر حفظ حریم
+خصوصی، استانداردسازی داده‌ها، کمبود زیرساخت‌های دیجیتال، و نبود چارچوب‌های
+تنظیم‌گری شفاف همچنان از موانع کلیدی در مسیر تحقق کامل سلامت دیجیتال به شمار می‌آیند</span><span dir="LTR"></span><span dir="LTR"></span><span dir="LTR"><span dir="LTR"></span><span dir="LTR"></span>.<o:p></o:p></span></p><p class="MsoNormal" dir="RTL"><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">در
+مجموع، آینده نظام سلامت در گرو توازن میان نوآوری فناورانه و تنظیم‌گری هوشمند
+است؛ جایی که شفافیت، امنیت، و عدالت در کنار بهره‌وری و نوآوری قرار گیرند</span><span dir="LTR"></span><span dir="LTR"></span><span dir="LTR"><span dir="LTR"></span><span dir="LTR"></span>.<o:p></o:p></span></p><p class="MsoNormal" dir="RTL"><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">با
+توجه به مباحث مطرح‌شده در این شماره، ماهنامه در شماره بعدی خود به موضوعی اساسی
+خواهد پرداخت</span><span dir="LTR"></span><span dir="LTR"></span><span dir="LTR"><span dir="LTR"></span><span dir="LTR"></span>:<o:p></o:p></span></p><p class="MsoNormal" align="center" dir="RTL" style="text-align:center"><b><span dir="LTR" style="">»</span><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">تنظیم‌گری در عصر تحول دیجیتال: رویکرد سازمان‌های
+پیشرو در جهان</span><span dir="LTR"></span><span dir="LTR"></span></b><span dir="LTR" style=""><b><span dir="LTR"></span><span dir="LTR"></span>«<o:p></o:p></b></span></p><p class="MsoNormal" dir="RTL"><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;"><br></span></p><p class="MsoNormal" dir="RTL"><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">در
+این بخش، به بررسی مدل‌ها و تجارب بین‌المللی در زمینه سیاست‌گذاری و چارچوب‌های
+تنظیم‌گری فناوری‌های نوین در حوزه سلامت پرداخته خواهد شد</span><span dir="LTR"></span><span dir="LTR"></span><span dir="LTR"><span dir="LTR"></span><span dir="LTR"></span>.<o:p></o:p></span></p><p class="MsoNormal" dir="RTL"><span lang="FA" style="font-family:&quot;B Nazanin&quot;;
+mso-bidi-language:FA">&nbsp;</span></p><p class="MsoNormal" dir="RTL"><span lang="AR-SA" style="font-family:&quot;B Nazanin&quot;">&nbsp;</span></p><p class="MsoNormal" dir="RTL">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p><div><!--[if !supportFootnotes]--><br clear="all">
+
+<hr align="left" size="1" width="33%">
+
+<!--[endif]-->
+
+<div id="ftn1">
+
+<p class="MsoFootnoteText" style="text-align:justify;direction:ltr;unicode-bidi:
+embed"><a href="file:///D:/&amp;nbsp;/%D8%AF%DA%A9%D8%AA%D8%B1%20%D9%85%D8%B9%D8%A8%D9%88%D8%AF%DB%8C/14040530/%D9%85%D9%82%D8%A7%D9%84%D9%87%20%D8%AF%D9%88%D9%85.docx#_ftnref1" name="_ftn1" title=""><span class="MsoFootnoteReference"><!--[if !supportFootnotes]--><span class="MsoFootnoteReference"><span style="font-size:10.0pt;line-height:115%;
+font-family:&quot;Aptos&quot;,sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-family:
+Aptos;mso-fareast-theme-font:minor-latin;mso-hansi-theme-font:minor-latin;
+mso-bidi-font-family:&quot;B Nazanin&quot;;mso-ansi-language:EN-US;mso-fareast-language:
+EN-US;mso-bidi-language:AR-SA">[1]</span></span><!--[endif]--></span></a><span dir="RTL"></span><span dir="RTL"></span><span dir="RTL" style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span> </span>Artificial Intelligence<o:p></o:p></p>
+
+</div>
+
+<div id="ftn2">
+
+<p class="MsoFootnoteText" style="text-align:justify;direction:ltr;unicode-bidi:
+embed"><a href="file:///D:/&amp;nbsp;/%D8%AF%DA%A9%D8%AA%D8%B1%20%D9%85%D8%B9%D8%A8%D9%88%D8%AF%DB%8C/14040530/%D9%85%D9%82%D8%A7%D9%84%D9%87%20%D8%AF%D9%88%D9%85.docx#_ftnref2" name="_ftn2" title=""><span class="MsoFootnoteReference"><!--[if !supportFootnotes]--><span class="MsoFootnoteReference"><span style="font-size:10.0pt;line-height:115%;
+font-family:&quot;Aptos&quot;,sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-family:
+Aptos;mso-fareast-theme-font:minor-latin;mso-hansi-theme-font:minor-latin;
+mso-bidi-font-family:&quot;B Nazanin&quot;;mso-ansi-language:EN-US;mso-fareast-language:
+EN-US;mso-bidi-language:AR-SA">[2]</span></span><!--[endif]--></span></a><span dir="RTL"></span><span dir="RTL"></span><span dir="RTL" style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span> </span>Internet of Things<o:p></o:p></p>
+
+</div>
+
+<div id="ftn3">
+
+<p class="MsoFootnoteText" style="text-align:justify;direction:ltr;unicode-bidi:
+embed"><a href="file:///D:/&amp;nbsp;/%D8%AF%DA%A9%D8%AA%D8%B1%20%D9%85%D8%B9%D8%A8%D9%88%D8%AF%DB%8C/14040530/%D9%85%D9%82%D8%A7%D9%84%D9%87%20%D8%AF%D9%88%D9%85.docx#_ftnref3" name="_ftn3" title=""><span class="MsoFootnoteReference"><!--[if !supportFootnotes]--><span class="MsoFootnoteReference"><span style="font-size:10.0pt;line-height:115%;
+font-family:&quot;Aptos&quot;,sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-family:
+Aptos;mso-fareast-theme-font:minor-latin;mso-hansi-theme-font:minor-latin;
+mso-bidi-font-family:&quot;B Nazanin&quot;;mso-ansi-language:EN-US;mso-fareast-language:
+EN-US;mso-bidi-language:AR-SA">[3]</span></span><!--[endif]--></span></a><span dir="RTL"></span><span dir="RTL"></span><span dir="RTL" style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span> </span>Telemedicine<o:p></o:p></p>
+
+</div>
+
+<div id="ftn4">
+
+<p class="MsoFootnoteText" style="text-align:justify;direction:ltr;unicode-bidi:
+embed"><a href="file:///D:/&amp;nbsp;/%D8%AF%DA%A9%D8%AA%D8%B1%20%D9%85%D8%B9%D8%A8%D9%88%D8%AF%DB%8C/14040530/%D9%85%D9%82%D8%A7%D9%84%D9%87%20%D8%AF%D9%88%D9%85.docx#_ftnref4" name="_ftn4" title=""><span class="MsoFootnoteReference"><!--[if !supportFootnotes]--><span class="MsoFootnoteReference"><span style="font-size:10.0pt;line-height:115%;
+font-family:&quot;Aptos&quot;,sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-family:
+Aptos;mso-fareast-theme-font:minor-latin;mso-hansi-theme-font:minor-latin;
+mso-bidi-font-family:&quot;B Nazanin&quot;;mso-ansi-language:EN-US;mso-fareast-language:
+EN-US;mso-bidi-language:AR-SA">[4]</span></span><!--[endif]--></span></a><span dir="RTL"></span><span dir="RTL"></span><span dir="RTL" style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span> </span>Blockchain<o:p></o:p></p>
+
+</div>
+
+<div id="ftn5">
+
+<p class="MsoFootnoteText" style="text-align:justify;direction:ltr;unicode-bidi:
+embed"><a href="file:///D:/&amp;nbsp;/%D8%AF%DA%A9%D8%AA%D8%B1%20%D9%85%D8%B9%D8%A8%D9%88%D8%AF%DB%8C/14040530/%D9%85%D9%82%D8%A7%D9%84%D9%87%20%D8%AF%D9%88%D9%85.docx#_ftnref5" name="_ftn5" title=""><span class="MsoFootnoteReference"><!--[if !supportFootnotes]--><span class="MsoFootnoteReference"><span style="font-size:10.0pt;line-height:115%;
+font-family:&quot;Aptos&quot;,sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-family:
+Aptos;mso-fareast-theme-font:minor-latin;mso-hansi-theme-font:minor-latin;
+mso-bidi-font-family:&quot;B Nazanin&quot;;mso-ansi-language:EN-US;mso-fareast-language:
+EN-US;mso-bidi-language:AR-SA">[5]</span></span><!--[endif]--></span></a><span dir="RTL"></span><span dir="RTL"></span><span dir="RTL" style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span> </span>Big Data<o:p></o:p></p>
+
+</div>
+
+<div id="ftn6">
+
+<p class="MsoNormal" style="text-align:justify;direction:ltr;unicode-bidi:embed"><a href="file:///D:/&amp;nbsp;/%D8%AF%DA%A9%D8%AA%D8%B1%20%D9%85%D8%B9%D8%A8%D9%88%D8%AF%DB%8C/14040530/%D9%85%D9%82%D8%A7%D9%84%D9%87%20%D8%AF%D9%88%D9%85.docx#_ftnref6" name="_ftn6" title=""><span class="MsoFootnoteReference"><!--[if !supportFootnotes]--><span class="MsoFootnoteReference"><span style="font-size:12.0pt;line-height:115%;
+font-family:&quot;Aptos&quot;,sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-family:
+Aptos;mso-fareast-theme-font:minor-latin;mso-hansi-theme-font:minor-latin;
+mso-bidi-font-family:&quot;B Nazanin&quot;;mso-ansi-language:EN-US;mso-fareast-language:
+EN-US;mso-bidi-language:AR-SA">[6]</span></span><!--[endif]--></span></a><span dir="RTL"></span><span dir="RTL"></span><span dir="RTL" style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span> </span><span style="font-size:10.0pt;
+line-height:115%">World Health Organization</span><o:p></o:p></p>
+
+</div>
+
+<div id="ftn7">
+
+<p class="MsoFootnoteText" style="text-align:justify;direction:ltr;unicode-bidi:
+embed"><a href="file:///D:/&amp;nbsp;/%D8%AF%DA%A9%D8%AA%D8%B1%20%D9%85%D8%B9%D8%A8%D9%88%D8%AF%DB%8C/14040530/%D9%85%D9%82%D8%A7%D9%84%D9%87%20%D8%AF%D9%88%D9%85.docx#_ftnref7" name="_ftn7" title=""><span class="MsoFootnoteReference"><!--[if !supportFootnotes]--><span class="MsoFootnoteReference"><span style="font-size:10.0pt;line-height:115%;
+font-family:&quot;Aptos&quot;,sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-family:
+Aptos;mso-fareast-theme-font:minor-latin;mso-hansi-theme-font:minor-latin;
+mso-bidi-font-family:&quot;B Nazanin&quot;;mso-ansi-language:EN-US;mso-fareast-language:
+EN-US;mso-bidi-language:AR-SA">[7]</span></span><!--[endif]--></span></a><span dir="RTL"></span><span dir="RTL"></span><span dir="RTL" style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span> </span>Diabetic Retinopathy<o:p></o:p></p>
+
+</div>
+
+<div id="ftn8">
+
+<p class="MsoFootnoteText" style="text-align:justify;direction:ltr;unicode-bidi:
+embed"><a href="file:///D:/&amp;nbsp;/%D8%AF%DA%A9%D8%AA%D8%B1%20%D9%85%D8%B9%D8%A8%D9%88%D8%AF%DB%8C/14040530/%D9%85%D9%82%D8%A7%D9%84%D9%87%20%D8%AF%D9%88%D9%85.docx#_ftnref8" name="_ftn8" title=""><span class="MsoFootnoteReference"><!--[if !supportFootnotes]--><span class="MsoFootnoteReference"><span style="font-size:10.0pt;line-height:115%;
+font-family:&quot;Aptos&quot;,sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-family:
+Aptos;mso-fareast-theme-font:minor-latin;mso-hansi-theme-font:minor-latin;
+mso-bidi-font-family:&quot;B Nazanin&quot;;mso-ansi-language:EN-US;mso-fareast-language:
+EN-US;mso-bidi-language:AR-SA">[8]</span></span><!--[endif]--></span></a><span dir="RTL"></span><span dir="RTL"></span><span dir="RTL" style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span> </span>Personalized Medicine<o:p></o:p></p>
+
+</div>
+
+<div id="ftn9">
+
+<p class="MsoFootnoteText" style="text-align:justify;direction:ltr;unicode-bidi:
+embed"><a href="file:///D:/&amp;nbsp;/%D8%AF%DA%A9%D8%AA%D8%B1%20%D9%85%D8%B9%D8%A8%D9%88%D8%AF%DB%8C/14040530/%D9%85%D9%82%D8%A7%D9%84%D9%87%20%D8%AF%D9%88%D9%85.docx#_ftnref9" name="_ftn9" title=""><span class="MsoFootnoteReference"><!--[if !supportFootnotes]--><span class="MsoFootnoteReference"><span style="font-size:10.0pt;line-height:115%;
+font-family:&quot;Aptos&quot;,sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-family:
+Aptos;mso-fareast-theme-font:minor-latin;mso-hansi-theme-font:minor-latin;
+mso-bidi-font-family:&quot;B Nazanin&quot;;mso-ansi-language:EN-US;mso-fareast-language:
+EN-US;mso-bidi-language:AR-SA">[9]</span></span><!--[endif]--></span></a><span dir="RTL"></span><span dir="RTL"></span><span dir="RTL" style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span> </span>Gene Expression Profiles<o:p></o:p></p>
+
+</div>
+
+<div id="ftn10">
+
+<p class="MsoFootnoteText" style="text-align:justify;direction:ltr;unicode-bidi:
+embed"><a href="file:///D:/&amp;nbsp;/%D8%AF%DA%A9%D8%AA%D8%B1%20%D9%85%D8%B9%D8%A8%D9%88%D8%AF%DB%8C/14040530/%D9%85%D9%82%D8%A7%D9%84%D9%87%20%D8%AF%D9%88%D9%85.docx#_ftnref10" name="_ftn10" title=""><span class="MsoFootnoteReference"><!--[if !supportFootnotes]--><span class="MsoFootnoteReference"><span style="font-size:10.0pt;line-height:115%;
+font-family:&quot;Aptos&quot;,sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-family:
+Aptos;mso-fareast-theme-font:minor-latin;mso-hansi-theme-font:minor-latin;
+mso-bidi-font-family:&quot;B Nazanin&quot;;mso-ansi-language:EN-US;mso-fareast-language:
+EN-US;mso-bidi-language:AR-SA">[10]</span></span><!--[endif]--></span></a><span dir="RTL"></span><span dir="RTL"></span><span dir="RTL" style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span> </span>Drug Discovery and Development<o:p></o:p></p>
+
+</div>
+
+<div id="ftn11">
+
+<p class="MsoFootnoteText" style="text-align:justify;direction:ltr;unicode-bidi:
+embed"><a href="file:///D:/&amp;nbsp;/%D8%AF%DA%A9%D8%AA%D8%B1%20%D9%85%D8%B9%D8%A8%D9%88%D8%AF%DB%8C/14040530/%D9%85%D9%82%D8%A7%D9%84%D9%87%20%D8%AF%D9%88%D9%85.docx#_ftnref11" name="_ftn11" title=""><span class="MsoFootnoteReference"><!--[if !supportFootnotes]--><span class="MsoFootnoteReference"><span style="font-size:10.0pt;line-height:115%;
+font-family:&quot;Aptos&quot;,sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-family:
+Aptos;mso-fareast-theme-font:minor-latin;mso-hansi-theme-font:minor-latin;
+mso-bidi-font-family:&quot;B Nazanin&quot;;mso-ansi-language:EN-US;mso-fareast-language:
+EN-US;mso-bidi-language:AR-SA">[11]</span></span><!--[endif]--></span></a><span dir="RTL"></span><span dir="RTL"></span><span dir="RTL" style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span> </span>Generative AI<o:p></o:p></p>
+
+</div>
+
+<div id="ftn12">
+
+<p class="MsoFootnoteText" style="text-align:justify;direction:ltr;unicode-bidi:
+embed"><a href="file:///D:/&amp;nbsp;/%D8%AF%DA%A9%D8%AA%D8%B1%20%D9%85%D8%B9%D8%A8%D9%88%D8%AF%DB%8C/14040530/%D9%85%D9%82%D8%A7%D9%84%D9%87%20%D8%AF%D9%88%D9%85.docx#_ftnref12" name="_ftn12" title=""><span class="MsoFootnoteReference"><!--[if !supportFootnotes]--><span class="MsoFootnoteReference"><span style="font-size:10.0pt;line-height:115%;
+font-family:&quot;Aptos&quot;,sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-family:
+Aptos;mso-fareast-theme-font:minor-latin;mso-hansi-theme-font:minor-latin;
+mso-bidi-font-family:&quot;B Nazanin&quot;;mso-ansi-language:EN-US;mso-fareast-language:
+EN-US;mso-bidi-language:AR-SA">[12]</span></span><!--[endif]--></span></a><span dir="RTL"></span><span dir="RTL"></span><span dir="RTL" style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span> </span>Idiopathic Pulmonary Fibrosis<o:p></o:p></p>
+
+</div>
+
+<div id="ftn13">
+
+<p class="MsoFootnoteText" style="text-align:justify;direction:ltr;unicode-bidi:
+embed"><a href="file:///D:/&amp;nbsp;/%D8%AF%DA%A9%D8%AA%D8%B1%20%D9%85%D8%B9%D8%A8%D9%88%D8%AF%DB%8C/14040530/%D9%85%D9%82%D8%A7%D9%84%D9%87%20%D8%AF%D9%88%D9%85.docx#_ftnref13" name="_ftn13" title=""><span class="MsoFootnoteReference"><!--[if !supportFootnotes]--><span class="MsoFootnoteReference"><span style="font-size:10.0pt;line-height:115%;
+font-family:&quot;Aptos&quot;,sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-family:
+Aptos;mso-fareast-theme-font:minor-latin;mso-hansi-theme-font:minor-latin;
+mso-bidi-font-family:&quot;B Nazanin&quot;;mso-ansi-language:EN-US;mso-fareast-language:
+EN-US;mso-bidi-language:AR-SA">[13]</span></span><!--[endif]--></span></a><span dir="RTL"></span><span dir="RTL"></span><span dir="RTL" style="font-family:&quot;B Nazanin&quot;"><span dir="RTL"></span><span dir="RTL"></span> </span>Internet of Medical Things<br><o:p></o:p></p>
+
+</div>
+
+</div><div id="ftn1">
+
+</div></div>
+</div>
 </body>
 </html>
