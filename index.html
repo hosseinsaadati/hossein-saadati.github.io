@@ -116,18 +116,22 @@
 
   .hero-banner-art canvas { position: absolute; inset: 0; }
 
+  .banner-label {
+    display: flex; gap: 0.5rem; padding: 1rem;
+    background: #fff; justify-content: center; flex-wrap: wrap;
+  }
+
   .badge-pill {
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.15);
-    backdrop-filter: blur(8px);
+    background: rgba(26,108,255,0.05);
+    border: 1px solid rgba(26,108,255,0.1);
     padding: 4px 14px; border-radius: 30px;
-    font-size: 0.65rem; letter-spacing: 0.15em;
-    color: rgba(255,255,255,0.7); font-weight: 500;
+    font-size: 0.7rem; letter-spacing: 0.05em;
+    color: var(--text-muted); font-weight: 500;
   }
   .badge-pill.active-pill {
-    background: rgba(26,108,255,0.3);
-    border-color: rgba(26,108,255,0.5);
-    color: #7ab8ff;
+    background: rgba(26,108,255,0.1);
+    border-color: rgba(26,108,255,0.2);
+    color: var(--accent-blue);
   }
 
   .hero-profile {
@@ -438,7 +442,6 @@
   .modal-overlay.open .modal-box { transform: translateY(0) scale(1); }
 
   .modal-hero { width: 100%; height: 230px; overflow: hidden; border-radius: 20px 20px 0 0; position: relative; }
-  .modal-hero svg { width: 100%; height: 100%; display: block; }
   .modal-hero-badge {
     position: absolute; bottom: 14px; right: 18px;
     background: rgba(255,255,255,0.92); border-radius: 30px; padding: 5px 14px;
@@ -466,10 +469,6 @@
   .modal-body ul { padding-right: 1.5rem; margin-bottom: 1.2rem; }
   .modal-body li { margin-bottom: 0.5rem; color: var(--text-muted); }
 
-  .modal-table { width: 100%; border-collapse: collapse; margin: 1.2rem 0; font-size: 0.82rem; border-radius: 10px; overflow: hidden; }
-  .modal-table th { background: rgba(26,108,255,0.08); color: var(--accent-blue); font-weight: 700; padding: 0.75rem 1rem; text-align: right; border-bottom: 2px solid rgba(26,108,255,0.15); }
-  .modal-table td { padding: 0.7rem 1rem; border-bottom: 1px solid var(--border); color: var(--text-muted); vertical-align: top; }
-
   /* ── CONTACT ── */
   #contact { background: var(--bg-section); }
   .contact-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
@@ -484,18 +483,6 @@
     background: #fff;
   }
   .contact-link:hover { color: var(--accent-blue); border-color: rgba(26,108,255,0.25); box-shadow: var(--shadow); transform: translateX(-3px); }
-
-  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
-  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
-  .form-label { font-size: 0.78rem; color: var(--text-muted); font-weight: 500; }
-  .form-input, .form-textarea {
-    background: #fff; border: 1.5px solid var(--border);
-    border-radius: 10px; padding: 0.8rem 1rem;
-    color: var(--text-main); font-family: 'Vazirmatn', sans-serif;
-    font-size: 0.88rem; transition: border-color 0.2s;
-    outline: none; resize: none;
-  }
-  .form-textarea { min-height: 110px; }
 
   footer {
     padding: 2rem; text-align: center;
@@ -634,7 +621,6 @@
     <p class="section-label">محتوا</p>
     <h2 class="section-title">آخرین مقالات</h2>
     <div class="section-line"></div>
-    <!-- این بخش مقالات شما را از فایل JSON خوانده و نمایش می‌دهد -->
     <div class="articles-grid" id="articles-grid">
       <div id="dynamic-articles-container" style="display: contents;"></div>
     </div>
@@ -703,8 +689,8 @@
     const a = window.dynamicArticles && window.dynamicArticles[id];
     if (!a) return;
     document.getElementById('modalInner').innerHTML = `
-      <div class="modal-hero">
-        ${a.thumb}
+      <div class="modal-hero" style="background: linear-gradient(135deg, #0f1729, #0d2145); display:flex; align-items:center; justify-content:center; font-size:5rem;">
+        📝
         <span class="modal-hero-badge">${a.tag}</span>
       </div>
       <div class="modal-content">
@@ -728,22 +714,25 @@
 
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-  // ── لودر اصلی مقالات از فایل JSON شما ──
+  // ── لودر اصلی مقالات از فایل JSON ──
   async function loadDynamicArticles() {
     try {
-      // کد به پوشه articles و فایل articles.json شما متصل می‌شود
       const jsonUrl = './articles/articles.json'; 
       
       const res = await fetch(jsonUrl);
       if (!res.ok) {
-        console.log('فایل articles.json در پوشه articles پیدا نشد.');
+        console.log('فایل articles.json پیدا نشد.');
         return;
       }
       const articlesList = await res.json();
       if (!articlesList || articlesList.length === 0) return;
       
       const container = document.getElementById('dynamic-articles-container');
-      container.innerHTML = ''; // پاکسازی شبیه‌سازها
+      if (container) {
+        container.innerHTML = '';
+      } else {
+        return;
+      }
       
       articlesList.forEach((article, index) => {
         const articleId = 'dynamic_' + (article.id || index);
@@ -771,7 +760,7 @@
           tag: article.tag || 'مقاله',
           title: article.title || 'بدون عنوان',
           meta: [`⏱ ${article.readtime || '۵ دقیقه'}`, `📅 ${article.date || ''}`, '✍️ حسین سعادتی'],
-          thumb: `<div style="height:230px; background: linear-gradient(135deg, #0f1729, #0d2145); display:flex; align-items:center; justify-content:center; font-size:5rem;">📝</div>`,
+          thumb: `📝`,
           content: article.content || '<p>متن مقاله خالی است.</p>'
         };
         
@@ -783,7 +772,6 @@
     }
   }
   
-  // اجرای خودکار لودر مقالات هنگام باز شدن صفحه
   loadDynamicArticles();
 
   // ── Canvas Background Banner ──
