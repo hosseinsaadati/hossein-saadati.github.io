@@ -1,113 +1,70 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>تحول دیجیتال در نظام سلامت: نقش فناوری‌های هوشمند در بازآفرینی تشخیص، درمان و دسترسی | حسین سعادتی</title>
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Vazirmatn',sans-serif;background:#f4f6fb;color:#1a1f36;direction:rtl}
-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 3rem;background:rgba(255,255,255,0.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(26,108,255,0.1)}
-.nav-logo{font-size:1.1rem;font-weight:800;background:linear-gradient(135deg,#1a6cff,#5b4fff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none}
-.nav-back{color:#6b7a99;text-decoration:none;font-size:0.88rem}.nav-back:hover{color:#1a6cff}
-.hero{padding-top:100px;background:linear-gradient(160deg,#0f1729 0%,#0d2145 100%);min-height:300px;display:flex;align-items:flex-end}
-.hero-content{max-width:860px;margin:0 auto;padding:3rem 2rem;width:100%}
-.tag-badge{display:inline-block;background:rgba(26,108,255,0.25);border:1px solid rgba(26,108,255,0.4);color:#7ab8ff;padding:4px 16px;border-radius:30px;font-size:0.8rem;font-weight:600;margin-bottom:1rem}
-h1{font-size:clamp(1.4rem,3vw,2rem);font-weight:800;color:#fff;line-height:1.5;margin-bottom:1rem}
-.meta{display:flex;gap:1.5rem;flex-wrap:wrap;color:rgba(255,255,255,0.5);font-size:0.82rem}
-.container{max-width:860px;margin:0 auto;padding:3rem 2rem 6rem}
-.article-box{background:#fff;border-radius:20px;padding:3rem;box-shadow:0 4px 40px rgba(26,108,255,0.08);border:1px solid rgba(26,108,255,0.08);font-size:0.97rem;line-height:2;color:#2d3456}
-.article-box h1{font-size:1.6rem;font-weight:800;margin:1.5rem 0 0.75rem;color:#1a1f36}
-.article-box h2{font-size:1.25rem;font-weight:700;margin:1.5rem 0 0.75rem;color:#1a1f36;border-right:4px solid #1a6cff;padding-right:0.75rem}
-.article-box h3{font-size:1.05rem;font-weight:700;margin:1.25rem 0 0.5rem;color:#5b4fff}
-.article-box p{margin-bottom:1.2rem}
-.article-box ul,.article-box ol{padding-right:1.5rem;margin-bottom:1.2rem}
-.article-box li{margin-bottom:0.4rem}
-.article-box blockquote{border-right:4px solid #1a6cff;padding:0.75rem 1rem;margin:1rem 0;background:rgba(26,108,255,0.05);border-radius:0 8px 8px 0;color:#4a5568;font-style:italic}
-.article-box table{border-collapse:collapse;width:100%;margin:1rem 0}
-.article-box td,.article-box th{border:1px solid rgba(26,108,255,0.2);padding:0.6rem 0.9rem;text-align:right}
-.article-box th{background:rgba(26,108,255,0.08);font-weight:700}
-.article-box img{max-width:100%;border-radius:8px;margin:0.5rem 0}
-.article-box a{color:#1a6cff}
-.back-btn{display:inline-flex;align-items:center;gap:8px;margin-bottom:2rem;color:#6b7a99;text-decoration:none;font-size:0.9rem}
-.back-btn:hover{color:#1a6cff}
-@media(max-width:600px){nav{padding:1rem 1.5rem}.hero-content,.container{padding:2rem 1rem}.article-box{padding:1.5rem}}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحول دیجیتال در نظام سلامت | حسین سعادتی</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Vazirmatn', sans-serif; background: #f4f6fb; color: #1a1f36; direction: rtl; }
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1rem 3rem; background: rgba(255,255,255,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(26,108,255,0.1); }
+        .nav-logo { font-size: 1.1rem; font-weight: 800; background: linear-gradient(135deg,#1a6cff,#5b4fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-decoration: none; }
+        .nav-links { display: flex; gap: 1.5rem; }
+        .nav-link { color: #6b7a99; text-decoration: none; font-size: 0.88rem; transition: color 0.2s; }
+        .nav-link:hover { color: #1a6cff; }
+        .hero { padding-top: 140px; padding-bottom: 60px; background: linear-gradient(160deg,#0f1729 0%,#0d2145 100%); min-height: 380px; display: flex; align-items: center; }
+        .hero-content { max-width: 900px; margin: 0 auto; padding: 0 2rem; width: 100%; text-align: center; }
+        h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; color: #fff; line-height: 1.5; margin-bottom: 1rem; }
+        .hero-subtitle { color: rgba(255,255,255,0.7); font-size: clamp(1rem, 2vw, 1.2rem); max-width: 600px; margin: 0 auto 2rem; line-height: 1.8; }
+        .container { max-width: 900px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+        .section-title { font-size: 1.5rem; font-weight: 800; color: #0f1729; margin-bottom: 2rem; position: relative; padding-right: 1rem; border-right: 4px solid #1a6cff; }
+        .article-card { background: #fff; border-radius: 24px; overflow: hidden; box-shadow: 0 10px 40px rgba(26,108,255,0.05); border: 1px solid rgba(26,108,255,0.06); transition: transform 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; }
+        .article-card:hover { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(26,108,255,0.1); }
+        .card-content { padding: 2.5rem; }
+        .tag-badge { display: inline-block; background: rgba(26,108,255,0.08); color: #1a6cff; padding: 4px 16px; border-radius: 30px; font-size: 0.8rem; font-weight: 700; margin-bottom: 1.2rem; }
+        .card-title { font-size: 1.4rem; font-weight: 800; color: #0f1729; line-height: 1.6; margin-bottom: 1rem; }
+        .card-excerpt { color: #525f7f; font-size: 0.95rem; line-height: 1.8; margin-bottom: 1.5rem; text-align: justify; }
+        .card-meta { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #edf2f9; padding-top: 1.2rem; margin-top: auto; }
+        .author-info { font-size: 0.85rem; color: #6b7a99; }
+        .read-more-btn { display: inline-block; background: #1a6cff; color: #fff; padding: 10px 24px; border-radius: 12px; text-decoration: none; font-size: 0.9rem; font-weight: 600; transition: background 0.2s; }
+        .read-more-btn:hover { background: #0052cc; }
+        @media(max-width: 600px) { nav { padding: 1rem 1.5rem; } .hero-content, .container { padding: 1rem; } .card-content { padding: 1.5rem; } .card-meta { flex-direction: column; gap: 1rem; align-items: flex-start; } .read-more-btn { width: 100%; text-align: center; } }
+    </style>
 </head>
 <body>
-<nav>
-  <a href="#" class="nav-logo">حسین سعادتی</a>
-  <a href="#" class="nav-back">← بازگشت</a>
-</nav>
-<div class="hero">
-  <div class="hero-content">
-    <span class="tag-badge">تحول دیجیتال سلامت</span>
-    <h1>تحول دیجیتال در نظام سلامت: نقش فناوری‌های هوشمند در بازآفرینی تشخیص، درمان و دسترسی</h1>
-    <div class="meta">
-      <span>✍️ حسین سعادتی</span>
-      <span>📅 شهريور 1404</span>
-      <span>⏱ 9 دقيقه</span>
+    <nav>
+        <a href="#" class="nav-logo">حسین سعادتی</a>
+        <div class="nav-links">
+            <a href="admin/" class="nav-link">پنل مدیریت</a>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-content">
+            <h1>اندیشکده تحول دیجیتال سلامت</h1>
+            <p class="hero-subtitle">مطالعات، راهبردها و رویکردهای نوین در واکاوی نقش هوش مصنوعی و فناوری‌های نوظهور در بازآفرینی نظام‌های سلامت جهان</p>
+        </div>
     </div>
-  </div>
-</div>
-<div class="container">
-  <a href="#" class="back-btn">← بازگشت به سایت</a>
-  <div class="article-box">
-    <p align="center" style="text-align:center"><b><span style="font-size:16.0pt;color:#1a1f36;">تحول دیجیتال در نظام سلامت: نقش فناوری‌های هوشمند در بازآفرینی تشخیص، درمان و دسترسی</span></b></p>
-    <br>
-    <p>تحول دیجیتال در دهه‌ی اخیر، به‌عنوان یکی از عمیق‌ترین روندهای دگرگون‌کننده‌ی جهان معاصر، به‌ویژه در نظام سلامت، مطرح شده است. استفاده از فناوری‌های نوینی همچون هوش مصنوعی (AI)، اینترنت اشیا (IoT)، سلامت و پزشکی از راه دور و فناوری زنجیره بلوکی، افق تازه‌ای در مدیریت، تشخیص، درمان و پایش سلامت گشوده است.</p>
-    
-    <h2>معرفی مفهوم و قابلیت‌های AI</h2>
-    <p>هوش مصنوعی (AI) به نظام‌هایی گفته می‌شود که قادرند بر مبنای داده‌ها و الگوها، محیط پیرامون خود را درک کنند، استنتاج نمایند، تصمیم بگیرند و بیاموزند تا عملکردشان را بهبود بخشند. این فناوری بر پایه ترکیبی از الگوریتم‌های یادگیری ماشین، شبکه‌های عصبی عمیق و پردازش داده‌های بزرگ شکل می‌گیرد.</p>
-    
-    <h2>کاربرد در تشخیص و پیش‌بینی بیماری‌ها</h2>
-    <p>یکی از کاربردهای برجسته و پُرتکرار AI در سلامت، تشخیص زودهنگام و پیش‌بینی بیماری‌ها از طریق تحلیل تصاویر پزشکی است. سامانه‌های مبتنی بر یادگیری عمیق می‌توانند داده‌های تصویری نظیر MRI، CT Scan و عکس‌های رادیولوژی را پردازش کنند و نشانه‌های بیماری را در مراحل اولیه شناسایی نمایند.</p>
-    
-    <h2>نقش در پزشکی شخصی‌سازی‌شده و کشف دارو</h2>
-    <p>در این رویکرد، هوش مصنوعی با تحلیل داده‌های ژنومی، تصویربرداری مولکولی، سوابق پزشکی و شاخص‌های زیستی، به پزشکان کمک می‌کند تا درمانی دقیق، هدفمند و متناسب با خصوصیات فردی بیمار انتخاب کنند.</p>
-    
-    <p align="center" style="text-align:center; font-weight: bold; margin-top: 2rem;">جدول ۱. نمونه‌های شاخص کاربرد هوش مصنوعی در کشف دارو</p>
-    <table>
-      <thead>
-        <tr>
-          <th>نام پلتفرم</th>
-          <th>کشور</th>
-          <th>فناوری مورد استفاده</th>
-          <th>حوزه کاربرد</th>
-          <th>دستاورد کلیدی</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Insilico Medicine</td>
-          <td>هنگ‌کنگ</td>
-          <td>مدل‌های مولد هوش مصنوعی و یادگیری عمیق</td>
-          <td>درمان فیبروز ریوی ایدیوپاتیک (IPF)</td>
-          <td>طراحی و توسعه‌ی نخستین دارو در کمتر از ۱۸ ماه</td>
-        </tr>
-        <tr>
-          <td>Atomwise</td>
-          <td>ایالات متحده</td>
-          <td>شبکه‌های عصبی سه‌بعدی برای تحلیل ساختار</td>
-          <td>شناسایی داروهای بالقوه برای ابولا، مالاریا</td>
-          <td>تحلیل بیش از ۱۰ میلیون ترکیب شیمیایی در چند روز</td>
-        </tr>
-      </tbody>
-    </table>
 
-    <h2>اینترنت اشیا پزشکی (IoMT)</h2>
-    <p>اینترنت اشیا پزشکی شاخه‌ای از اینترنت اشیا است که به‌طور خاص به استفاده از دستگاه‌ها و سنسورهای متصل در بخش‌های مختلف نظام سلامت اختصاص دارد. IoMT شامل دستگاه‌های پوشیدنی پزشکی، حسگرهای زیستی و ابزارهای دیجیتال متصل به اینترنت است.</p>
-
-    <h2>پزشکی از راه دور</h2>
-    <p>سلامت و پزشکی از راه دور به ارائه خدمات بهداشتی از طریق فناوری‌های دیجیتال و ارتباطی گفته می‌شود که امکان مشاوره، تشخیص، درمان و پیگیری وضعیت بیماران را بدون نیاز به حضور فیزیکی فراهم می‌آورد.</p>
-
-    <h2>فناوری زنجیره بلوکی در سلامت</h2>
-    <p>بلاکچین یک فناوری نوین و غیرمتمرکز برای ذخیره‌سازی و انتقال داده‌ها است. با استفاده از بلاکچین، سابقه پزشکی هر بیمار به‌صورت امن و غیرقابل تغییر در سیستم ذخیره می‌شود و فقط افراد مجاز می‌توانند به آن دسترسی داشته باشند.</p>
-
-    <h2>جمع‌بندی</h2>
-    <p>آینده نظام سلامت در گرو توازن میان نوآوری فناورانه و تنظیم‌گری هوشمند است؛ جایی که شفافیت، امنیت، و عدالت در کنار بهره‌وری و نوآوری قرار گیرند. ماهنامه در شماره بعدی خود به موضوع اساسی «تنظیم‌گری در عصر تحول دیجیتال: رویکرد سازمان‌های پیشرو در جهان» خواهد پرداخت.</p>
-  </div>
-</div>
+    <div class="container">
+        <h2 class="section-title">آخرین مقالات و تحلیل‌ها</h2>
+        
+        <!-- کارت مقاله جدید -->
+        <article class="article-card">
+            <div class="card-content">
+                <span class="tag-badge">حکمرانی و رگولاتوری</span>
+                <h3 class="card-title">حکمرانی الگوریتمیک؛ کالبدشکافی رویکرد سازمان‌های پیشرو غذا و دارو در مواجهه با هوش مصنوعی</h3>
+                <p class="card-excerpt">در دهه گذشته، ورود هوش مصنوعی به حوزه سلامت، فرآیندهای سنتی را با سرعتی فراتر از تصور تغییر داده است. سازمان‌های تنظیم‌گر که به‌طور تاریخی بر پایه مدل‌های سنتی بنا شده بودند، اکنون با چالشی بنیادین در حوزه سلامت روبرو هستند: چگونه می‌توان ایمنی و اثربخشی داروها، موادخوراکی و آشامیدنی و تجهیزات پزشکی را تضمین کرد...</p>
+                <div class="card-meta">
+                    <div class="author-info">
+                        <span>✍️ نگارنده: حسین سعادتی</span> &nbsp;|&nbsp; 
+                        <span>📅 تیر ۱۴۰۵</span>
+                    </div>
+                    <a href="article1.html" class="read-more-btn">ادامه مطلب و مطالعه مقاله</a>
+                </div>
+            </div>
+        </article>
+    </div>
 </body>
 </html>
