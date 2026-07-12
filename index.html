@@ -3,56 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>آخرین مقالات | حسین سعادتی</title>
+    <title>حسین سعادتی | تحلیلگر کسب‌وکار</title>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Vazirmatn', sans-serif; background: #f4f6fb; color: #1a1f36; direction: rtl; padding-bottom: 5rem; }
+        body { font-family: 'Vazirmatn', sans-serif; background: #fff; color: #1a1f36; direction: rtl; }
         
-        .section-header { text-align: center; margin: 4rem 0 3rem; }
-        .section-header .subtitle { color: #1a6cff; font-size: 0.9rem; font-weight: 700; margin-bottom: 0.5rem; display: block; }
-        .section-header h2 { font-size: 2.2rem; font-weight: 900; color: #0f1729; position: relative; display: inline-block; padding-bottom: 15px; }
-        .section-header h2::after { content: ''; position: absolute; bottom: 0; left: 25%; width: 50%; height: 4px; background: #1a6cff; border-radius: 2px; }
+        /* هدر اصلی سایت شما */
+        header { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 4rem; background: #fff; border-bottom: 1px solid #f0f4f8; }
+        .logo { font-size: 1.2rem; font-weight: 800; color: #1a6cff; text-decoration: none; }
+        nav { display: flex; gap: 2rem; }
+        nav a { color: #6b7a99; text-decoration: none; font-size: 0.9rem; font-weight: 500; }
+        nav a:hover, nav a.active { color: #1a6cff; }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        .content-section { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; }
         
-        /* چیدمان کارت‌ها */
-        .articles-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 2rem; justify-content: center; }
+        /* بخش عنوان مقالات */
+        .section-header { text-align: center; margin-bottom: 4rem; }
+        .section-header .subtitle { color: #1a6cff; font-size: 0.85rem; font-weight: 700; margin-bottom: 0.5rem; display: block; letter-spacing: 1px; }
+        .section-header h2 { font-size: 2.4rem; font-weight: 900; color: #0f1729; position: relative; display: inline-block; padding-bottom: 15px; }
+        .section-header h2::after { content: ''; position: absolute; bottom: 0; left: 35%; width: 30%; height: 4px; background: #1a6cff; border-radius: 2px; }
 
-        .article-card { background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.03); border: 1px solid dashed rgba(0,0,0,0.05); transition: transform 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; height: 100%; }
-        .article-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(26,108,255,0.08); }
+        /* چیدمان کارت‌ها کاملاً مطابق عکس شما */
+        .articles-grid { display: flex; flex-wrap: wrap; gap: 2.5rem; justify-content: center; }
 
-        /* تصویر بالای کارت */
-        .card-image { width: 100%; height: 220px; background: linear-gradient(135deg, #0f1729, #1d3557); position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        .card-image img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
+        .article-card { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.04); border: 1px solid #edf2f9; display: flex; flex-direction: column; width: 380px; transition: transform 0.3s; }
+        .article-card:hover { transform: translateY(-5px); }
+
+        .card-image { width: 100%; height: 240px; position: relative; background: #0f1729; overflow: hidden; }
+        .card-image img { width: 100%; height: 100%; object-fit: cover; }
 
         .card-body { padding: 2rem; display: flex; flex-direction: column; flex-grow: 1; }
-        .card-tag { color: #1a6cff; font-size: 0.85rem; font-weight: 700; margin-bottom: 0.75rem; display: block; }
-        .card-title { font-size: 1.25rem; font-weight: 800; color: #0f1729; line-height: 1.6; margin-bottom: 1rem; text-align: justify; }
-        .card-text { color: #525f7f; font-size: 0.92rem; line-height: 1.8; margin-bottom: 1.5rem; text-align: justify; }
+        .card-tag { color: #1a6cff; font-size: 0.8rem; font-weight: 700; margin-bottom: 0.8rem; display: block; text-align: left; }
+        .card-title { font-size: 1.2rem; font-weight: 800; color: #0f1729; line-height: 1.6; margin-bottom: 1.5rem; text-align: justify; }
+        .card-text { color: #6b7a99; font-size: 0.88rem; line-height: 1.8; margin-bottom: 2rem; text-align: justify; }
 
-        .card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #edf2f9; padding-top: 1rem; margin-top: auto; color: #8898aa; font-size: 0.8rem; }
+        .card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #f0f4f8; padding-top: 1.2rem; margin-top: auto; color: #a0aec0; font-size: 0.8rem; }
         
-        .read-more { color: #1a6cff; text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 5px; transition: color 0.2s; }
-        .read-more:hover { color: #0052cc; }
+        .read-more { color: #1a6cff; text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; }
+        .read-more:hover { text-decoration: underline; }
 
-        @media (max-width: 768px) { .articles-grid { grid-template-columns: 1fr; } .section-header h2 { font-size: 1.8rem; } }
+        @media (max-width: 768px) { header { padding: 1.5rem; flex-direction: column; gap: 1rem; } nav { gap: 1rem; } .article-card { width: 100%; } }
     </style>
 </head>
 <body>
 
-    <div class="section-header">
-        <span class="subtitle">محتوا</span>
-        <h2>آخرین مقالات</h2>
-    </div>
+    <!-- هدر سایت شما حفظ شد -->
+    <header>
+        <a href="#" class="logo">حسین سعادتی</a>
+        <nav>
+            <a href="#">تماس</a>
+            <a href="#" class="active">مقالات</a>
+            <a href="#">رزومه</a>
+            <a href="#">معرفی</a>
+        </nav>
+    </header>
 
-    <div class="container">
+    <div class="content-section">
+        <div class="section-header">
+            <span class="subtitle">محتوا</span>
+            <h2>آخرین مقالات</h2>
+        </div>
+
         <div class="articles-grid">
             
-            <!-- کارت مقاله جدید شما -->
+            <!-- کارت تک‌مقاله جدید شما با استایل دقیق قبلی -->
             <article class="article-card">
                 <div class="card-image">
-                    <!-- تصویر پیش‌فرض مرتبط با هوش مصنوعی و مغز دیجیتال مشابه طرح شما -->
+                    <!-- تصویر پس‌فرض مرتبط با رگولاتوری و هوش مصنوعی بالینی -->
                     <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&q=80&w=600" alt="حکمرانی الگوریتمیک">
                 </div>
                 <div class="card-body">
@@ -61,7 +79,7 @@
                     <p class="card-text">در دهه گذشته، ورود هوش مصنوعی به حوزه سلامت، فرآیندهای سنتی را با سرعتی فراتر از تصور تغییر داده است. سازمان‌های تنظیم‌گر که به‌طور تاریخی بر پایه مدل‌های سنتی بنا شده بودند، اکنون با چالشی بنیادین در حوزه سلامت روبرو هستند...</p>
                     <div class="card-footer">
                         <span>📅 تیر ۱۴۰۵</span>
-                        <a href="article1.html" class="read-more">مطالعه ←</a>
+                        <a href="articles/article1.html" class="read-more">مطالعه ←</a>
                     </div>
                 </div>
             </article>
